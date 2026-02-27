@@ -1,0 +1,76 @@
+name: WhatsApp
+description: APIs for the WhatsApp messaging platform, enabling businesses to communicate with customers through the world's most popular messaging app.
+image: https://www.whatsapp.com/img/fb-post.jpg
+url: https://www.whatsapp.com/
+created: '2024-01-15'
+modified: '2024-01-15'
+specificationVersion: '0.18'
+apis:
+- name: WhatsApp Business Platform API
+  description: The Cloud API and On-Premises API that enables medium and large businesses to communicate with customers at scale.
+  image: https://www.whatsapp.com/img/fb-post.jpg
+  humanURL: https://developers.facebook.com/docs/whatsapp
+  baseURL: https://graph.facebook.com/v18.0
+  tags:
+  - messaging
+  - business
+  - communications
+  - chat
+  properties:
+  - type: Documentation
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api
+  - type: OpenAPI
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/reference
+  - type: Authentication
+    url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
+  - type: Webhooks
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks
+  - type: Pricing
+    url: https://developers.facebook.com/docs/whatsapp/pricing
+  - type: Rate Limits
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput
+  - type: Status
+    url: https://metastatus.com/
+  - type: Changelog
+    url: https://developers.facebook.com/docs/whatsapp/changelog
+  contact:
+  - type: Support
+    url: https://developers.facebook.com/support/
+  - type: Twitter
+    url: https://twitter.com/WhatsApp
+- name: WhatsApp Business Account Management API
+  description: API for managing WhatsApp Business Accounts, phone numbers, and messaging templates.
+  image: https://www.whatsapp.com/img/fb-post.jpg
+  humanURL: https://developers.facebook.com/docs/whatsapp/business-management-api
+  baseURL: https://graph.facebook.com/v18.0
+  tags:
+  - business
+  - management
+  - templates
+  - accounts
+  properties:
+  - type: Documentation
+    url: https://developers.facebook.com/docs/whatsapp/business-management-api
+  - type: OpenAPI
+    url: https://developers.facebook.com/docs/whatsapp/business-management-api/reference
+  - type: Authentication
+    url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
+maintainers:
+- name: Meta Platforms
+  email: developer-support@meta.com
+  url: https://developers.facebook.com
+common:
+- type: Terms of Service
+  url: https://www.whatsapp.com/legal/business-terms
+- type: Privacy Policy
+  url: https://www.whatsapp.com/legal/privacy-policy-eea
+- type: Commerce Policy
+  url: https://www.whatsapp.com/legal/commerce-policy
+- type: Developer Portal
+  url: https://developers.facebook.com/
+- type: Getting Started
+  url: https://developers.facebook.com/docs/whatsapp/cloud-api/get-started
+- type: Best Practices
+  url: https://developers.facebook.com/docs/whatsapp/cloud-api/best-practices
+- type: Use Cases
+  url: https://business.whatsapp.com/products/business-platform
