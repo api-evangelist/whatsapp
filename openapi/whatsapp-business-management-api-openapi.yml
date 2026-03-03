@@ -1,0 +1,946 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management API
+  description: >-
+    The WhatsApp Business Management API enables programmatic management of
+    WhatsApp Business Accounts, phone numbers, message templates, analytics,
+    user assignments, product catalogs, and webhook subscriptions through
+    the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api
+servers:
+  - url: https://graph.facebook.com/v21.0
+    description: Meta Graph API Production Server
+tags:
+  - name: Business Accounts
+    description: Manage WhatsApp Business Account information
+  - name: Phone Numbers
+    description: List and manage phone numbers on a WABA
+  - name: Message Templates
+    description: Create, update, and delete message templates
+  - name: Analytics
+    description: Retrieve conversation and template analytics
+  - name: Subscribed Apps
+    description: Manage webhook subscriptions for a WABA
+  - name: Assigned Users
+    description: Manage user access to a WABA
+  - name: Product Catalogs
+    description: Connect and manage product catalogs
+security:
+  - bearerAuth: []
+paths:
+  /{waba-id}:
+    get:
+      operationId: getWhatsAppBusinessAccount
+      summary: Get WABA info
+      description: Retrieves information about a WhatsApp Business Account.
+      tags:
+        - Business Accounts
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: fields
+          in: query
+          description: Comma-separated list of fields to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: WABA info retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WhatsAppBusinessAccount'
+  /{waba-id}/phone_numbers:
+    get:
+      operationId: listPhoneNumbers
+      summary: List phone numbers
+      description: Lists all phone numbers associated with a WhatsApp Business Account.
+      tags:
+        - Phone Numbers
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: fields
+          in: query
+          description: Comma-separated fields to return
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Pagination limit
+          schema:
+            type: integer
+        - name: after
+          in: query
+          description: Cursor for forward pagination
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: Cursor for backward pagination
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Phone numbers retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PhoneNumber'
+                  paging:
+                    $ref: '#/components/schemas/CursorPaging'
+  /{waba-id}/message_templates:
+    get:
+      operationId: listMessageTemplates
+      summary: List message templates
+      description: Lists all message templates for a WhatsApp Business Account.
+      tags:
+        - Message Templates
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: fields
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 25
+        - name: after
+          in: query
+          schema:
+            type: string
+        - name: before
+          in: query
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Filter by template name
+          schema:
+            type: string
+        - name: language
+          in: query
+          description: Filter by language code
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by approval status
+          schema:
+            type: string
+            enum:
+              - APPROVED
+              - PENDING
+              - REJECTED
+              - PAUSED
+              - DISABLED
+        - name: category
+          in: query
+          description: Filter by template category
+          schema:
+            type: string
+            enum:
+              - AUTHENTICATION
+              - MARKETING
+              - UTILITY
+      responses:
+        '200':
+          description: Templates retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MessageTemplate'
+                  paging:
+                    $ref: '#/components/schemas/CursorPaging'
+    post:
+      operationId: createMessageTemplate
+      summary: Create message template
+      description: >-
+        Creates a new message template for a WhatsApp Business Account.
+        Templates must be approved by Meta before they can be used to send
+        messages.
+      tags:
+        - Message Templates
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTemplateRequest'
+      responses:
+        '200':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  status:
+                    type: string
+                  category:
+                    type: string
+    delete:
+      operationId: deleteMessageTemplate
+      summary: Delete message template
+      description: >-
+        Deletes a message template. Deleting by name removes all language
+        variants. Pass hsm_id to delete a specific language version.
+      tags:
+        - Message Templates
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: name
+          in: query
+          required: true
+          description: Template name to delete
+          schema:
+            type: string
+        - name: hsm_id
+          in: query
+          description: Specific template ID to delete a single language variant
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Template deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{message-template-id}:
+    post:
+      operationId: updateMessageTemplate
+      summary: Update message template
+      description: >-
+        Updates an existing message template. Only APPROVED or PAUSED templates
+        can be edited. Edits re-trigger the approval process.
+      tags:
+        - Message Templates
+      parameters:
+        - name: message-template-id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                components:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TemplateComponentDefinition'
+                category:
+                  type: string
+                  enum:
+                    - AUTHENTICATION
+                    - MARKETING
+                    - UTILITY
+      responses:
+        '200':
+          description: Template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{waba-id}/conversation_analytics:
+    get:
+      operationId: getConversationAnalytics
+      summary: Get conversation analytics
+      description: Retrieves conversation analytics for a WhatsApp Business Account.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: start
+          in: query
+          required: true
+          description: Start time (Unix timestamp or YYYY-MM-DD)
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: true
+          description: End time (Unix timestamp or YYYY-MM-DD)
+          schema:
+            type: string
+        - name: granularity
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - HALF_HOUR
+              - DAILY
+              - MONTHLY
+        - name: phone_numbers
+          in: query
+          description: Filter by phone number IDs
+          schema:
+            type: array
+            items:
+              type: string
+        - name: metric_types
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - CONVERSATION
+                - COST
+        - name: conversation_categories
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - AUTHENTICATION
+                - MARKETING
+                - UTILITY
+                - SERVICE
+                - REFERRAL_CONVERSION
+        - name: dimensions
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - CONVERSATION_CATEGORY
+                - CONVERSATION_TYPE
+                - COUNTRY
+                - PHONE
+      responses:
+        '200':
+          description: Analytics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationAnalytics'
+  /{waba-id}/template_analytics:
+    get:
+      operationId: getTemplateAnalytics
+      summary: Get template analytics
+      description: Retrieves analytics for specific message templates.
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: start
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: granularity
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - DAILY
+        - name: template_ids
+          in: query
+          required: true
+          description: Template IDs to analyze (max 10)
+          schema:
+            type: array
+            maxItems: 10
+            items:
+              type: string
+        - name: metric_types
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - SENT
+                - DELIVERED
+                - READ
+                - CLICKED
+                - COST
+      responses:
+        '200':
+          description: Template analytics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateAnalytics'
+  /{waba-id}/subscribed_apps:
+    get:
+      operationId: listSubscribedApps
+      summary: List webhook subscriptions
+      description: Lists all apps subscribed to webhook events for this WABA.
+      tags:
+        - Subscribed Apps
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: Subscriptions retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        link:
+                          type: string
+                        name:
+                          type: string
+    post:
+      operationId: subscribeApp
+      summary: Subscribe app to webhooks
+      description: Subscribes the current app to receive webhook events for this WABA.
+      tags:
+        - Subscribed Apps
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: App subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+    delete:
+      operationId: unsubscribeApp
+      summary: Unsubscribe app from webhooks
+      description: Unsubscribes the current app from webhook events.
+      tags:
+        - Subscribed Apps
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: App unsubscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{waba-id}/assigned_users:
+    get:
+      operationId: listAssignedUsers
+      summary: List assigned users
+      description: Lists all users assigned to a WhatsApp Business Account.
+      tags:
+        - Assigned Users
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: Users retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        tasks:
+                          type: array
+                          items:
+                            type: string
+    post:
+      operationId: assignUser
+      summary: Assign user to WABA
+      description: Assigns a user with specific tasks to a WhatsApp Business Account.
+      tags:
+        - Assigned Users
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user
+                - tasks
+              properties:
+                user:
+                  type: string
+                  description: User ID to assign
+                tasks:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - MANAGE
+                      - DEVELOP
+                      - MANAGE_TEMPLATES
+                      - MANAGE_PHONE
+                      - VIEW_COST
+                      - MANAGE_EXTENSIONS
+      responses:
+        '200':
+          description: User assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+    delete:
+      operationId: removeAssignedUser
+      summary: Remove assigned user
+      description: Removes a user from a WhatsApp Business Account.
+      tags:
+        - Assigned Users
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user
+              properties:
+                user:
+                  type: string
+      responses:
+        '200':
+          description: User removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{waba-id}/product_catalogs:
+    get:
+      operationId: listProductCatalogs
+      summary: List product catalogs
+      description: Lists product catalogs connected to a WABA.
+      tags:
+        - Product Catalogs
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: Catalogs retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+    post:
+      operationId: connectProductCatalog
+      summary: Connect product catalog
+      description: Connects a product catalog to a WABA.
+      tags:
+        - Product Catalogs
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - catalog_id
+              properties:
+                catalog_id:
+                  type: string
+      responses:
+        '200':
+          description: Catalog connected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+    delete:
+      operationId: disconnectProductCatalog
+      summary: Disconnect product catalog
+      description: Disconnects a product catalog from a WABA.
+      tags:
+        - Product Catalogs
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - catalog_id
+              properties:
+                catalog_id:
+                  type: string
+      responses:
+        '200':
+          description: Catalog disconnected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+  schemas:
+    WhatsAppBusinessAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        currency:
+          type: string
+        timezone_id:
+          type: string
+        country:
+          type: string
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+        business_verification_status:
+          type: string
+        message_template_namespace:
+          type: string
+        owner_business:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        primary_funding_id:
+          type: string
+        purchase_order_number:
+          type: string
+    PhoneNumber:
+      type: object
+      properties:
+        id:
+          type: string
+        display_phone_number:
+          type: string
+        verified_name:
+          type: string
+        quality_rating:
+          type: string
+          enum:
+            - GREEN
+            - YELLOW
+            - RED
+            - UNKNOWN
+        code_verification_status:
+          type: string
+          enum:
+            - VERIFIED
+            - NOT_VERIFIED
+            - EXPIRED
+        is_official_business_account:
+          type: boolean
+        name_status:
+          type: string
+        platform_type:
+          type: string
+          enum:
+            - CLOUD_API
+            - ON_PREMISE
+            - NOT_APPLICABLE
+        throughput:
+          type: object
+          properties:
+            level:
+              type: string
+              enum:
+                - STANDARD
+                - HIGH
+        account_mode:
+          type: string
+          enum:
+            - LIVE
+            - SANDBOX
+        messaging_limit_tier:
+          type: string
+          enum:
+            - TIER_1K
+            - TIER_10K
+            - TIER_100K
+            - TIER_UNLIMITED
+    MessageTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+            - APPROVED
+            - PENDING
+            - REJECTED
+            - PAUSED
+            - DISABLED
+        category:
+          type: string
+          enum:
+            - AUTHENTICATION
+            - MARKETING
+            - UTILITY
+        language:
+          type: string
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
+          type: string
+          enum:
+            - POSITIONAL
+            - NAMED
+        quality_score:
+          type: object
+          properties:
+            score:
+              type: string
+    CreateTemplateRequest:
+      type: object
+      required:
+        - name
+        - language
+        - category
+        - components
+      properties:
+        name:
+          type: string
+          description: Template name (lowercase, underscores only, max 512 chars)
+          maxLength: 512
+          pattern: '^[a-z][a-z0-9_]*$'
+        language:
+          type: string
+          description: Language code
+        category:
+          type: string
+          enum:
+            - AUTHENTICATION
+            - MARKETING
+            - UTILITY
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
+          type: string
+          enum:
+            - POSITIONAL
+            - NAMED
+    TemplateComponentDefinition:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - HEADER
+            - BODY
+            - FOOTER
+            - BUTTONS
+        format:
+          type: string
+          enum:
+            - TEXT
+            - IMAGE
+            - VIDEO
+            - DOCUMENT
+            - LOCATION
+          description: Header format type
+        text:
+          type: string
+          description: Component text content
+        example:
+          type: object
+          description: Example values for variables
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateButton'
+        add_security_recommendation:
+          type: boolean
+          description: Authentication templates only
+        code_expiration_minutes:
+          type: integer
+          description: Authentication templates only (1-90)
+          minimum: 1
+          maximum: 90
+    TemplateButton:
+      type: object
+      required:
+        - type
+        - text
+      properties:
+        type:
+          type: string
+          enum:
+            - QUICK_REPLY
+            - URL
+            - PHONE_NUMBER
+            - COPY_CODE
+            - FLOW
+            - OTP
+            - CATALOG
+            - MPM
+        text:
+          type: string
+        url:
+          type: string
+          format: uri
+        phone_number:
+          type: string
+        example:
+          type: string
+        flow_id:
+          type: string
+        flow_action:
+          type: string
+        navigate_screen:
+          type: string
+    ConversationAnalytics:
+      type: object
+      properties:
+        conversation_analytics:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  data_points:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start:
+                          type: integer
+                        end:
+                          type: integer
+                        conversation:
+                          type: integer
+                        cost:
+                          type: number
+    TemplateAnalytics:
+      type: object
+      properties:
+        template_analytics:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  template_id:
+                    type: string
+                  data_points:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start:
+                          type: integer
+                        end:
+                          type: integer
+                        sent:
+                          type: integer
+                        delivered:
+                          type: integer
+                        read:
+                          type: integer
+                        clicked:
+                          type: integer
+                        cost:
+                          type: number
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean

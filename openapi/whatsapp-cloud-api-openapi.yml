@@ -1,0 +1,1195 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Cloud API
+  description: >-
+    The WhatsApp Cloud API enables businesses to send and receive messages,
+    manage media, configure business profiles, and handle phone number
+    registration through Meta's cloud-hosted infrastructure. All endpoints
+    operate on the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+externalDocs:
+  description: WhatsApp Cloud API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/cloud-api
+servers:
+  - url: https://graph.facebook.com/v21.0
+    description: Meta Graph API Production Server
+tags:
+  - name: Messages
+    description: Send messages of all types to WhatsApp users
+  - name: Media
+    description: Upload, retrieve, and delete media files
+  - name: Phone Numbers
+    description: Manage and verify phone numbers
+  - name: Business Profile
+    description: Get and update WhatsApp Business profile information
+  - name: Registration
+    description: Register and deregister phone numbers
+  - name: QR Codes
+    description: Create and manage QR codes for customer conversations
+  - name: Two-Step Verification
+    description: Manage two-step verification PIN
+security:
+  - bearerAuth: []
+paths:
+  /{phone-number-id}/messages:
+    post:
+      operationId: sendMessage
+      summary: Send a message
+      description: >-
+        Sends a message to a WhatsApp user. The type field in the request body
+        determines the message format. Also used to mark incoming messages as
+        read by setting status to read.
+      tags:
+        - Messages
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendMessageResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /{phone-number-id}/media:
+    post:
+      operationId: uploadMedia
+      summary: Upload media
+      description: >-
+        Uploads media to WhatsApp servers. Returns a media ID that can be used
+        when sending media messages. Uploaded media persists for 30 days.
+      tags:
+        - Media
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - type
+                - messaging_product
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The media file to upload
+                type:
+                  type: string
+                  description: MIME type of the file
+                  examples:
+                    - image/jpeg
+                    - video/mp4
+                    - application/pdf
+                messaging_product:
+                  type: string
+                  enum:
+                    - whatsapp
+      responses:
+        '200':
+          description: Media uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Media ID for use in messages
+  /{media-id}:
+    get:
+      operationId: getMediaUrl
+      summary: Get media URL
+      description: >-
+        Retrieves a temporary download URL for a media file. The URL expires
+        after 5 minutes. To download the file, make a GET request to the
+        returned URL with the same Bearer token.
+      tags:
+        - Media
+      parameters:
+        - $ref: '#/components/parameters/MediaId'
+      responses:
+        '200':
+          description: Media URL retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaResponse'
+    delete:
+      operationId: deleteMedia
+      summary: Delete media
+      description: Deletes a media file from WhatsApp servers.
+      tags:
+        - Media
+      parameters:
+        - $ref: '#/components/parameters/MediaId'
+      responses:
+        '200':
+          description: Media deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}:
+    get:
+      operationId: getPhoneNumber
+      summary: Get phone number info
+      description: Retrieves information about a registered phone number.
+      tags:
+        - Phone Numbers
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+        - name: fields
+          in: query
+          description: Comma-separated list of fields to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Phone number info retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumberInfo'
+    post:
+      operationId: setTwoStepVerification
+      summary: Set two-step verification PIN
+      description: Sets or updates the two-step verification PIN for a phone number.
+      tags:
+        - Two-Step Verification
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - pin
+              properties:
+                pin:
+                  type: string
+                  description: 6-digit PIN for two-step verification
+                  pattern: '^\d{6}$'
+      responses:
+        '200':
+          description: PIN set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}/whatsapp_business_profile:
+    get:
+      operationId: getBusinessProfile
+      summary: Get business profile
+      description: Retrieves the WhatsApp Business profile for a phone number.
+      tags:
+        - Business Profile
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+        - name: fields
+          in: query
+          required: true
+          description: Comma-separated fields to return
+          schema:
+            type: string
+            examples:
+              - about,address,description,email,profile_picture_url,websites,vertical
+      responses:
+        '200':
+          description: Business profile retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BusinessProfile'
+    post:
+      operationId: updateBusinessProfile
+      summary: Update business profile
+      description: Updates the WhatsApp Business profile for a phone number.
+      tags:
+        - Business Profile
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBusinessProfileRequest'
+      responses:
+        '200':
+          description: Business profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}/request_code:
+    post:
+      operationId: requestVerificationCode
+      summary: Request verification code
+      description: Requests a verification code via SMS or voice call for phone registration.
+      tags:
+        - Registration
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code_method
+                - language
+              properties:
+                code_method:
+                  type: string
+                  enum:
+                    - SMS
+                    - VOICE
+                  description: Delivery method for the verification code
+                language:
+                  type: string
+                  description: Two-letter language code
+      responses:
+        '200':
+          description: Verification code sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}/verify_code:
+    post:
+      operationId: verifyCode
+      summary: Verify phone number
+      description: Verifies a phone number using the code received via SMS or voice.
+      tags:
+        - Registration
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+              properties:
+                code:
+                  type: string
+                  description: 6-digit verification code
+      responses:
+        '200':
+          description: Phone number verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}/register:
+    post:
+      operationId: registerPhoneNumber
+      summary: Register phone number
+      description: Registers a phone number for use with the Cloud API.
+      tags:
+        - Registration
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - messaging_product
+                - pin
+              properties:
+                messaging_product:
+                  type: string
+                  enum:
+                    - whatsapp
+                pin:
+                  type: string
+                  description: 6-digit two-step verification PIN
+                data_localization_region:
+                  type: string
+                  description: Country code for data storage location
+      responses:
+        '200':
+          description: Phone number registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}/deregister:
+    post:
+      operationId: deregisterPhoneNumber
+      summary: Deregister phone number
+      description: Deregisters a phone number from the Cloud API.
+      tags:
+        - Registration
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - messaging_product
+              properties:
+                messaging_product:
+                  type: string
+                  enum:
+                    - whatsapp
+      responses:
+        '200':
+          description: Phone number deregistered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{phone-number-id}/message_qrdls:
+    post:
+      operationId: createQrCode
+      summary: Create QR code
+      description: Creates a QR code that customers can scan to start a conversation.
+      tags:
+        - QR Codes
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prefilled_message
+                - generate_qr_image
+              properties:
+                prefilled_message:
+                  type: string
+                  description: Pre-filled message text
+                generate_qr_image:
+                  type: string
+                  enum:
+                    - SVG
+                    - PNG
+                  description: Image format for the QR code
+      responses:
+        '200':
+          description: QR code created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrCodeResponse'
+    get:
+      operationId: listQrCodes
+      summary: List QR codes
+      description: Lists all QR codes for a phone number.
+      tags:
+        - QR Codes
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+      responses:
+        '200':
+          description: QR codes retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QrCodeResponse'
+  /{phone-number-id}/message_qrdls/{qr-code-id}:
+    get:
+      operationId: getQrCode
+      summary: Get QR code
+      description: Retrieves a specific QR code.
+      tags:
+        - QR Codes
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+        - $ref: '#/components/parameters/QrCodeId'
+      responses:
+        '200':
+          description: QR code retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrCodeResponse'
+    post:
+      operationId: updateQrCode
+      summary: Update QR code
+      description: Updates the prefilled message for a QR code.
+      tags:
+        - QR Codes
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+        - $ref: '#/components/parameters/QrCodeId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prefilled_message:
+                  type: string
+      responses:
+        '200':
+          description: QR code updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrCodeResponse'
+    delete:
+      operationId: deleteQrCode
+      summary: Delete QR code
+      description: Deletes a QR code.
+      tags:
+        - QR Codes
+      parameters:
+        - $ref: '#/components/parameters/PhoneNumberId'
+        - $ref: '#/components/parameters/QrCodeId'
+      responses:
+        '200':
+          description: QR code deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token or User Access Token with whatsapp_business_messaging permission
+  parameters:
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+    MediaId:
+      name: media-id
+      in: path
+      required: true
+      description: Media ID returned from upload or webhook
+      schema:
+        type: string
+    QrCodeId:
+      name: qr-code-id
+      in: path
+      required: true
+      description: QR code identifier
+      schema:
+        type: string
+  schemas:
+    SendMessageRequest:
+      type: object
+      required:
+        - messaging_product
+        - to
+        - type
+      properties:
+        messaging_product:
+          type: string
+          enum:
+            - whatsapp
+        recipient_type:
+          type: string
+          default: individual
+        to:
+          type: string
+          description: Recipient phone number in E.164 format without the leading +
+        type:
+          type: string
+          enum:
+            - text
+            - image
+            - video
+            - audio
+            - document
+            - sticker
+            - location
+            - contacts
+            - interactive
+            - template
+            - reaction
+        context:
+          type: object
+          description: Context for reply messages
+          properties:
+            message_id:
+              type: string
+              description: ID of the message being replied to
+        biz_opaque_callback_data:
+          type: string
+          description: Arbitrary string for tracking, returned in webhooks
+        status:
+          type: string
+          enum:
+            - read
+          description: Set to read to mark an incoming message as read
+        message_id:
+          type: string
+          description: ID of the message to mark as read (required when status is read)
+        text:
+          $ref: '#/components/schemas/TextMessage'
+        image:
+          $ref: '#/components/schemas/MediaObject'
+        video:
+          $ref: '#/components/schemas/MediaObject'
+        audio:
+          $ref: '#/components/schemas/AudioObject'
+        document:
+          $ref: '#/components/schemas/DocumentObject'
+        sticker:
+          $ref: '#/components/schemas/StickerObject'
+        location:
+          $ref: '#/components/schemas/LocationMessage'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactObject'
+        interactive:
+          $ref: '#/components/schemas/InteractiveMessage'
+        template:
+          $ref: '#/components/schemas/TemplateMessage'
+        reaction:
+          $ref: '#/components/schemas/ReactionMessage'
+    TextMessage:
+      type: object
+      required:
+        - body
+      properties:
+        body:
+          type: string
+          description: Message text
+          maxLength: 4096
+        preview_url:
+          type: boolean
+          description: Set true to render URL previews
+          default: false
+    MediaObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the media file
+        caption:
+          type: string
+          description: Caption text
+          maxLength: 1024
+    AudioObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the audio file
+    DocumentObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the document
+        caption:
+          type: string
+          description: Caption text
+        filename:
+          type: string
+          description: Filename to display to recipient
+    StickerObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the sticker (WebP format)
+    LocationMessage:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: number
+          minimum: -90
+          maximum: 90
+        longitude:
+          type: number
+          minimum: -180
+          maximum: 180
+        name:
+          type: string
+          description: Location name
+        address:
+          type: string
+          description: Location address
+    ContactObject:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: object
+          required:
+            - formatted_name
+          properties:
+            formatted_name:
+              type: string
+            first_name:
+              type: string
+            last_name:
+              type: string
+            middle_name:
+              type: string
+            prefix:
+              type: string
+            suffix:
+              type: string
+        addresses:
+          type: array
+          items:
+            type: object
+            properties:
+              street:
+                type: string
+              city:
+                type: string
+              state:
+                type: string
+              zip:
+                type: string
+              country:
+                type: string
+              country_code:
+                type: string
+              type:
+                type: string
+                enum:
+                  - HOME
+                  - WORK
+        birthday:
+          type: string
+          description: Birthday in YYYY-MM-DD format
+        emails:
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              type:
+                type: string
+                enum:
+                  - HOME
+                  - WORK
+        org:
+          type: object
+          properties:
+            company:
+              type: string
+            department:
+              type: string
+            title:
+              type: string
+        phones:
+          type: array
+          items:
+            type: object
+            properties:
+              phone:
+                type: string
+              type:
+                type: string
+                enum:
+                  - CELL
+                  - MAIN
+                  - IPHONE
+                  - HOME
+                  - WORK
+              wa_id:
+                type: string
+        urls:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+              type:
+                type: string
+                enum:
+                  - HOME
+                  - WORK
+    InteractiveMessage:
+      type: object
+      required:
+        - type
+        - action
+      properties:
+        type:
+          type: string
+          enum:
+            - button
+            - list
+            - product
+            - product_list
+            - cta_url
+            - location_request_message
+            - flow
+        header:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - text
+                - image
+                - video
+                - document
+            text:
+              type: string
+            image:
+              $ref: '#/components/schemas/MediaObject'
+            video:
+              $ref: '#/components/schemas/MediaObject'
+            document:
+              $ref: '#/components/schemas/DocumentObject'
+        body:
+          type: object
+          required:
+            - text
+          properties:
+            text:
+              type: string
+              maxLength: 1024
+        footer:
+          type: object
+          properties:
+            text:
+              type: string
+              maxLength: 60
+        action:
+          type: object
+          description: Action configuration varies by interactive type
+          properties:
+            buttons:
+              type: array
+              maxItems: 3
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - reply
+                  reply:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        maxLength: 256
+                      title:
+                        type: string
+                        maxLength: 20
+            button:
+              type: string
+              description: Button text for list messages
+              maxLength: 20
+            sections:
+              type: array
+              maxItems: 10
+              items:
+                $ref: '#/components/schemas/ListSection'
+            catalog_id:
+              type: string
+            product_retailer_id:
+              type: string
+            name:
+              type: string
+              description: Action name for CTA URL or flow messages
+            parameters:
+              type: object
+              description: Parameters for CTA URL or flow actions
+    ListSection:
+      type: object
+      properties:
+        title:
+          type: string
+        rows:
+          type: array
+          maxItems: 10
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                maxLength: 200
+              title:
+                type: string
+                maxLength: 24
+              description:
+                type: string
+                maxLength: 72
+    TemplateMessage:
+      type: object
+      required:
+        - name
+        - language
+      properties:
+        name:
+          type: string
+          description: Template name
+        language:
+          type: object
+          required:
+            - code
+          properties:
+            code:
+              type: string
+              description: Language/locale code
+            policy:
+              type: string
+              default: deterministic
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponent'
+    TemplateComponent:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - header
+            - body
+            - button
+        sub_type:
+          type: string
+          enum:
+            - quick_reply
+            - url
+            - copy_code
+            - flow
+            - catalog
+          description: Required for button components
+        index:
+          type: string
+          description: Button index (required for button components)
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+    TemplateParameter:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - text
+            - image
+            - video
+            - document
+            - location
+            - currency
+            - date_time
+            - payload
+            - coupon_code
+        text:
+          type: string
+        payload:
+          type: string
+        coupon_code:
+          type: string
+        image:
+          $ref: '#/components/schemas/MediaObject'
+        video:
+          $ref: '#/components/schemas/MediaObject'
+        document:
+          $ref: '#/components/schemas/DocumentObject'
+        location:
+          $ref: '#/components/schemas/LocationMessage'
+        currency:
+          type: object
+          properties:
+            fallback_value:
+              type: string
+            code:
+              type: string
+            amount_1000:
+              type: integer
+        date_time:
+          type: object
+          properties:
+            fallback_value:
+              type: string
+    ReactionMessage:
+      type: object
+      required:
+        - message_id
+        - emoji
+      properties:
+        message_id:
+          type: string
+          description: ID of the message to react to
+        emoji:
+          type: string
+          description: Emoji character or empty string to remove reaction
+    SendMessageResponse:
+      type: object
+      properties:
+        messaging_product:
+          type: string
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              input:
+                type: string
+              wa_id:
+                type: string
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: WhatsApp message ID
+    MediaResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Temporary download URL (expires in 5 minutes)
+        mime_type:
+          type: string
+        sha256:
+          type: string
+        file_size:
+          type: integer
+        id:
+          type: string
+        messaging_product:
+          type: string
+    PhoneNumberInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        verified_name:
+          type: string
+        display_phone_number:
+          type: string
+        quality_rating:
+          type: string
+          enum:
+            - GREEN
+            - YELLOW
+            - RED
+            - UNKNOWN
+        code_verification_status:
+          type: string
+          enum:
+            - VERIFIED
+            - NOT_VERIFIED
+            - EXPIRED
+        platform_type:
+          type: string
+          enum:
+            - CLOUD_API
+            - ON_PREMISE
+            - NOT_APPLICABLE
+        throughput:
+          type: object
+          properties:
+            level:
+              type: string
+              enum:
+                - STANDARD
+                - HIGH
+        is_official_business_account:
+          type: boolean
+    BusinessProfile:
+      type: object
+      properties:
+        about:
+          type: string
+          maxLength: 139
+        address:
+          type: string
+        description:
+          type: string
+          maxLength: 512
+        email:
+          type: string
+          format: email
+        profile_picture_url:
+          type: string
+          format: uri
+        websites:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            format: uri
+        vertical:
+          type: string
+          enum:
+            - UNDEFINED
+            - OTHER
+            - AUTO
+            - BEAUTY
+            - APPAREL
+            - EDU
+            - ENTERTAIN
+            - EVENT_PLAN
+            - FINANCE
+            - GROCERY
+            - GOVT
+            - HOTEL
+            - HEALTH
+            - NONPROFIT
+            - PROF_SERVICES
+            - RETAIL
+            - TRAVEL
+            - RESTAURANT
+            - NOT_A_BIZ
+        messaging_product:
+          type: string
+    UpdateBusinessProfileRequest:
+      type: object
+      required:
+        - messaging_product
+      properties:
+        messaging_product:
+          type: string
+          enum:
+            - whatsapp
+        about:
+          type: string
+          maxLength: 139
+        address:
+          type: string
+        description:
+          type: string
+          maxLength: 512
+        email:
+          type: string
+          format: email
+        websites:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            format: uri
+        vertical:
+          type: string
+        profile_picture_handle:
+          type: string
+          description: Handle of uploaded profile picture
+    QrCodeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: QR code identifier
+        prefilled_message:
+          type: string
+        deep_link_url:
+          type: string
+          format: uri
+        qr_image_url:
+          type: string
+          format: uri
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: integer
+            error_subcode:
+              type: integer
+            fbtrace_id:
+              type: string
+            error_data:
+              type: object
+              properties:
+                messaging_product:
+                  type: string
+                details:
+                  type: string

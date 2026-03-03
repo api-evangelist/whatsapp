@@ -1,0 +1,195 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "wa": "https://developers.facebook.com/docs/whatsapp/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "email": "schema:email",
+    "telephone": "schema:telephone",
+    "image": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "identifier": "schema:identifier",
+    "dateCreated": {
+      "@id": "dcterms:created",
+      "@type": "xsd:dateTime"
+    },
+    "dateModified": {
+      "@id": "dcterms:modified",
+      "@type": "xsd:dateTime"
+    },
+
+    "WhatsAppBusinessAccount": {
+      "@id": "wa:WhatsAppBusinessAccount",
+      "@context": {
+        "accountId": "wa:accountId",
+        "accountName": "wa:accountName",
+        "currency": "wa:currency",
+        "timezoneId": "wa:timezoneId",
+        "country": "wa:country",
+        "status": "wa:accountStatus",
+        "verificationStatus": "wa:businessVerificationStatus",
+        "templateNamespace": "wa:messageTemplateNamespace",
+        "ownerBusiness": {
+          "@id": "wa:ownerBusiness",
+          "@type": "@id"
+        },
+        "phoneNumbers": {
+          "@id": "wa:phoneNumbers",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "PhoneNumber": {
+      "@id": "wa:PhoneNumber",
+      "@context": {
+        "phoneNumberId": "wa:phoneNumberId",
+        "displayPhoneNumber": "schema:telephone",
+        "verifiedName": "wa:verifiedName",
+        "qualityRating": "wa:qualityRating",
+        "platformType": "wa:platformType",
+        "accountMode": "wa:accountMode",
+        "messagingLimitTier": "wa:messagingLimitTier",
+        "isOfficialBusinessAccount": "wa:isOfficialBusinessAccount"
+      }
+    },
+
+    "BusinessProfile": {
+      "@id": "wa:BusinessProfile",
+      "@context": {
+        "about": "wa:about",
+        "address": "schema:address",
+        "vertical": "wa:vertical",
+        "websites": {
+          "@id": "wa:websites",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "profilePictureUrl": {
+          "@id": "wa:profilePictureUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Message": {
+      "@id": "wa:Message",
+      "@context": {
+        "messageId": "wa:messageId",
+        "from": "wa:senderPhoneNumber",
+        "to": "wa:recipientPhoneNumber",
+        "timestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "messageType": "wa:messageType",
+        "status": "wa:deliveryStatus",
+        "body": "wa:messageBody"
+      }
+    },
+
+    "MessageTemplate": {
+      "@id": "wa:MessageTemplate",
+      "@context": {
+        "templateId": "wa:templateId",
+        "templateName": "wa:templateName",
+        "language": "schema:inLanguage",
+        "category": "wa:templateCategory",
+        "status": "wa:approvalStatus",
+        "components": {
+          "@id": "wa:templateComponents",
+          "@container": "@list"
+        },
+        "qualityScore": "wa:qualityScore"
+      }
+    },
+
+    "Flow": {
+      "@id": "wa:Flow",
+      "@context": {
+        "flowId": "wa:flowId",
+        "flowName": "wa:flowName",
+        "status": "wa:flowStatus",
+        "categories": {
+          "@id": "wa:flowCategories",
+          "@container": "@set"
+        },
+        "jsonVersion": "wa:jsonVersion",
+        "dataApiVersion": "wa:dataApiVersion",
+        "endpointUri": {
+          "@id": "wa:endpointUri",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Media": {
+      "@id": "wa:Media",
+      "@context": {
+        "mediaId": "wa:mediaId",
+        "mimeType": "schema:encodingFormat",
+        "sha256": "wa:sha256",
+        "fileSize": "schema:contentSize",
+        "downloadUrl": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Contact": {
+      "@id": "schema:Person",
+      "@context": {
+        "formattedName": "schema:name",
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "birthday": {
+          "@id": "schema:birthDate",
+          "@type": "xsd:date"
+        },
+        "organization": "schema:worksFor",
+        "jobTitle": "schema:jobTitle"
+      }
+    },
+
+    "Conversation": {
+      "@id": "wa:Conversation",
+      "@context": {
+        "conversationId": "wa:conversationId",
+        "origin": "wa:conversationOrigin",
+        "expirationTimestamp": {
+          "@id": "wa:expirationTimestamp",
+          "@type": "xsd:dateTime"
+        },
+        "billable": "wa:billable",
+        "pricingCategory": "wa:pricingCategory"
+      }
+    },
+
+    "QrCode": {
+      "@id": "wa:QrCode",
+      "@context": {
+        "code": "wa:qrCodeId",
+        "prefilledMessage": "wa:prefilledMessage",
+        "deepLinkUrl": {
+          "@id": "wa:deepLinkUrl",
+          "@type": "@id"
+        },
+        "qrImageUrl": {
+          "@id": "wa:qrImageUrl",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}

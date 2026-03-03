@@ -3,7 +3,7 @@ description: APIs for the WhatsApp messaging platform, enabling businesses to co
 image: https://www.whatsapp.com/img/fb-post.jpg
 url: https://www.whatsapp.com/
 created: '2024-01-15'
-modified: '2024-01-15'
+modified: '2026-03-01'
 specificationVersion: '0.18'
 apis:
 - name: WhatsApp Business Platform API
@@ -20,19 +20,31 @@ apis:
   - type: Documentation
     url: https://developers.facebook.com/docs/whatsapp/cloud-api
   - type: OpenAPI
-    url: https://developers.facebook.com/docs/whatsapp/cloud-api/reference
+    url: openapi/whatsapp-cloud-api-openapi.yml
   - type: Authentication
     url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
   - type: Webhooks
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks
+  - type: AsyncAPI
+    url: asyncapi/whatsapp-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/whatsapp-message-schema.json
+  - type: Reference
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
+  - type: Getting Started
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/get-started
   - type: Pricing
     url: https://developers.facebook.com/docs/whatsapp/pricing
   - type: Rate Limits
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput
   - type: Status
     url: https://metastatus.com/
-  - type: Changelog
-    url: https://developers.facebook.com/docs/whatsapp/changelog
+  - type: Change Log
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/changelog
+  - type: Error Codes
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes
+  - type: PostmanCollection
+    url: https://www.postman.com/meta/whatsapp-business-platform/collection/wlk6lh4/whatsapp-cloud-api
   contact:
   - type: Support
     url: https://developers.facebook.com/support/
@@ -52,9 +64,67 @@ apis:
   - type: Documentation
     url: https://developers.facebook.com/docs/whatsapp/business-management-api
   - type: OpenAPI
-    url: https://developers.facebook.com/docs/whatsapp/business-management-api/reference
+    url: openapi/whatsapp-business-management-api-openapi.yml
   - type: Authentication
     url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
+  - type: JSONSchema
+    url: json-schema/whatsapp-message-template-schema.json
+  - type: Getting Started
+    url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
+  - type: PostmanCollection
+    url: https://www.postman.com/meta/whatsapp-business-platform/collection/3kru5r6/whatsapp-business-management-api
+- name: WhatsApp Flows API
+  description: >-
+    API for creating structured, interactive forms and multi-step flows within
+    WhatsApp conversations, enabling appointment booking, surveys, lead capture,
+    and other guided experiences using a JSON-based screen definition format.
+  image: https://www.whatsapp.com/img/fb-post.jpg
+  humanURL: https://developers.facebook.com/docs/whatsapp/flows
+  baseURL: https://graph.facebook.com/v18.0
+  tags:
+  - Flows
+  - Forms
+  - Interactive
+  - Messaging
+  properties:
+  - type: Documentation
+    url: https://developers.facebook.com/docs/whatsapp/flows
+  - type: OpenAPI
+    url: openapi/whatsapp-flows-api-openapi.yml
+  - type: Reference
+    url: https://developers.facebook.com/docs/whatsapp/flows/reference/components
+  - type: JSONSchema
+    url: json-schema/whatsapp-flow-json-schema.json
+  - type: Change Log
+    url: https://developers.facebook.com/docs/whatsapp/flows/changelogs
+  - type: Error Codes
+    url: https://developers.facebook.com/docs/whatsapp/flows/reference/error-codes
+  - type: PostmanCollection
+    url: https://www.postman.com/meta/whatsapp-business-platform/collection/y5swede/whatsapp-flows-api
+  - type: GitHubRepository
+    url: https://github.com/WhatsApp/WhatsApp-Flows-Tools
+- name: WhatsApp On-Premises API
+  description: >-
+    The self-hosted version of the WhatsApp Business API that allowed businesses
+    to run the API on their own infrastructure. This API was deprecated on
+    October 23, 2025, and all users must migrate to the Cloud API.
+  image: https://www.whatsapp.com/img/fb-post.jpg
+  humanURL: https://developers.facebook.com/docs/whatsapp/on-premises
+  baseURL: https://localhost:443
+  tags:
+  - Messaging
+  - On-Premises
+  - Self-Hosted
+  - Deprecated
+  properties:
+  - type: Documentation
+    url: https://developers.facebook.com/docs/whatsapp/on-premises
+  - type: Getting Started
+    url: https://developers.facebook.com/docs/whatsapp/on-premises/get-started/installation
+  - type: Deprecation Notice
+    url: https://developers.facebook.com/docs/whatsapp/on-premises
+  - type: PostmanCollection
+    url: https://www.postman.com/meta/whatsapp-business-platform/collection/vdi189b/whatsapp-on-premises-api-deprecated
 maintainers:
 - name: Meta Platforms
   email: developer-support@meta.com
@@ -70,7 +140,35 @@ common:
   url: https://developers.facebook.com/
 - type: Getting Started
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/get-started
+- type: Authentication
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
 - type: Best Practices
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/best-practices
 - type: Use Cases
   url: https://business.whatsapp.com/products/business-platform
+- type: Change Log
+  url: https://developers.facebook.com/docs/whatsapp/cloud-api/changelog
+- type: Status
+  url: https://metastatus.com/
+- type: Blog
+  url: https://business.whatsapp.com/blog
+- type: Support
+  url: https://developers.facebook.com/support/
+- type: Console
+  url: https://developers.facebook.com/apps/
+- type: GitHub Organization
+  url: https://github.com/WhatsApp
+- type: Community
+  url: https://business.whatsapp.com/developers/developer-hub
+- type: Stack Overflow
+  url: https://stackoverflow.com/questions/tagged/whatsapp-cloud-api
+- type: Security
+  url: https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf
+- type: PostmanCollection
+  url: https://www.postman.com/meta/whatsapp-business-platform/overview
+- type: Pricing
+  url: https://business.whatsapp.com/products/platform-pricing
+- type: JSON-LD
+  url: json-ld/whatsapp-context.jsonld
+- type: JSONSchema
+  url: json-schema/whatsapp-webhook-payload-schema.json

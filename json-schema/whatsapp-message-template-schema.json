@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developers.facebook.com/schemas/whatsapp/message-template.json",
+  "title": "WhatsApp Message Template",
+  "description": "Schema for creating WhatsApp message templates via the Business Management API POST /{waba-id}/message_templates endpoint. Templates must be approved by Meta before use.",
+  "type": "object",
+  "required": ["name", "language", "category", "components"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Template name. Must be lowercase with underscores only.",
+      "maxLength": 512,
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "language": {
+      "type": "string",
+      "description": "Language/locale code (e.g., en_US, pt_BR, es)"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["AUTHENTICATION", "MARKETING", "UTILITY"],
+      "description": "Template category determining approval criteria and pricing"
+    },
+    "parameter_format": {
+      "type": "string",
+      "enum": ["POSITIONAL", "NAMED"],
+      "default": "POSITIONAL",
+      "description": "POSITIONAL uses {{1}}, {{2}} placeholders. NAMED uses {{variable_name}}."
+    },
+    "components": {
+      "type": "array",
+      "description": "Template component definitions",
+      "items": {
+        "$ref": "#/$defs/Component"
+      }
+    }
+  },
+  "$defs": {
+    "Component": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["HEADER", "BODY", "FOOTER", "BUTTONS"],
+          "description": "Component type"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["TEXT", "IMAGE", "VIDEO", "DOCUMENT", "LOCATION"],
+          "description": "Header format. Required for HEADER components."
+        },
+        "text": {
+          "type": "string",
+          "description": "Component text content. Supports {{N}} variables for HEADER (max 1) and BODY."
+        },
+        "example": {
+          "type": "object",
+          "description": "Example values for variables. Required when variables are used.",
+          "properties": {
+            "header_text": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Example values for TEXT header variables"
+            },
+            "header_handle": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Upload handle URLs for media headers"
+            },
+            "body_text": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "description": "Example values for body variables"
+            }
+          }
+        },
+        "add_security_recommendation": {
+          "type": "boolean",
+          "description": "AUTHENTICATION templates only. Adds security disclaimer to body."
+        },
+        "code_expiration_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 90,
+          "description": "AUTHENTICATION templates only. OTP expiration in minutes."
+        },
+        "buttons": {
+          "type": "array",
+          "description": "Button definitions. Required for BUTTONS component.",
+          "items": {
+            "$ref": "#/$defs/Button"
+          }
+        }
+      }
+    },
+    "Button": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["QUICK_REPLY", "URL", "PHONE_NUMBER", "COPY_CODE", "FLOW", "OTP", "CATALOG", "MPM"],
+          "description": "Button type"
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 25,
+          "description": "Button display text"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for URL buttons. May contain one {{1}} variable at the end."
+        },
+        "phone_number": {
+          "type": "string",
+          "description": "Phone number for PHONE_NUMBER buttons (E.164 format)"
+        },
+        "example": {
+          "type": ["string", "array"],
+          "description": "Example values for button variables"
+        },
+        "flow_id": {
+          "type": "string",
+          "description": "Flow ID for FLOW buttons"
+        },
+        "flow_action": {
+          "type": "string",
+          "enum": ["navigate", "data_exchange"],
+          "description": "Flow action type"
+        },
+        "navigate_screen": {
+          "type": "string",
+          "description": "Screen ID for flow navigation"
+        },
+        "otp_type": {
+          "type": "string",
+          "enum": ["COPY_CODE", "ONE_TAP", "ZERO_TAP"],
+          "description": "OTP delivery type for OTP buttons"
+        },
+        "supported_apps": {
+          "type": "array",
+          "description": "Android apps for ONE_TAP/ZERO_TAP OTP",
+          "items": {
+            "type": "object",
+            "properties": {
+              "package_name": { "type": "string" },
+              "signature_hash": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

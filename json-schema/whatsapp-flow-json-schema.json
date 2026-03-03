@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developers.facebook.com/schemas/whatsapp/flow-json.json",
+  "title": "WhatsApp Flow JSON",
+  "description": "Schema for WhatsApp Flow JSON definitions uploaded via the Flows API. Defines the UI screens, components, and navigation logic for interactive flows within WhatsApp conversations.",
+  "type": "object",
+  "required": ["version", "screens"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Flow JSON schema version (e.g., '7.0')"
+    },
+    "data_api_version": {
+      "type": "string",
+      "description": "Data exchange protocol version (e.g., '3.0')"
+    },
+    "routing_model": {
+      "type": "object",
+      "description": "Screen transition rules"
+    },
+    "screens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/Screen"
+      }
+    }
+  },
+  "$defs": {
+    "Screen": {
+      "type": "object",
+      "required": ["id", "layout"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique screen identifier"
+        },
+        "title": {
+          "type": "string",
+          "description": "Navigation bar title"
+        },
+        "terminal": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this screen marks flow completion"
+        },
+        "success": {
+          "type": "boolean",
+          "default": true,
+          "description": "Business outcome indicator for terminal screens"
+        },
+        "refresh_on_back": {
+          "type": "boolean",
+          "default": false,
+          "description": "Re-query endpoint when navigating back to this screen"
+        },
+        "data": {
+          "description": "Dynamic data from previous screens or data exchange endpoint"
+        },
+        "layout": {
+          "$ref": "#/$defs/Layout"
+        }
+      }
+    },
+    "Layout": {
+      "type": "object",
+      "required": ["type", "children"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SingleColumnLayout"
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "#/$defs/Component"
+          }
+        }
+      }
+    },
+    "Component": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "TextHeading",
+            "TextSubheading",
+            "TextBody",
+            "TextCaption",
+            "RichText",
+            "Image",
+            "EmbeddedLink",
+            "TextInput",
+            "TextArea",
+            "Dropdown",
+            "RadioButtonsGroup",
+            "CheckboxGroup",
+            "ChipsSelector",
+            "DatePicker",
+            "CalendarPicker",
+            "PhotoPicker",
+            "DocumentPicker",
+            "OptIn",
+            "NavigationList",
+            "Footer",
+            "Form"
+          ],
+          "description": "Component type"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text content for display and link components"
+        },
+        "name": {
+          "type": "string",
+          "description": "Form field name for input components"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label for input components"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether the input field is required"
+        },
+        "visible": {
+          "description": "Visibility condition (boolean or dynamic reference)"
+        },
+        "enabled": {
+          "description": "Enabled state (boolean or dynamic reference)"
+        },
+        "input_type": {
+          "type": "string",
+          "enum": ["TEXT", "NUMBER", "EMAIL", "PASSWORD", "PASSCODE", "PHONE"],
+          "description": "Input type for TextInput"
+        },
+        "min_chars": {
+          "type": "integer",
+          "description": "Minimum character count for TextInput"
+        },
+        "max_chars": {
+          "type": "integer",
+          "description": "Maximum character count for TextInput"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regex validation pattern for TextInput"
+        },
+        "helper_text": {
+          "type": "string",
+          "description": "Helper text for input components"
+        },
+        "error_message": {
+          "type": "string",
+          "description": "Custom error message for validation failures"
+        },
+        "init_value": {
+          "description": "Initial value for input components"
+        },
+        "data_source": {
+          "type": "array",
+          "description": "Data source for selection components (Dropdown, RadioButtonsGroup, CheckboxGroup, ChipsSelector)",
+          "items": {
+            "$ref": "#/$defs/DataSourceItem"
+          }
+        },
+        "min_selected_items": {
+          "type": "integer",
+          "description": "Minimum selections for multi-select components"
+        },
+        "max_selected_items": {
+          "type": "integer",
+          "description": "Maximum selections for multi-select components"
+        },
+        "min_date": {
+          "type": "string",
+          "description": "Minimum date for DatePicker/CalendarPicker"
+        },
+        "max_date": {
+          "type": "string",
+          "description": "Maximum date for DatePicker/CalendarPicker"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["SINGLE_DATE", "DATE_RANGE", "MULTIPLE_DATES"],
+          "description": "Selection mode for CalendarPicker"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["INPUT", "CAMERA"],
+          "description": "Source for PhotoPicker"
+        },
+        "src": {
+          "type": "string",
+          "description": "Image source URL for Image component"
+        },
+        "width": {
+          "type": "integer",
+          "description": "Image width"
+        },
+        "height": {
+          "type": "integer",
+          "description": "Image height"
+        },
+        "scale_type": {
+          "type": "string",
+          "description": "Image scaling type"
+        },
+        "alt_text": {
+          "type": "string",
+          "description": "Alt text for Image component"
+        },
+        "markdown": {
+          "type": "boolean",
+          "description": "Enable markdown rendering for TextBody/TextCaption"
+        },
+        "font_weight": {
+          "type": "string",
+          "description": "Font weight for text components"
+        },
+        "strikethrough": {
+          "type": "boolean",
+          "description": "Strikethrough text for TextBody/TextCaption"
+        },
+        "on_click_action": {
+          "$ref": "#/$defs/Action"
+        },
+        "on_select_action": {
+          "$ref": "#/$defs/Action"
+        },
+        "children": {
+          "type": "array",
+          "description": "Child components for Form and Layout",
+          "items": {
+            "$ref": "#/$defs/Component"
+          }
+        },
+        "list_items": {
+          "type": "array",
+          "maxItems": 20,
+          "description": "Navigation items for NavigationList"
+        }
+      }
+    },
+    "DataSourceItem": {
+      "type": "object",
+      "required": ["id", "title"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique item identifier"
+        },
+        "title": {
+          "type": "string",
+          "description": "Display text"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description"
+        },
+        "image": {
+          "type": "string",
+          "description": "Base64-encoded image"
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["navigate", "data_exchange", "complete", "update_data", "open_url"],
+          "description": "Action type"
+        },
+        "next": {
+          "type": "object",
+          "description": "Target screen for navigate action",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "screen"
+            },
+            "name": {
+              "type": "string",
+              "description": "Target screen ID"
+            }
+          }
+        },
+        "payload": {
+          "description": "Data payload to send with the action. Use ${form.field_name} for form references."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for open_url action"
+        }
+      }
+    }
+  }
+}

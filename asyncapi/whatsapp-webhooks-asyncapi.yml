@@ -1,0 +1,601 @@
+asyncapi: 2.6.0
+info:
+  title: WhatsApp Webhooks
+  description: >-
+    WhatsApp Business Platform webhooks deliver real-time notifications for
+    incoming messages, message status updates, template status changes, account
+    updates, phone number quality changes, and security events. All webhook
+    payloads are sent as HTTP POST requests signed with HMAC-SHA256 using
+    the app secret via the X-Hub-Signature-256 header. Your endpoint must
+    respond with HTTP 200 immediately and process events asynchronously.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  license:
+    name: Meta Platform Terms
+    url: https://www.whatsapp.com/legal/business-terms
+  externalDocs:
+    description: WhatsApp Webhooks Documentation
+    url: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks
+servers:
+  webhookEndpoint:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      Your HTTPS webhook endpoint configured in the Meta App Dashboard.
+      Must respond to GET requests for verification and POST requests for
+      event delivery.
+    variables:
+      webhookUrl:
+        description: Your configured webhook callback URL
+    security:
+      - hmacSignature: []
+channels:
+  /webhook:
+    description: >-
+      Receives all WhatsApp Business Platform webhook events. The field
+      property in each change entry determines the event type.
+    publish:
+      operationId: receiveWebhookEvent
+      summary: Receive webhook events
+      description: >-
+        Receives webhook notifications from the WhatsApp Business Platform.
+        Events include incoming messages, message status updates, template
+        status changes, account updates, and security alerts.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/IncomingMessage'
+          - $ref: '#/components/messages/MessageStatus'
+          - $ref: '#/components/messages/TemplateStatusUpdate'
+          - $ref: '#/components/messages/AccountUpdate'
+          - $ref: '#/components/messages/PhoneNumberQualityUpdate'
+          - $ref: '#/components/messages/SecurityEvent'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      name: X-Hub-Signature-256
+      in: header
+      description: HMAC-SHA256 signature of the request body using the app secret
+  messages:
+    IncomingMessage:
+      name: Incoming Message
+      title: Incoming Message Notification
+      summary: A user sent a message to your WhatsApp Business number
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookEnvelope'
+    MessageStatus:
+      name: Message Status
+      title: Message Status Update
+      summary: Status update for a sent message (sent, delivered, read, failed)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WebhookEnvelope'
+    TemplateStatusUpdate:
+      name: Template Status Update
+      title: Message Template Status Change
+      summary: A message template was approved, rejected, or had its status changed
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TemplateStatusWebhook'
+    AccountUpdate:
+      name: Account Update
+      title: Account Policy Update
+      summary: Policy enforcement or account restriction notification
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AccountUpdateWebhook'
+    PhoneNumberQualityUpdate:
+      name: Phone Number Quality
+      title: Phone Number Quality Rating Change
+      summary: Phone number quality rating changed (flagged or unflagged)
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PhoneQualityWebhook'
+    SecurityEvent:
+      name: Security Event
+      title: Security Alert
+      summary: Security-related event such as PIN change
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SecurityWebhook'
+  schemas:
+    WebhookEnvelope:
+      type: object
+      required:
+        - object
+        - entry
+      properties:
+        object:
+          type: string
+          enum:
+            - whatsapp_business_account
+        entry:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - changes
+            properties:
+              id:
+                type: string
+                description: WhatsApp Business Account ID
+              changes:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - value
+                    - field
+                  properties:
+                    value:
+                      $ref: '#/components/schemas/MessagesValue'
+                    field:
+                      type: string
+                      enum:
+                        - messages
+    MessagesValue:
+      type: object
+      required:
+        - messaging_product
+        - metadata
+      properties:
+        messaging_product:
+          type: string
+          enum:
+            - whatsapp
+        metadata:
+          type: object
+          required:
+            - display_phone_number
+            - phone_number_id
+          properties:
+            display_phone_number:
+              type: string
+            phone_number_id:
+              type: string
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              profile:
+                type: object
+                properties:
+                  name:
+                    type: string
+              wa_id:
+                type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncomingMessageObject'
+        statuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusObject'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookError'
+    IncomingMessageObject:
+      type: object
+      required:
+        - from
+        - id
+        - timestamp
+        - type
+      properties:
+        from:
+          type: string
+          description: Sender phone number
+        id:
+          type: string
+          description: WhatsApp message ID
+        timestamp:
+          type: string
+          description: Unix timestamp
+        type:
+          type: string
+          enum:
+            - text
+            - image
+            - video
+            - audio
+            - document
+            - sticker
+            - location
+            - contacts
+            - interactive
+            - button
+            - reaction
+            - order
+        context:
+          type: object
+          properties:
+            from:
+              type: string
+            id:
+              type: string
+        text:
+          type: object
+          properties:
+            body:
+              type: string
+        image:
+          type: object
+          properties:
+            id:
+              type: string
+            mime_type:
+              type: string
+            sha256:
+              type: string
+            caption:
+              type: string
+        video:
+          type: object
+          properties:
+            id:
+              type: string
+            mime_type:
+              type: string
+            sha256:
+              type: string
+            caption:
+              type: string
+        audio:
+          type: object
+          properties:
+            id:
+              type: string
+            mime_type:
+              type: string
+            sha256:
+              type: string
+            voice:
+              type: boolean
+        document:
+          type: object
+          properties:
+            id:
+              type: string
+            mime_type:
+              type: string
+            sha256:
+              type: string
+            filename:
+              type: string
+            caption:
+              type: string
+        sticker:
+          type: object
+          properties:
+            id:
+              type: string
+            mime_type:
+              type: string
+            sha256:
+              type: string
+            animated:
+              type: boolean
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+            longitude:
+              type: number
+            name:
+              type: string
+            address:
+              type: string
+            url:
+              type: string
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: object
+                properties:
+                  formatted_name:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+              phones:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    phone:
+                      type: string
+                    type:
+                      type: string
+                    wa_id:
+                      type: string
+        interactive:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - button_reply
+                - list_reply
+            button_reply:
+              type: object
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+            list_reply:
+              type: object
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+        button:
+          type: object
+          properties:
+            text:
+              type: string
+            payload:
+              type: string
+        reaction:
+          type: object
+          properties:
+            message_id:
+              type: string
+            emoji:
+              type: string
+        order:
+          type: object
+          properties:
+            catalog_id:
+              type: string
+            product_items:
+              type: array
+              items:
+                type: object
+                properties:
+                  product_retailer_id:
+                    type: string
+                  quantity:
+                    type: integer
+                  item_price:
+                    type: number
+                  currency:
+                    type: string
+            text:
+              type: string
+    StatusObject:
+      type: object
+      required:
+        - id
+        - status
+        - timestamp
+        - recipient_id
+      properties:
+        id:
+          type: string
+          description: WhatsApp message ID
+        status:
+          type: string
+          enum:
+            - sent
+            - delivered
+            - read
+            - failed
+        timestamp:
+          type: string
+        recipient_id:
+          type: string
+        conversation:
+          type: object
+          properties:
+            id:
+              type: string
+            expiration_timestamp:
+              type: string
+            origin:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - business_initiated
+                    - user_initiated
+                    - referral_conversion
+                    - utility
+        pricing:
+          type: object
+          properties:
+            billable:
+              type: boolean
+            pricing_model:
+              type: string
+            category:
+              type: string
+              enum:
+                - business_initiated
+                - user_initiated
+                - referral_conversion
+                - authentication
+                - authentication_international
+                - service
+                - utility
+                - marketing
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookError'
+    WebhookError:
+      type: object
+      properties:
+        code:
+          type: integer
+        title:
+          type: string
+        message:
+          type: string
+        error_data:
+          type: object
+          properties:
+            details:
+              type: string
+        href:
+          type: string
+          format: uri
+    TemplateStatusWebhook:
+      type: object
+      properties:
+        object:
+          type: string
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              changes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: object
+                      properties:
+                        event:
+                          type: string
+                          enum:
+                            - APPROVED
+                            - REJECTED
+                            - PENDING_DELETION
+                            - DISABLED
+                            - PAUSED
+                            - IN_APPEAL
+                            - REINSTATED
+                        message_template_id:
+                          type: integer
+                        message_template_name:
+                          type: string
+                        message_template_language:
+                          type: string
+                        reason:
+                          type: string
+                    field:
+                      type: string
+                      enum:
+                        - message_template_status_update
+    AccountUpdateWebhook:
+      type: object
+      properties:
+        object:
+          type: string
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              changes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: object
+                      properties:
+                        phone_number:
+                          type: string
+                        event:
+                          type: string
+                          enum:
+                            - VERIFIED_ACCOUNT
+                            - DISABLED_UPDATE
+                        ban_info:
+                          type: object
+                          properties:
+                            waba_ban_state:
+                              type: string
+                            waba_ban_date:
+                              type: string
+                    field:
+                      type: string
+                      enum:
+                        - account_update
+    PhoneQualityWebhook:
+      type: object
+      properties:
+        object:
+          type: string
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              changes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: object
+                      properties:
+                        display_phone_number:
+                          type: string
+                        event:
+                          type: string
+                          enum:
+                            - FLAGGED
+                            - UNFLAGGED
+                        current_limit:
+                          type: string
+                    field:
+                      type: string
+                      enum:
+                        - phone_number_quality_update
+    SecurityWebhook:
+      type: object
+      properties:
+        object:
+          type: string
+        entry:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              changes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: object
+                      properties:
+                        phone_number:
+                          type: string
+                        event:
+                          type: string
+                          enum:
+                            - PIN_CHANGED
+                    field:
+                      type: string
+                      enum:
+                        - security

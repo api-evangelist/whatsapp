@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developers.facebook.com/schemas/whatsapp/webhook-payload.json",
+  "title": "WhatsApp Webhook Payload",
+  "description": "Schema for incoming WhatsApp Business Platform webhook payloads. All webhook notifications follow a common envelope structure with event-specific data in the changes array.",
+  "type": "object",
+  "required": ["object", "entry"],
+  "properties": {
+    "object": {
+      "type": "string",
+      "const": "whatsapp_business_account",
+      "description": "Always 'whatsapp_business_account' for WhatsApp webhooks"
+    },
+    "entry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Entry"
+      }
+    }
+  },
+  "$defs": {
+    "Entry": {
+      "type": "object",
+      "required": ["id", "changes"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "WhatsApp Business Account ID"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Change"
+          }
+        }
+      }
+    },
+    "Change": {
+      "type": "object",
+      "required": ["value", "field"],
+      "properties": {
+        "value": {
+          "type": "object",
+          "description": "Event-specific payload data"
+        },
+        "field": {
+          "type": "string",
+          "enum": [
+            "messages",
+            "account_update",
+            "message_template_status_update",
+            "phone_number_quality_update",
+            "phone_number_name_update",
+            "business_capability_update",
+            "security",
+            "flows"
+          ],
+          "description": "Webhook subscription field that triggered this event"
+        }
+      }
+    },
+    "MessagesValue": {
+      "type": "object",
+      "description": "Value object for field=messages webhooks",
+      "required": ["messaging_product", "metadata"],
+      "properties": {
+        "messaging_product": {
+          "type": "string",
+          "const": "whatsapp"
+        },
+        "metadata": {
+          "type": "object",
+          "required": ["display_phone_number", "phone_number_id"],
+          "properties": {
+            "display_phone_number": {
+              "type": "string",
+              "description": "Business phone number that received the event"
+            },
+            "phone_number_id": {
+              "type": "string",
+              "description": "Phone Number ID"
+            }
+          }
+        },
+        "contacts": {
+          "type": "array",
+          "description": "Sender contact information (present for incoming messages)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "profile": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Sender's WhatsApp profile name"
+                  }
+                }
+              },
+              "wa_id": {
+                "type": "string",
+                "description": "Sender's WhatsApp ID (phone number)"
+              }
+            }
+          }
+        },
+        "messages": {
+          "type": "array",
+          "description": "Incoming message objects",
+          "items": {
+            "$ref": "#/$defs/IncomingMessage"
+          }
+        },
+        "statuses": {
+          "type": "array",
+          "description": "Outbound message status updates",
+          "items": {
+            "$ref": "#/$defs/MessageStatus"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WebhookError"
+          }
+        }
+      }
+    },
+    "IncomingMessage": {
+      "type": "object",
+      "required": ["from", "id", "timestamp", "type"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "Sender phone number"
+        },
+        "id": {
+          "type": "string",
+          "description": "WhatsApp message ID (wamid prefix)"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Unix timestamp of the message"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["text", "image", "video", "audio", "document", "sticker", "location", "contacts", "interactive", "button", "reaction", "order"],
+          "description": "Type of incoming message"
+        },
+        "context": {
+          "type": "object",
+          "description": "Present when the message is a reply",
+          "properties": {
+            "from": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          }
+        },
+        "text": {
+          "type": "object",
+          "properties": {
+            "body": { "type": "string" }
+          }
+        },
+        "image": {
+          "$ref": "#/$defs/IncomingMedia"
+        },
+        "video": {
+          "$ref": "#/$defs/IncomingMedia"
+        },
+        "audio": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "mime_type": { "type": "string" },
+            "sha256": { "type": "string" },
+            "voice": {
+              "type": "boolean",
+              "description": "True if recorded as a voice message"
+            }
+          }
+        },
+        "document": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "mime_type": { "type": "string" },
+            "sha256": { "type": "string" },
+            "filename": { "type": "string" },
+            "caption": { "type": "string" }
+          }
+        },
+        "sticker": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "mime_type": { "type": "string" },
+            "sha256": { "type": "string" },
+            "animated": { "type": "boolean" }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "name": { "type": "string" },
+            "address": { "type": "string" },
+            "url": { "type": "string" }
+          }
+        },
+        "interactive": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["button_reply", "list_reply"]
+            },
+            "button_reply": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "title": { "type": "string" }
+              }
+            },
+            "list_reply": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "title": { "type": "string" },
+                "description": { "type": "string" }
+              }
+            }
+          }
+        },
+        "button": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string" },
+            "payload": { "type": "string" }
+          }
+        },
+        "reaction": {
+          "type": "object",
+          "properties": {
+            "message_id": { "type": "string" },
+            "emoji": { "type": "string" }
+          }
+        },
+        "order": {
+          "type": "object",
+          "properties": {
+            "catalog_id": { "type": "string" },
+            "product_items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "product_retailer_id": { "type": "string" },
+                  "quantity": { "type": "integer" },
+                  "item_price": { "type": "number" },
+                  "currency": { "type": "string" }
+                }
+              }
+            },
+            "text": { "type": "string" }
+          }
+        }
+      }
+    },
+    "IncomingMedia": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Media ID for downloading via GET /{media-id}"
+        },
+        "mime_type": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        }
+      }
+    },
+    "MessageStatus": {
+      "type": "object",
+      "required": ["id", "status", "timestamp", "recipient_id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "WhatsApp message ID"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["sent", "delivered", "read", "failed"],
+          "description": "Message delivery status"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "recipient_id": {
+          "type": "string"
+        },
+        "conversation": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "expiration_timestamp": { "type": "string" },
+            "origin": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["business_initiated", "user_initiated", "referral_conversion", "utility"]
+                }
+              }
+            }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "properties": {
+            "billable": { "type": "boolean" },
+            "pricing_model": { "type": "string" },
+            "category": {
+              "type": "string",
+              "enum": ["business_initiated", "user_initiated", "referral_conversion", "authentication", "authentication_international", "service", "utility", "marketing"]
+            }
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WebhookError"
+          }
+        }
+      }
+    },
+    "WebhookError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "Error code"
+        },
+        "title": {
+          "type": "string",
+          "description": "Error title"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message"
+        },
+        "error_data": {
+          "type": "object",
+          "properties": {
+            "details": {
+              "type": "string"
+            }
+          }
+        },
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to error documentation"
+        }
+      }
+    }
+  }
+}

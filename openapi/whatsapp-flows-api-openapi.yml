@@ -1,0 +1,418 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Flows API
+  description: >-
+    The WhatsApp Flows API enables businesses to create, manage, publish, and
+    deprecate structured interactive flows within WhatsApp conversations. Flows
+    support appointment booking, surveys, lead capture, and other guided
+    experiences using a JSON-based screen definition format.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+externalDocs:
+  description: WhatsApp Flows Documentation
+  url: https://developers.facebook.com/docs/whatsapp/flows
+servers:
+  - url: https://graph.facebook.com/v21.0
+    description: Meta Graph API Production Server
+tags:
+  - name: Flows
+    description: Create, read, update, and delete flows
+  - name: Assets
+    description: Upload and retrieve flow JSON assets
+  - name: Lifecycle
+    description: Publish and deprecate flows
+security:
+  - bearerAuth: []
+paths:
+  /{waba-id}/flows:
+    get:
+      operationId: listFlows
+      summary: List flows
+      description: Lists all flows for a WhatsApp Business Account.
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+        - name: fields
+          in: query
+          description: Comma-separated fields to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Flows retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Flow'
+                  paging:
+                    $ref: '#/components/schemas/CursorPaging'
+    post:
+      operationId: createFlow
+      summary: Create flow
+      description: Creates a new flow for a WhatsApp Business Account.
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFlowRequest'
+      responses:
+        '200':
+          description: Flow created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Flow ID
+  /{flow-id}:
+    get:
+      operationId: getFlow
+      summary: Get flow
+      description: Retrieves details about a specific flow.
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+        - name: fields
+          in: query
+          description: Comma-separated fields to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Flow retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flow'
+    post:
+      operationId: updateFlow
+      summary: Update flow
+      description: >-
+        Updates a flow. Only DRAFT flows can be updated. Published flows cannot
+        be modified; clone them instead.
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFlowRequest'
+      responses:
+        '200':
+          description: Flow updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+    delete:
+      operationId: deleteFlow
+      summary: Delete flow
+      description: >-
+        Deletes a flow. Only DRAFT flows can be deleted. Published flows must
+        be deprecated instead.
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Flow deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{flow-id}/assets:
+    get:
+      operationId: getFlowAssets
+      summary: Get flow assets
+      description: Retrieves the assets (flow JSON file) for a flow.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Assets retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        asset_type:
+                          type: string
+                        download_url:
+                          type: string
+                          format: uri
+                  paging:
+                    $ref: '#/components/schemas/CursorPaging'
+    post:
+      operationId: uploadFlowJson
+      summary: Upload flow JSON
+      description: >-
+        Uploads or replaces the flow JSON definition file. The file is validated
+        on upload and any errors are returned in the response.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - name
+                - asset_type
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The flow.json file (max 10 MB)
+                name:
+                  type: string
+                  enum:
+                    - flow.json
+                asset_type:
+                  type: string
+                  enum:
+                    - FLOW_JSON
+      responses:
+        '200':
+          description: Flow JSON uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  validation_errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FlowValidationError'
+  /{flow-id}/publish:
+    post:
+      operationId: publishFlow
+      summary: Publish flow
+      description: >-
+        Publishes a draft flow, making it available for use in messages. The
+        flow must have a valid uploaded flow JSON with no validation errors.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Flow published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /{flow-id}/deprecate:
+    post:
+      operationId: deprecateFlow
+      summary: Deprecate flow
+      description: >-
+        Deprecates a published flow. Deprecated flows remain visible in history
+        but cannot be sent to customers.
+      tags:
+        - Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Flow deprecated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+    FlowId:
+      name: flow-id
+      in: path
+      required: true
+      description: Flow ID
+      schema:
+        type: string
+  schemas:
+    Flow:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+            - DRAFT
+            - PUBLISHED
+            - DEPRECATED
+            - BLOCKED
+            - THROTTLED
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+              - SIGN_UP
+              - SIGN_IN
+              - APPOINTMENT_BOOKING
+              - LEAD_GENERATION
+              - CONTACT_US
+              - CUSTOMER_SUPPORT
+              - SURVEY
+              - OTHER
+        validation_errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowValidationError'
+        json_version:
+          type: string
+        data_api_version:
+          type: string
+        endpoint_uri:
+          type: string
+          format: uri
+        preview:
+          type: object
+          properties:
+            preview_url:
+              type: string
+              format: uri
+            expires_at:
+              type: string
+              format: date-time
+            id:
+              type: string
+        whatsapp_business_account:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+    CreateFlowRequest:
+      type: object
+      required:
+        - name
+        - categories
+      properties:
+        name:
+          type: string
+          description: Flow display name
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+              - SIGN_UP
+              - SIGN_IN
+              - APPOINTMENT_BOOKING
+              - LEAD_GENERATION
+              - CONTACT_US
+              - CUSTOMER_SUPPORT
+              - SURVEY
+              - OTHER
+        clone_flow_id:
+          type: string
+          description: ID of existing flow to clone
+        endpoint_uri:
+          type: string
+          format: uri
+          description: HTTPS endpoint for data exchange
+    UpdateFlowRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        endpoint_uri:
+          type: string
+          format: uri
+        application_id:
+          type: string
+    FlowValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+        error_type:
+          type: string
+        message:
+          type: string
+        line_start:
+          type: integer
+        line_end:
+          type: integer
+        column_start:
+          type: integer
+        column_end:
+          type: integer
+        pointers:
+          type: array
+          items:
+            type: string
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
