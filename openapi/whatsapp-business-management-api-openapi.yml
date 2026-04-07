@@ -38,7 +38,7 @@ paths:
   /{waba-id}:
     get:
       operationId: getWhatsAppBusinessAccount
-      summary: Get WABA info
+      summary: WhatsApp Get WABA info
       description: Retrieves information about a WhatsApp Business Account.
       tags:
         - Business Accounts
@@ -59,7 +59,7 @@ paths:
   /{waba-id}/phone_numbers:
     get:
       operationId: listPhoneNumbers
-      summary: List phone numbers
+      summary: WhatsApp List phone numbers
       description: Lists all phone numbers associated with a WhatsApp Business Account.
       tags:
         - Phone Numbers
@@ -102,7 +102,7 @@ paths:
   /{waba-id}/message_templates:
     get:
       operationId: listMessageTemplates
-      summary: List message templates
+      summary: WhatsApp List message templates
       description: Lists all message templates for a WhatsApp Business Account.
       tags:
         - Message Templates
@@ -171,7 +171,7 @@ paths:
                     $ref: '#/components/schemas/CursorPaging'
     post:
       operationId: createMessageTemplate
-      summary: Create message template
+      summary: WhatsApp Create message template
       description: >-
         Creates a new message template for a WhatsApp Business Account.
         Templates must be approved by Meta before they can be used to send
@@ -202,7 +202,7 @@ paths:
                     type: string
     delete:
       operationId: deleteMessageTemplate
-      summary: Delete message template
+      summary: WhatsApp Delete message template
       description: >-
         Deletes a message template. Deleting by name removes all language
         variants. Pass hsm_id to delete a specific language version.
@@ -231,7 +231,7 @@ paths:
   /{message-template-id}:
     post:
       operationId: updateMessageTemplate
-      summary: Update message template
+      summary: WhatsApp Update message template
       description: >-
         Updates an existing message template. Only APPROVED or PAUSED templates
         can be edited. Edits re-trigger the approval process.
@@ -270,7 +270,7 @@ paths:
   /{waba-id}/conversation_analytics:
     get:
       operationId: getConversationAnalytics
-      summary: Get conversation analytics
+      summary: WhatsApp Get conversation analytics
       description: Retrieves conversation analytics for a WhatsApp Business Account.
       tags:
         - Analytics
@@ -346,7 +346,7 @@ paths:
   /{waba-id}/template_analytics:
     get:
       operationId: getTemplateAnalytics
-      summary: Get template analytics
+      summary: WhatsApp Get template analytics
       description: Retrieves analytics for specific message templates.
       tags:
         - Analytics
@@ -400,7 +400,7 @@ paths:
   /{waba-id}/subscribed_apps:
     get:
       operationId: listSubscribedApps
-      summary: List webhook subscriptions
+      summary: WhatsApp List webhook subscriptions
       description: Lists all apps subscribed to webhook events for this WABA.
       tags:
         - Subscribed Apps
@@ -427,7 +427,7 @@ paths:
                           type: string
     post:
       operationId: subscribeApp
-      summary: Subscribe app to webhooks
+      summary: WhatsApp Subscribe app to webhooks
       description: Subscribes the current app to receive webhook events for this WABA.
       tags:
         - Subscribed Apps
@@ -442,7 +442,7 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
     delete:
       operationId: unsubscribeApp
-      summary: Unsubscribe app from webhooks
+      summary: WhatsApp Unsubscribe app from webhooks
       description: Unsubscribes the current app from webhook events.
       tags:
         - Subscribed Apps
@@ -458,7 +458,7 @@ paths:
   /{waba-id}/assigned_users:
     get:
       operationId: listAssignedUsers
-      summary: List assigned users
+      summary: WhatsApp List assigned users
       description: Lists all users assigned to a WhatsApp Business Account.
       tags:
         - Assigned Users
@@ -487,7 +487,7 @@ paths:
                             type: string
     post:
       operationId: assignUser
-      summary: Assign user to WABA
+      summary: WhatsApp Assign user to WABA
       description: Assigns a user with specific tasks to a WhatsApp Business Account.
       tags:
         - Assigned Users
@@ -526,7 +526,7 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
     delete:
       operationId: removeAssignedUser
-      summary: Remove assigned user
+      summary: WhatsApp Remove assigned user
       description: Removes a user from a WhatsApp Business Account.
       tags:
         - Assigned Users
@@ -553,7 +553,7 @@ paths:
   /{waba-id}/product_catalogs:
     get:
       operationId: listProductCatalogs
-      summary: List product catalogs
+      summary: WhatsApp List product catalogs
       description: Lists product catalogs connected to a WABA.
       tags:
         - Product Catalogs
@@ -578,7 +578,7 @@ paths:
                           type: string
     post:
       operationId: connectProductCatalog
-      summary: Connect product catalog
+      summary: WhatsApp Connect product catalog
       description: Connects a product catalog to a WABA.
       tags:
         - Product Catalogs
@@ -604,7 +604,7 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
     delete:
       operationId: disconnectProductCatalog
-      summary: Disconnect product catalog
+      summary: WhatsApp Disconnect product catalog
       description: Disconnects a product catalog from a WABA.
       tags:
         - Product Catalogs

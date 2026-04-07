@@ -30,7 +30,7 @@ paths:
   /{waba-id}/flows:
     get:
       operationId: listFlows
-      summary: List flows
+      summary: WhatsApp List flows
       description: Lists all flows for a WhatsApp Business Account.
       tags:
         - Flows
@@ -57,7 +57,7 @@ paths:
                     $ref: '#/components/schemas/CursorPaging'
     post:
       operationId: createFlow
-      summary: Create flow
+      summary: WhatsApp Create flow
       description: Creates a new flow for a WhatsApp Business Account.
       tags:
         - Flows
@@ -83,7 +83,7 @@ paths:
   /{flow-id}:
     get:
       operationId: getFlow
-      summary: Get flow
+      summary: WhatsApp Get flow
       description: Retrieves details about a specific flow.
       tags:
         - Flows
@@ -103,7 +103,7 @@ paths:
                 $ref: '#/components/schemas/Flow'
     post:
       operationId: updateFlow
-      summary: Update flow
+      summary: WhatsApp Update flow
       description: >-
         Updates a flow. Only DRAFT flows can be updated. Published flows cannot
         be modified; clone them instead.
@@ -126,7 +126,7 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
     delete:
       operationId: deleteFlow
-      summary: Delete flow
+      summary: WhatsApp Delete flow
       description: >-
         Deletes a flow. Only DRAFT flows can be deleted. Published flows must
         be deprecated instead.
@@ -144,7 +144,7 @@ paths:
   /{flow-id}/assets:
     get:
       operationId: getFlowAssets
-      summary: Get flow assets
+      summary: WhatsApp Get flow assets
       description: Retrieves the assets (flow JSON file) for a flow.
       tags:
         - Assets
@@ -174,7 +174,7 @@ paths:
                     $ref: '#/components/schemas/CursorPaging'
     post:
       operationId: uploadFlowJson
-      summary: Upload flow JSON
+      summary: WhatsApp Upload flow JSON
       description: >-
         Uploads or replaces the flow JSON definition file. The file is validated
         on upload and any errors are returned in the response.
@@ -222,7 +222,7 @@ paths:
   /{flow-id}/publish:
     post:
       operationId: publishFlow
-      summary: Publish flow
+      summary: WhatsApp Publish flow
       description: >-
         Publishes a draft flow, making it available for use in messages. The
         flow must have a valid uploaded flow JSON with no validation errors.
@@ -240,7 +240,7 @@ paths:
   /{flow-id}/deprecate:
     post:
       operationId: deprecateFlow
-      summary: Deprecate flow
+      summary: WhatsApp Deprecate flow
       description: >-
         Deprecates a published flow. Deprecated flows remain visible in history
         but cannot be sent to customers.

@@ -38,7 +38,7 @@ paths:
   /{phone-number-id}/messages:
     post:
       operationId: sendMessage
-      summary: Send a message
+      summary: WhatsApp Send a message
       description: >-
         Sends a message to a WhatsApp user. The type field in the request body
         determines the message format. Also used to mark incoming messages as
@@ -75,7 +75,7 @@ paths:
   /{phone-number-id}/media:
     post:
       operationId: uploadMedia
-      summary: Upload media
+      summary: WhatsApp Upload media
       description: >-
         Uploads media to WhatsApp servers. Returns a media ID that can be used
         when sending media messages. Uploaded media persists for 30 days.
@@ -123,7 +123,7 @@ paths:
   /{media-id}:
     get:
       operationId: getMediaUrl
-      summary: Get media URL
+      summary: WhatsApp Get media URL
       description: >-
         Retrieves a temporary download URL for a media file. The URL expires
         after 5 minutes. To download the file, make a GET request to the
@@ -141,7 +141,7 @@ paths:
                 $ref: '#/components/schemas/MediaResponse'
     delete:
       operationId: deleteMedia
-      summary: Delete media
+      summary: WhatsApp Delete media
       description: Deletes a media file from WhatsApp servers.
       tags:
         - Media
@@ -157,7 +157,7 @@ paths:
   /{phone-number-id}:
     get:
       operationId: getPhoneNumber
-      summary: Get phone number info
+      summary: WhatsApp Get phone number info
       description: Retrieves information about a registered phone number.
       tags:
         - Phone Numbers
@@ -177,7 +177,7 @@ paths:
                 $ref: '#/components/schemas/PhoneNumberInfo'
     post:
       operationId: setTwoStepVerification
-      summary: Set two-step verification PIN
+      summary: WhatsApp Set two-step verification PIN
       description: Sets or updates the two-step verification PIN for a phone number.
       tags:
         - Two-Step Verification
@@ -206,7 +206,7 @@ paths:
   /{phone-number-id}/whatsapp_business_profile:
     get:
       operationId: getBusinessProfile
-      summary: Get business profile
+      summary: WhatsApp Get business profile
       description: Retrieves the WhatsApp Business profile for a phone number.
       tags:
         - Business Profile
@@ -234,7 +234,7 @@ paths:
                       $ref: '#/components/schemas/BusinessProfile'
     post:
       operationId: updateBusinessProfile
-      summary: Update business profile
+      summary: WhatsApp Update business profile
       description: Updates the WhatsApp Business profile for a phone number.
       tags:
         - Business Profile
@@ -256,7 +256,7 @@ paths:
   /{phone-number-id}/request_code:
     post:
       operationId: requestVerificationCode
-      summary: Request verification code
+      summary: WhatsApp Request verification code
       description: Requests a verification code via SMS or voice call for phone registration.
       tags:
         - Registration
@@ -291,7 +291,7 @@ paths:
   /{phone-number-id}/verify_code:
     post:
       operationId: verifyCode
-      summary: Verify phone number
+      summary: WhatsApp Verify phone number
       description: Verifies a phone number using the code received via SMS or voice.
       tags:
         - Registration
@@ -319,7 +319,7 @@ paths:
   /{phone-number-id}/register:
     post:
       operationId: registerPhoneNumber
-      summary: Register phone number
+      summary: WhatsApp Register phone number
       description: Registers a phone number for use with the Cloud API.
       tags:
         - Registration
@@ -355,7 +355,7 @@ paths:
   /{phone-number-id}/deregister:
     post:
       operationId: deregisterPhoneNumber
-      summary: Deregister phone number
+      summary: WhatsApp Deregister phone number
       description: Deregisters a phone number from the Cloud API.
       tags:
         - Registration
@@ -384,7 +384,7 @@ paths:
   /{phone-number-id}/message_qrdls:
     post:
       operationId: createQrCode
-      summary: Create QR code
+      summary: WhatsApp Create QR code
       description: Creates a QR code that customers can scan to start a conversation.
       tags:
         - QR Codes
@@ -418,7 +418,7 @@ paths:
                 $ref: '#/components/schemas/QrCodeResponse'
     get:
       operationId: listQrCodes
-      summary: List QR codes
+      summary: WhatsApp List QR codes
       description: Lists all QR codes for a phone number.
       tags:
         - QR Codes
@@ -439,7 +439,7 @@ paths:
   /{phone-number-id}/message_qrdls/{qr-code-id}:
     get:
       operationId: getQrCode
-      summary: Get QR code
+      summary: WhatsApp Get QR code
       description: Retrieves a specific QR code.
       tags:
         - QR Codes
@@ -455,7 +455,7 @@ paths:
                 $ref: '#/components/schemas/QrCodeResponse'
     post:
       operationId: updateQrCode
-      summary: Update QR code
+      summary: WhatsApp Update QR code
       description: Updates the prefilled message for a QR code.
       tags:
         - QR Codes
@@ -480,7 +480,7 @@ paths:
                 $ref: '#/components/schemas/QrCodeResponse'
     delete:
       operationId: deleteQrCode
-      summary: Delete QR code
+      summary: WhatsApp Delete QR code
       description: Deletes a QR code.
       tags:
         - QR Codes
