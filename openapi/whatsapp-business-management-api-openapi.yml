@@ -18,20 +18,20 @@ servers:
   - url: https://graph.facebook.com/v21.0
     description: Meta Graph API Production Server
 tags:
-  - name: Business Accounts
-    description: Manage WhatsApp Business Account information
-  - name: Phone Numbers
-    description: List and manage phone numbers on a WABA
-  - name: Message Templates
-    description: Create, update, and delete message templates
   - name: Analytics
     description: Retrieve conversation and template analytics
-  - name: Subscribed Apps
-    description: Manage webhook subscriptions for a WABA
   - name: Assigned Users
     description: Manage user access to a WABA
+  - name: Business Accounts
+    description: Manage WhatsApp Business Account information
+  - name: Message Templates
+    description: Create, update, and delete message templates
+  - name: Phone Numbers
+    description: List and manage phone numbers on a WABA
   - name: Product Catalogs
     description: Connect and manage product catalogs
+  - name: Subscribed Apps
+    description: Manage webhook subscriptions for a WABA
 security:
   - bearerAuth: []
 paths:

@@ -18,18 +18,18 @@ servers:
   - url: https://graph.facebook.com/v21.0
     description: Meta Graph API Production Server
 tags:
-  - name: Messages
-    description: Send messages of all types to WhatsApp users
-  - name: Media
-    description: Upload, retrieve, and delete media files
-  - name: Phone Numbers
-    description: Manage and verify phone numbers
   - name: Business Profile
     description: Get and update WhatsApp Business profile information
-  - name: Registration
-    description: Register and deregister phone numbers
+  - name: Media
+    description: Upload, retrieve, and delete media files
+  - name: Messages
+    description: Send messages of all types to WhatsApp users
+  - name: Phone Numbers
+    description: Manage and verify phone numbers
   - name: QR Codes
     description: Create and manage QR codes for customer conversations
+  - name: Registration
+    description: Register and deregister phone numbers
   - name: Two-Step Verification
     description: Manage two-step verification PIN
 security:

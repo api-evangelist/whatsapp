@@ -18,10 +18,10 @@ servers:
   - url: https://graph.facebook.com/v21.0
     description: Meta Graph API Production Server
 tags:
-  - name: Flows
-    description: Create, read, update, and delete flows
   - name: Assets
     description: Upload and retrieve flow JSON assets
+  - name: Flows
+    description: Create, read, update, and delete flows
   - name: Lifecycle
     description: Publish and deprecate flows
 security:
