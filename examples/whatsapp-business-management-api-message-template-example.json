@@ -1,0 +1,14 @@
+{
+  "id": "wamid.abc123",
+  "name": "Example Business",
+  "status": "APPROVED",
+  "category": "AUTHENTICATION",
+  "language": "en_US",
+  "components": [
+    "example_value"
+  ],
+  "parameter_format": "POSITIONAL",
+  "quality_score": {
+    "score": "example_value"
+  }
+}

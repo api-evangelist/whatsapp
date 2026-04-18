@@ -1,0 +1,18 @@
+{
+  "type": "text",
+  "text": "Hello from WhatsApp!",
+  "payload": "example_value",
+  "coupon_code": "example_value",
+  "image": "example_value",
+  "video": "wamid.abc123",
+  "document": "example_value",
+  "location": "example_value",
+  "currency": {
+    "fallback_value": "example_value",
+    "code": "example_value",
+    "amount_1000": 42
+  },
+  "date_time": {
+    "fallback_value": "example_value"
+  }
+}

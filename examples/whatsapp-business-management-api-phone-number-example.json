@@ -1,0 +1,14 @@
+{
+  "id": "wamid.abc123",
+  "display_phone_number": "+15551234567",
+  "verified_name": "Example Business",
+  "quality_rating": "GREEN",
+  "code_verification_status": "VERIFIED",
+  "is_official_business_account": true,
+  "name_status": "Example Business",
+  "platform_type": "CLOUD_API",
+  "throughput": {
+    "level": "STANDARD"
+  },
+  "account_mode": "LIVE"
+}

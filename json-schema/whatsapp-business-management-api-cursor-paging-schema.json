@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-business-management-api-cursor-paging-schema.json",
+  "title": "CursorPaging",
+  "description": "CursorPaging from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "cursors": {
+      "type": "object",
+      "properties": {
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        }
+      }
+    },
+    "next": {
+      "type": "string",
+      "format": "uri",
+      "example": "example_value"
+    },
+    "previous": {
+      "type": "string",
+      "format": "uri",
+      "example": "example_value"
+    }
+  }
+}

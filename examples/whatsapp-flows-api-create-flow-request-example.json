@@ -1,0 +1,8 @@
+{
+  "name": "Example Business",
+  "categories": [
+    "LEAD_GENERATION"
+  ],
+  "clone_flow_id": "wamid.abc123",
+  "endpoint_uri": "example_value"
+}

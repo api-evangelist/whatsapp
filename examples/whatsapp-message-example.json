@@ -1,0 +1,12 @@
+{
+  "messaging_product": "example_value",
+  "recipient_type": "text",
+  "to": "example_value",
+  "type": "contacts",
+  "context": "Hello from WhatsApp!",
+  "biz_opaque_callback_data": "example_value",
+  "text": "Hello from WhatsApp!",
+  "image": "example_value",
+  "video": "wamid.abc123",
+  "audio": "example_value"
+}

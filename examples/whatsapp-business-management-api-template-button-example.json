@@ -1,0 +1,10 @@
+{
+  "type": "QUICK_REPLY",
+  "text": "Hello from WhatsApp!",
+  "url": "https://example.com/image.jpg",
+  "phone_number": "+15551234567",
+  "example": "example_value",
+  "flow_id": "wamid.abc123",
+  "flow_action": "example_value",
+  "navigate_screen": "example_value"
+}

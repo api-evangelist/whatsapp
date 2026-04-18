@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-cloud-api-contact-object-schema.json",
+  "title": "ContactObject",
+  "description": "ContactObject from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "object",
+      "required": [
+        "formatted_name"
+      ],
+      "properties": {
+        "formatted_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        }
+      }
+    },
+    "addresses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "country_code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "HOME",
+              "WORK"
+            ]
+          }
+        }
+      }
+    },
+    "birthday": {
+      "type": "string",
+      "description": "Birthday in YYYY-MM-DD format",
+      "example": "example_value"
+    },
+    "emails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "HOME",
+              "WORK"
+            ]
+          }
+        }
+      }
+    },
+    "org": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "CELL",
+              "MAIN",
+              "IPHONE",
+              "HOME",
+              "WORK"
+            ]
+          },
+          "wa_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "urls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "HOME",
+              "WORK"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

@@ -15,32 +15,33 @@ externalDocs:
   description: WhatsApp Flows Documentation
   url: https://developers.facebook.com/docs/whatsapp/flows
 servers:
-  - url: https://graph.facebook.com/v21.0
-    description: Meta Graph API Production Server
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
 tags:
-  - name: Assets
-    description: Upload and retrieve flow JSON assets
-  - name: Flows
-    description: Create, read, update, and delete flows
-  - name: Lifecycle
-    description: Publish and deprecate flows
+- name: Assets
+  description: Upload and retrieve flow JSON assets
+- name: Flows
+  description: Create, read, update, and delete flows
+- name: Lifecycle
+  description: Publish and deprecate flows
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /{waba-id}/flows:
     get:
       operationId: listFlows
-      summary: WhatsApp List flows
+      summary: WhatsApp List Flows
       description: Lists all flows for a WhatsApp Business Account.
       tags:
-        - Flows
+      - Flows
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: fields
-          in: query
-          description: Comma-separated fields to return
-          schema:
-            type: string
+      - $ref: '#/components/parameters/WabaId'
+      - name: fields
+        in: query
+        description: Comma-separated fields to return
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Flows retrieved
@@ -55,14 +56,17 @@ paths:
                       $ref: '#/components/schemas/Flow'
                   paging:
                     $ref: '#/components/schemas/CursorPaging'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createFlow
-      summary: WhatsApp Create flow
+      summary: WhatsApp Create Flow
       description: Creates a new flow for a WhatsApp Business Account.
       tags:
-        - Flows
+      - Flows
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       requestBody:
         required: true
         content:
@@ -80,20 +84,24 @@ paths:
                   id:
                     type: string
                     description: Flow ID
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{flow-id}:
     get:
       operationId: getFlow
-      summary: WhatsApp Get flow
+      summary: WhatsApp Get Flow
       description: Retrieves details about a specific flow.
       tags:
-        - Flows
+      - Flows
       parameters:
-        - $ref: '#/components/parameters/FlowId'
-        - name: fields
-          in: query
-          description: Comma-separated fields to return
-          schema:
-            type: string
+      - $ref: '#/components/parameters/FlowId'
+      - name: fields
+        in: query
+        description: Comma-separated fields to return
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Flow retrieved
@@ -101,16 +109,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Flow'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: updateFlow
-      summary: WhatsApp Update flow
+      summary: WhatsApp Update Flow
       description: >-
         Updates a flow. Only DRAFT flows can be updated. Published flows cannot
         be modified; clone them instead.
       tags:
-        - Flows
+      - Flows
       parameters:
-        - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/FlowId'
       requestBody:
         required: true
         content:
@@ -124,16 +135,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteFlow
-      summary: WhatsApp Delete flow
+      summary: WhatsApp Delete Flow
       description: >-
         Deletes a flow. Only DRAFT flows can be deleted. Published flows must
         be deprecated instead.
       tags:
-        - Flows
+      - Flows
       parameters:
-        - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/FlowId'
       responses:
         '200':
           description: Flow deleted
@@ -141,15 +155,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{flow-id}/assets:
     get:
       operationId: getFlowAssets
-      summary: WhatsApp Get flow assets
+      summary: WhatsApp Get Flow Assets
       description: Retrieves the assets (flow JSON file) for a flow.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/FlowId'
       responses:
         '200':
           description: Assets retrieved
@@ -172,16 +189,19 @@ paths:
                           format: uri
                   paging:
                     $ref: '#/components/schemas/CursorPaging'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: uploadFlowJson
-      summary: WhatsApp Upload flow JSON
+      summary: WhatsApp Upload Flow JSON
       description: >-
         Uploads or replaces the flow JSON definition file. The file is validated
         on upload and any errors are returned in the response.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/FlowId'
       requestBody:
         required: true
         content:
@@ -189,9 +209,9 @@ paths:
             schema:
               type: object
               required:
-                - file
-                - name
-                - asset_type
+              - file
+              - name
+              - asset_type
               properties:
                 file:
                   type: string
@@ -200,11 +220,11 @@ paths:
                 name:
                   type: string
                   enum:
-                    - flow.json
+                  - flow.json
                 asset_type:
                   type: string
                   enum:
-                    - FLOW_JSON
+                  - FLOW_JSON
       responses:
         '200':
           description: Flow JSON uploaded
@@ -219,17 +239,20 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/FlowValidationError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{flow-id}/publish:
     post:
       operationId: publishFlow
-      summary: WhatsApp Publish flow
+      summary: WhatsApp Publish Flow
       description: >-
         Publishes a draft flow, making it available for use in messages. The
         flow must have a valid uploaded flow JSON with no validation errors.
       tags:
-        - Lifecycle
+      - Lifecycle
       parameters:
-        - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/FlowId'
       responses:
         '200':
           description: Flow published
@@ -237,17 +260,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{flow-id}/deprecate:
     post:
       operationId: deprecateFlow
-      summary: WhatsApp Deprecate flow
+      summary: WhatsApp Deprecate Flow
       description: >-
         Deprecates a published flow. Deprecated flows remain visible in history
         but cannot be sent to customers.
       tags:
-        - Lifecycle
+      - Lifecycle
       parameters:
-        - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/FlowId'
       responses:
         '200':
           description: Flow deprecated
@@ -255,6 +281,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -282,40 +311,46 @@ components:
       properties:
         id:
           type: string
+          example: wamid.abc123
         name:
           type: string
+          example: Example Business
         status:
           type: string
           enum:
-            - DRAFT
-            - PUBLISHED
-            - DEPRECATED
-            - BLOCKED
-            - THROTTLED
+          - DRAFT
+          - PUBLISHED
+          - DEPRECATED
+          - BLOCKED
+          - THROTTLED
+          example: DRAFT
         categories:
           type: array
           items:
             type: string
             enum:
-              - SIGN_UP
-              - SIGN_IN
-              - APPOINTMENT_BOOKING
-              - LEAD_GENERATION
-              - CONTACT_US
-              - CUSTOMER_SUPPORT
-              - SURVEY
-              - OTHER
+            - SIGN_UP
+            - SIGN_IN
+            - APPOINTMENT_BOOKING
+            - LEAD_GENERATION
+            - CONTACT_US
+            - CUSTOMER_SUPPORT
+            - SURVEY
+            - OTHER
         validation_errors:
           type: array
           items:
             $ref: '#/components/schemas/FlowValidationError'
         json_version:
           type: string
+          example: example_value
         data_api_version:
           type: string
+          example: example_value
         endpoint_uri:
           type: string
           format: uri
+          example: example_value
         preview:
           type: object
           properties:
@@ -337,37 +372,41 @@ components:
     CreateFlowRequest:
       type: object
       required:
-        - name
-        - categories
+      - name
+      - categories
       properties:
         name:
           type: string
           description: Flow display name
+          example: Example Business
         categories:
           type: array
           items:
             type: string
             enum:
-              - SIGN_UP
-              - SIGN_IN
-              - APPOINTMENT_BOOKING
-              - LEAD_GENERATION
-              - CONTACT_US
-              - CUSTOMER_SUPPORT
-              - SURVEY
-              - OTHER
+            - SIGN_UP
+            - SIGN_IN
+            - APPOINTMENT_BOOKING
+            - LEAD_GENERATION
+            - CONTACT_US
+            - CUSTOMER_SUPPORT
+            - SURVEY
+            - OTHER
         clone_flow_id:
           type: string
           description: ID of existing flow to clone
+          example: wamid.abc123
         endpoint_uri:
           type: string
           format: uri
           description: HTTPS endpoint for data exchange
+          example: example_value
     UpdateFlowRequest:
       type: object
       properties:
         name:
           type: string
+          example: Example Business
         categories:
           type: array
           items:
@@ -375,25 +414,34 @@ components:
         endpoint_uri:
           type: string
           format: uri
+          example: example_value
         application_id:
           type: string
+          example: wamid.abc123
     FlowValidationError:
       type: object
       properties:
         error:
           type: string
+          example: example_value
         error_type:
           type: string
+          example: text
         message:
           type: string
+          example: Hello from WhatsApp!
         line_start:
           type: integer
+          example: 42
         line_end:
           type: integer
+          example: 42
         column_start:
           type: integer
+          example: 42
         column_end:
           type: integer
+          example: 42
         pointers:
           type: array
           items:
@@ -411,8 +459,10 @@ components:
         next:
           type: string
           format: uri
+          example: example_value
     SuccessResponse:
       type: object
       properties:
         success:
           type: boolean
+          example: true

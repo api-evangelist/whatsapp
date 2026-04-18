@@ -1,0 +1,15 @@
+{
+  "id": "wamid.abc123",
+  "name": "Example Business",
+  "currency": "example_value",
+  "timezone_id": "wamid.abc123",
+  "country": "example_value",
+  "status": "ACTIVE",
+  "business_verification_status": "sent",
+  "message_template_namespace": "Example Business",
+  "owner_business": {
+    "id": "wamid.abc123",
+    "name": "Example Business"
+  },
+  "primary_funding_id": "wamid.abc123"
+}

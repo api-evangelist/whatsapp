@@ -4,192 +4,489 @@
     "wa": "https://developers.facebook.com/docs/whatsapp/schema/",
     "schema": "https://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "dcterms": "http://purl.org/dc/terms/",
-
-    "name": "schema:name",
-    "description": "schema:description",
-    "url": {
-      "@id": "schema:url",
+    "AudioObject": "wa:AudioObject",
+    "ContactObject": "wa:ContactObject",
+    "ConversationAnalytics": "wa:ConversationAnalytics",
+    "CreateFlowRequest": "wa:CreateFlowRequest",
+    "CreateTemplateRequest": "wa:CreateTemplateRequest",
+    "CursorPaging": "wa:CursorPaging",
+    "DocumentObject": "wa:DocumentObject",
+    "Flow": "wa:Flow",
+    "FlowValidationError": "wa:FlowValidationError",
+    "InteractiveMessage": "wa:InteractiveMessage",
+    "ListSection": "wa:ListSection",
+    "LocationMessage": "wa:LocationMessage",
+    "MediaObject": "wa:MediaObject",
+    "MessageTemplate": "wa:MessageTemplate",
+    "PhoneNumber": "wa:PhoneNumber",
+    "ReactionMessage": "wa:ReactionMessage",
+    "SendMessageRequest": "wa:SendMessageRequest",
+    "SendMessageResponse": "wa:SendMessageResponse",
+    "StickerObject": "wa:StickerObject",
+    "SuccessResponse": "wa:SuccessResponse",
+    "TemplateAnalytics": "wa:TemplateAnalytics",
+    "TemplateButton": "wa:TemplateButton",
+    "TemplateComponent": "wa:TemplateComponent",
+    "TemplateComponentDefinition": "wa:TemplateComponentDefinition",
+    "TemplateMessage": "wa:TemplateMessage",
+    "TemplateParameter": "wa:TemplateParameter",
+    "TextMessage": "wa:TextMessage",
+    "UpdateFlowRequest": "wa:UpdateFlowRequest",
+    "WhatsApp Flow JSON": "wa:WhatsApp Flow JSON",
+    "WhatsApp Message": "wa:WhatsApp Message",
+    "WhatsApp Message Template": "wa:WhatsApp Message Template",
+    "WhatsApp Webhook Payload": "wa:WhatsApp Webhook Payload",
+    "WhatsAppBusinessAccount": "wa:WhatsAppBusinessAccount",
+    "account_mode": {
+      "@id": "wa:account_mode",
+      "@type": "xsd:string"
+    },
+    "action": {
+      "@id": "wa:action",
       "@type": "@id"
     },
-    "email": "schema:email",
-    "telephone": "schema:telephone",
+    "add_security_recommendation": {
+      "@id": "wa:add_security_recommendation",
+      "@type": "xsd:boolean"
+    },
+    "address": {
+      "@id": "wa:address",
+      "@type": "xsd:string"
+    },
+    "addresses": {
+      "@id": "wa:addresses",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "application_id": {
+      "@id": "wa:application_id",
+      "@type": "xsd:string"
+    },
+    "audio": {
+      "@id": "wa:audio",
+      "@type": "xsd:string"
+    },
+    "birthday": {
+      "@id": "wa:birthday",
+      "@type": "xsd:string"
+    },
+    "biz_opaque_callback_data": {
+      "@id": "wa:biz_opaque_callback_data",
+      "@type": "xsd:string"
+    },
+    "body": {
+      "@id": "wa:body",
+      "@type": "@id"
+    },
+    "business_verification_status": {
+      "@id": "wa:business_verification_status",
+      "@type": "xsd:string"
+    },
+    "buttons": {
+      "@id": "wa:buttons",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "caption": {
+      "@id": "wa:caption",
+      "@type": "xsd:string"
+    },
+    "categories": {
+      "@id": "wa:categories",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "wa:category",
+      "@type": "xsd:string"
+    },
+    "clone_flow_id": {
+      "@id": "wa:clone_flow_id",
+      "@type": "xsd:string"
+    },
+    "code_expiration_minutes": {
+      "@id": "wa:code_expiration_minutes",
+      "@type": "xsd:integer"
+    },
+    "code_verification_status": {
+      "@id": "wa:code_verification_status",
+      "@type": "xsd:string"
+    },
+    "column_end": {
+      "@id": "wa:column_end",
+      "@type": "xsd:integer"
+    },
+    "column_start": {
+      "@id": "wa:column_start",
+      "@type": "xsd:integer"
+    },
+    "components": {
+      "@id": "wa:components",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "contacts": {
+      "@id": "wa:contacts",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "context": {
+      "@id": "wa:context",
+      "@type": "@id"
+    },
+    "conversation_analytics": {
+      "@id": "wa:conversation_analytics",
+      "@type": "@id"
+    },
+    "country": {
+      "@id": "wa:country",
+      "@type": "xsd:string"
+    },
+    "coupon_code": {
+      "@id": "wa:coupon_code",
+      "@type": "xsd:string"
+    },
+    "currency": {
+      "@id": "wa:currency",
+      "@type": "xsd:string"
+    },
+    "cursors": {
+      "@id": "wa:cursors",
+      "@type": "@id"
+    },
+    "data_api_version": {
+      "@id": "wa:data_api_version",
+      "@type": "xsd:string"
+    },
+    "date_time": {
+      "@id": "wa:date_time",
+      "@type": "@id"
+    },
+    "display_phone_number": {
+      "@id": "wa:display_phone_number",
+      "@type": "xsd:string"
+    },
+    "document": {
+      "@id": "wa:document",
+      "@type": "xsd:string"
+    },
+    "emails": {
+      "@id": "wa:emails",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "emoji": {
+      "@id": "wa:emoji",
+      "@type": "xsd:string"
+    },
+    "endpoint_uri": {
+      "@id": "wa:endpoint_uri",
+      "@type": "xsd:string"
+    },
+    "entry": {
+      "@id": "wa:entry",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "error": {
+      "@id": "wa:error",
+      "@type": "xsd:string"
+    },
+    "error_type": {
+      "@id": "wa:error_type",
+      "@type": "xsd:string"
+    },
+    "example": {
+      "@id": "wa:example",
+      "@type": "xsd:string"
+    },
+    "filename": {
+      "@id": "wa:filename",
+      "@type": "xsd:string"
+    },
+    "flow_action": {
+      "@id": "wa:flow_action",
+      "@type": "xsd:string"
+    },
+    "flow_id": {
+      "@id": "wa:flow_id",
+      "@type": "xsd:string"
+    },
+    "footer": {
+      "@id": "wa:footer",
+      "@type": "@id"
+    },
+    "format": {
+      "@id": "wa:format",
+      "@type": "xsd:string"
+    },
+    "header": {
+      "@id": "wa:header",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "wa:id",
+      "@type": "xsd:string"
+    },
     "image": {
-      "@id": "schema:image",
+      "@id": "wa:image",
+      "@type": "xsd:string"
+    },
+    "index": {
+      "@id": "wa:index",
+      "@type": "xsd:string"
+    },
+    "interactive": {
+      "@id": "wa:interactive",
+      "@type": "xsd:string"
+    },
+    "is_official_business_account": {
+      "@id": "wa:is_official_business_account",
+      "@type": "xsd:boolean"
+    },
+    "json_version": {
+      "@id": "wa:json_version",
+      "@type": "xsd:string"
+    },
+    "language": {
+      "@id": "wa:language",
+      "@type": "xsd:string"
+    },
+    "latitude": {
+      "@id": "wa:latitude",
+      "@type": "xsd:decimal"
+    },
+    "line_end": {
+      "@id": "wa:line_end",
+      "@type": "xsd:integer"
+    },
+    "line_start": {
+      "@id": "wa:line_start",
+      "@type": "xsd:integer"
+    },
+    "link": {
+      "@id": "wa:link",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "wa:location",
+      "@type": "xsd:string"
+    },
+    "longitude": {
+      "@id": "wa:longitude",
+      "@type": "xsd:decimal"
+    },
+    "message": {
+      "@id": "wa:message",
+      "@type": "xsd:string"
+    },
+    "message_id": {
+      "@id": "wa:message_id",
+      "@type": "xsd:string"
+    },
+    "message_template_namespace": {
+      "@id": "wa:message_template_namespace",
+      "@type": "xsd:string"
+    },
+    "messages": {
+      "@id": "wa:messages",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "messaging_limit_tier": {
+      "@id": "wa:messaging_limit_tier",
+      "@type": "xsd:string"
+    },
+    "messaging_product": {
+      "@id": "wa:messaging_product",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "wa:name",
+      "@type": "xsd:string"
+    },
+    "name_status": {
+      "@id": "wa:name_status",
+      "@type": "xsd:string"
+    },
+    "navigate_screen": {
+      "@id": "wa:navigate_screen",
+      "@type": "xsd:string"
+    },
+    "next": {
+      "@id": "wa:next",
+      "@type": "xsd:string"
+    },
+    "object": {
+      "@id": "wa:object",
+      "@type": "xsd:string"
+    },
+    "org": {
+      "@id": "wa:org",
       "@type": "@id"
     },
-    "identifier": "schema:identifier",
-    "dateCreated": {
-      "@id": "dcterms:created",
-      "@type": "xsd:dateTime"
+    "owner_business": {
+      "@id": "wa:owner_business",
+      "@type": "@id"
     },
-    "dateModified": {
-      "@id": "dcterms:modified",
-      "@type": "xsd:dateTime"
+    "parameter_format": {
+      "@id": "wa:parameter_format",
+      "@type": "xsd:string"
     },
-
-    "WhatsAppBusinessAccount": {
-      "@id": "wa:WhatsAppBusinessAccount",
-      "@context": {
-        "accountId": "wa:accountId",
-        "accountName": "wa:accountName",
-        "currency": "wa:currency",
-        "timezoneId": "wa:timezoneId",
-        "country": "wa:country",
-        "status": "wa:accountStatus",
-        "verificationStatus": "wa:businessVerificationStatus",
-        "templateNamespace": "wa:messageTemplateNamespace",
-        "ownerBusiness": {
-          "@id": "wa:ownerBusiness",
-          "@type": "@id"
-        },
-        "phoneNumbers": {
-          "@id": "wa:phoneNumbers",
-          "@container": "@set"
-        }
-      }
+    "parameters": {
+      "@id": "wa:parameters",
+      "@container": "@set",
+      "@type": "xsd:string"
     },
-
-    "PhoneNumber": {
-      "@id": "wa:PhoneNumber",
-      "@context": {
-        "phoneNumberId": "wa:phoneNumberId",
-        "displayPhoneNumber": "schema:telephone",
-        "verifiedName": "wa:verifiedName",
-        "qualityRating": "wa:qualityRating",
-        "platformType": "wa:platformType",
-        "accountMode": "wa:accountMode",
-        "messagingLimitTier": "wa:messagingLimitTier",
-        "isOfficialBusinessAccount": "wa:isOfficialBusinessAccount"
-      }
+    "payload": {
+      "@id": "wa:payload",
+      "@type": "xsd:string"
     },
-
-    "BusinessProfile": {
-      "@id": "wa:BusinessProfile",
-      "@context": {
-        "about": "wa:about",
-        "address": "schema:address",
-        "vertical": "wa:vertical",
-        "websites": {
-          "@id": "wa:websites",
-          "@type": "@id",
-          "@container": "@set"
-        },
-        "profilePictureUrl": {
-          "@id": "wa:profilePictureUrl",
-          "@type": "@id"
-        }
-      }
+    "phone_number": {
+      "@id": "wa:phone_number",
+      "@type": "xsd:string"
     },
-
-    "Message": {
-      "@id": "wa:Message",
-      "@context": {
-        "messageId": "wa:messageId",
-        "from": "wa:senderPhoneNumber",
-        "to": "wa:recipientPhoneNumber",
-        "timestamp": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "messageType": "wa:messageType",
-        "status": "wa:deliveryStatus",
-        "body": "wa:messageBody"
-      }
+    "phones": {
+      "@id": "wa:phones",
+      "@container": "@set",
+      "@type": "xsd:string"
     },
-
-    "MessageTemplate": {
-      "@id": "wa:MessageTemplate",
-      "@context": {
-        "templateId": "wa:templateId",
-        "templateName": "wa:templateName",
-        "language": "schema:inLanguage",
-        "category": "wa:templateCategory",
-        "status": "wa:approvalStatus",
-        "components": {
-          "@id": "wa:templateComponents",
-          "@container": "@list"
-        },
-        "qualityScore": "wa:qualityScore"
-      }
+    "platform_type": {
+      "@id": "wa:platform_type",
+      "@type": "xsd:string"
     },
-
-    "Flow": {
-      "@id": "wa:Flow",
-      "@context": {
-        "flowId": "wa:flowId",
-        "flowName": "wa:flowName",
-        "status": "wa:flowStatus",
-        "categories": {
-          "@id": "wa:flowCategories",
-          "@container": "@set"
-        },
-        "jsonVersion": "wa:jsonVersion",
-        "dataApiVersion": "wa:dataApiVersion",
-        "endpointUri": {
-          "@id": "wa:endpointUri",
-          "@type": "@id"
-        }
-      }
+    "pointers": {
+      "@id": "wa:pointers",
+      "@container": "@set",
+      "@type": "xsd:string"
     },
-
-    "Media": {
-      "@id": "wa:Media",
-      "@context": {
-        "mediaId": "wa:mediaId",
-        "mimeType": "schema:encodingFormat",
-        "sha256": "wa:sha256",
-        "fileSize": "schema:contentSize",
-        "downloadUrl": {
-          "@id": "schema:contentUrl",
-          "@type": "@id"
-        }
-      }
+    "preview": {
+      "@id": "wa:preview",
+      "@type": "@id"
     },
-
-    "Contact": {
-      "@id": "schema:Person",
-      "@context": {
-        "formattedName": "schema:name",
-        "firstName": "schema:givenName",
-        "lastName": "schema:familyName",
-        "birthday": {
-          "@id": "schema:birthDate",
-          "@type": "xsd:date"
-        },
-        "organization": "schema:worksFor",
-        "jobTitle": "schema:jobTitle"
-      }
+    "preview_url": {
+      "@id": "wa:preview_url",
+      "@type": "xsd:boolean"
     },
-
-    "Conversation": {
-      "@id": "wa:Conversation",
-      "@context": {
-        "conversationId": "wa:conversationId",
-        "origin": "wa:conversationOrigin",
-        "expirationTimestamp": {
-          "@id": "wa:expirationTimestamp",
-          "@type": "xsd:dateTime"
-        },
-        "billable": "wa:billable",
-        "pricingCategory": "wa:pricingCategory"
-      }
+    "previous": {
+      "@id": "wa:previous",
+      "@type": "xsd:string"
     },
-
-    "QrCode": {
-      "@id": "wa:QrCode",
-      "@context": {
-        "code": "wa:qrCodeId",
-        "prefilledMessage": "wa:prefilledMessage",
-        "deepLinkUrl": {
-          "@id": "wa:deepLinkUrl",
-          "@type": "@id"
-        },
-        "qrImageUrl": {
-          "@id": "wa:qrImageUrl",
-          "@type": "@id"
-        }
-      }
+    "primary_funding_id": {
+      "@id": "wa:primary_funding_id",
+      "@type": "xsd:string"
+    },
+    "purchase_order_number": {
+      "@id": "wa:purchase_order_number",
+      "@type": "xsd:string"
+    },
+    "quality_rating": {
+      "@id": "wa:quality_rating",
+      "@type": "xsd:string"
+    },
+    "quality_score": {
+      "@id": "wa:quality_score",
+      "@type": "@id"
+    },
+    "reaction": {
+      "@id": "wa:reaction",
+      "@type": "xsd:string"
+    },
+    "recipient_type": {
+      "@id": "wa:recipient_type",
+      "@type": "xsd:string"
+    },
+    "routing_model": {
+      "@id": "wa:routing_model",
+      "@type": "@id"
+    },
+    "rows": {
+      "@id": "wa:rows",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "screens": {
+      "@id": "wa:screens",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "wa:status",
+      "@type": "xsd:string"
+    },
+    "sticker": {
+      "@id": "wa:sticker",
+      "@type": "xsd:string"
+    },
+    "sub_type": {
+      "@id": "wa:sub_type",
+      "@type": "xsd:string"
+    },
+    "success": {
+      "@id": "wa:success",
+      "@type": "xsd:boolean"
+    },
+    "template": {
+      "@id": "wa:template",
+      "@type": "xsd:string"
+    },
+    "template_analytics": {
+      "@id": "wa:template_analytics",
+      "@type": "@id"
+    },
+    "text": {
+      "@id": "wa:text",
+      "@type": "xsd:string"
+    },
+    "throughput": {
+      "@id": "wa:throughput",
+      "@type": "@id"
+    },
+    "timezone_id": {
+      "@id": "wa:timezone_id",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "wa:title",
+      "@type": "xsd:string"
+    },
+    "to": {
+      "@id": "wa:to",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "wa:type",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "wa:url",
+      "@type": "xsd:string"
+    },
+    "urls": {
+      "@id": "wa:urls",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "validation_errors": {
+      "@id": "wa:validation_errors",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "verified_name": {
+      "@id": "wa:verified_name",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "wa:version",
+      "@type": "xsd:string"
+    },
+    "video": {
+      "@id": "wa:video",
+      "@type": "xsd:string"
+    },
+    "whatsapp_business_account": {
+      "@id": "wa:whatsapp_business_account",
+      "@type": "@id"
     }
   }
 }

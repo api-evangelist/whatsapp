@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-business-management-api-template-analytics-structure.json",
+  "name": "TemplateAnalytics",
+  "description": "TemplateAnalytics from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "template_analytics": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "template_id": {
+                "type": "string"
+              },
+              "data_points": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "integer"
+                    },
+                    "end": {
+                      "type": "integer"
+                    },
+                    "sent": {
+                      "type": "integer"
+                    },
+                    "delivered": {
+                      "type": "integer"
+                    },
+                    "read": {
+                      "type": "integer"
+                    },
+                    "clicked": {
+                      "type": "integer"
+                    },
+                    "cost": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Example Business",
+  "language": {
+    "code": "example_value",
+    "policy": "example_value"
+  },
+  "components": [
+    "example_value"
+  ]
+}

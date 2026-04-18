@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-flows-api-cursor-paging-structure.json",
+  "name": "CursorPaging",
+  "description": "CursorPaging from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "cursors": {
+      "type": "object",
+      "properties": {
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        }
+      }
+    },
+    "next": {
+      "type": "string",
+      "format": "uri",
+      "example": "example_value"
+    }
+  }
+}

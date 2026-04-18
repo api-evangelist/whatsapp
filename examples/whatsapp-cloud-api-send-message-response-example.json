@@ -1,0 +1,14 @@
+{
+  "messaging_product": "example_value",
+  "contacts": [
+    {
+      "input": "example_value",
+      "wa_id": "wamid.abc123"
+    }
+  ],
+  "messages": [
+    {
+      "id": "wamid.abc123"
+    }
+  ]
+}

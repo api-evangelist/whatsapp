@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-flows-api-create-flow-request-structure.json",
+  "name": "CreateFlowRequest",
+  "description": "CreateFlowRequest from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Flow display name",
+      "example": "Example Business"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "SIGN_UP",
+          "SIGN_IN",
+          "APPOINTMENT_BOOKING",
+          "LEAD_GENERATION",
+          "CONTACT_US",
+          "CUSTOMER_SUPPORT",
+          "SURVEY",
+          "OTHER"
+        ]
+      }
+    },
+    "clone_flow_id": {
+      "type": "string",
+      "description": "ID of existing flow to clone",
+      "example": "wamid.abc123"
+    },
+    "endpoint_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "HTTPS endpoint for data exchange",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "name",
+    "categories"
+  ]
+}

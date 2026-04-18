@@ -1,0 +1,12 @@
+{
+  "error": "example_value",
+  "error_type": "text",
+  "message": "Hello from WhatsApp!",
+  "line_start": 42,
+  "line_end": 42,
+  "column_start": 42,
+  "column_end": 42,
+  "pointers": [
+    "example_value"
+  ]
+}

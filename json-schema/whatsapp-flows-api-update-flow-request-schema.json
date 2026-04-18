@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-flows-api-update-flow-request-schema.json",
+  "title": "UpdateFlowRequest",
+  "description": "UpdateFlowRequest from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "endpoint_uri": {
+      "type": "string",
+      "format": "uri",
+      "example": "example_value"
+    },
+    "application_id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    }
+  }
+}

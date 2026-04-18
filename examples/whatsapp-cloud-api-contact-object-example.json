@@ -1,0 +1,46 @@
+{
+  "name": {
+    "formatted_name": "Example Business",
+    "first_name": "Example Business",
+    "last_name": "Example Business",
+    "middle_name": "wamid.abc123",
+    "prefix": "example_value",
+    "suffix": "example_value"
+  },
+  "addresses": [
+    {
+      "street": "example_value",
+      "city": "example_value",
+      "state": "example_value",
+      "zip": "example_value",
+      "country": "example_value",
+      "country_code": "example_value",
+      "type": "WORK"
+    }
+  ],
+  "birthday": "example_value",
+  "emails": [
+    {
+      "email": "example_value",
+      "type": "HOME"
+    }
+  ],
+  "org": {
+    "company": "example_value",
+    "department": "example_value",
+    "title": "example_value"
+  },
+  "phones": [
+    {
+      "phone": "+15551234567",
+      "type": "HOME",
+      "wa_id": "wamid.abc123"
+    }
+  ],
+  "urls": [
+    {
+      "url": "https://example.com/media.jpg",
+      "type": "WORK"
+    }
+  ]
+}

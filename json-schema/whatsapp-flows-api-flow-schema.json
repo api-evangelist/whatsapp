@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-flows-api-flow-schema.json",
+  "title": "Flow",
+  "description": "Flow from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "PUBLISHED",
+        "DEPRECATED",
+        "BLOCKED",
+        "THROTTLED"
+      ],
+      "example": "DRAFT"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "SIGN_UP",
+          "SIGN_IN",
+          "APPOINTMENT_BOOKING",
+          "LEAD_GENERATION",
+          "CONTACT_US",
+          "CUSTOMER_SUPPORT",
+          "SURVEY",
+          "OTHER"
+        ]
+      }
+    },
+    "validation_errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/FlowValidationError"
+      }
+    },
+    "json_version": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "data_api_version": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "endpoint_uri": {
+      "type": "string",
+      "format": "uri",
+      "example": "example_value"
+    },
+    "preview": {
+      "type": "object",
+      "properties": {
+        "preview_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "whatsapp_business_account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

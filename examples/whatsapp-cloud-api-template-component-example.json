@@ -1,0 +1,8 @@
+{
+  "type": "header",
+  "sub_type": "quick_reply",
+  "index": "example_value",
+  "parameters": [
+    "example_value"
+  ]
+}

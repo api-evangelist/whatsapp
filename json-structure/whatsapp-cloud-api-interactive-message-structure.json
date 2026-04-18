@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-cloud-api-interactive-message-structure.json",
+  "name": "InteractiveMessage",
+  "description": "InteractiveMessage from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "button",
+        "list",
+        "product",
+        "product_list",
+        "cta_url",
+        "location_request_message",
+        "flow"
+      ],
+      "example": "button"
+    },
+    "header": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "text",
+            "image",
+            "video",
+            "document"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "image": {
+          "$ref": "#/components/schemas/MediaObject"
+        },
+        "video": {
+          "$ref": "#/components/schemas/MediaObject"
+        },
+        "document": {
+          "$ref": "#/components/schemas/DocumentObject"
+        }
+      }
+    },
+    "body": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 1024
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 60
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "description": "Action configuration varies by interactive type",
+      "properties": {
+        "buttons": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "reply"
+                ]
+              },
+              "reply": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "maxLength": 256
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 20
+                  }
+                }
+              }
+            }
+          }
+        },
+        "button": {
+          "type": "string",
+          "description": "Button text for list messages",
+          "maxLength": 20
+        },
+        "sections": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/components/schemas/ListSection"
+          }
+        },
+        "catalog_id": {
+          "type": "string"
+        },
+        "product_retailer_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "description": "Action name for CTA URL or flow messages"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Parameters for CTA URL or flow actions"
+        }
+      }
+    }
+  },
+  "required": [
+    "type",
+    "action"
+  ]
+}

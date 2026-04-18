@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-business-management-api-create-template-request-schema.json",
+  "title": "CreateTemplateRequest",
+  "description": "CreateTemplateRequest from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Template name (lowercase, underscores only, max 512 chars)",
+      "maxLength": 512,
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "example": "Example Business"
+    },
+    "language": {
+      "type": "string",
+      "description": "Language code",
+      "example": "en_US"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "AUTHENTICATION",
+        "MARKETING",
+        "UTILITY"
+      ],
+      "example": "AUTHENTICATION"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TemplateComponentDefinition"
+      }
+    },
+    "parameter_format": {
+      "type": "string",
+      "enum": [
+        "POSITIONAL",
+        "NAMED"
+      ],
+      "example": "POSITIONAL"
+    }
+  },
+  "required": [
+    "name",
+    "language",
+    "category",
+    "components"
+  ]
+}

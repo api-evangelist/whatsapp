@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-flows-api-flow-validation-error-structure.json",
+  "name": "FlowValidationError",
+  "description": "FlowValidationError from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "error_type": {
+      "type": "string",
+      "example": "text"
+    },
+    "message": {
+      "type": "string",
+      "example": "Hello from WhatsApp!"
+    },
+    "line_start": {
+      "type": "int32",
+      "example": 42
+    },
+    "line_end": {
+      "type": "int32",
+      "example": 42
+    },
+    "column_start": {
+      "type": "int32",
+      "example": 42
+    },
+    "column_end": {
+      "type": "int32",
+      "example": 42
+    },
+    "pointers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

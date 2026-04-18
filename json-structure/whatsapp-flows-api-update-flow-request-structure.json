@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-flows-api-update-flow-request-structure.json",
+  "name": "UpdateFlowRequest",
+  "description": "UpdateFlowRequest from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "endpoint_uri": {
+      "type": "string",
+      "format": "uri",
+      "example": "example_value"
+    },
+    "application_id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    }
+  }
+}

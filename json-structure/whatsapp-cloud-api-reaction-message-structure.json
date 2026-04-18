@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-cloud-api-reaction-message-structure.json",
+  "name": "ReactionMessage",
+  "description": "ReactionMessage from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "description": "ID of the message to react to",
+      "example": "wamid.abc123"
+    },
+    "emoji": {
+      "type": "string",
+      "description": "Emoji character or empty string to remove reaction",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "message_id",
+    "emoji"
+  ]
+}

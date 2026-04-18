@@ -15,38 +15,38 @@ externalDocs:
   description: WhatsApp Cloud API Documentation
   url: https://developers.facebook.com/docs/whatsapp/cloud-api
 servers:
-  - url: https://graph.facebook.com/v21.0
-    description: Meta Graph API Production Server
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
 tags:
-  - name: Business Profile
-    description: Get and update WhatsApp Business profile information
-  - name: Media
-    description: Upload, retrieve, and delete media files
-  - name: Messages
-    description: Send messages of all types to WhatsApp users
-  - name: Phone Numbers
-    description: Manage and verify phone numbers
-  - name: QR Codes
-    description: Create and manage QR codes for customer conversations
-  - name: Registration
-    description: Register and deregister phone numbers
-  - name: Two-Step Verification
-    description: Manage two-step verification PIN
+- name: Business Profile
+  description: Get and update WhatsApp Business profile information
+- name: Media
+  description: Upload, retrieve, and delete media files
+- name: Messages
+  description: Send messages of all types to WhatsApp users
+- name: Phone Numbers
+  description: Manage and verify phone numbers
+- name: QR Codes
+  description: Create and manage QR codes for customer conversations
+- name: Registration
+  description: Register and deregister phone numbers
+- name: Two-Step Verification
+  description: Manage two-step verification PIN
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /{phone-number-id}/messages:
     post:
       operationId: sendMessage
-      summary: WhatsApp Send a message
+      summary: WhatsApp Send a Message
       description: >-
         Sends a message to a WhatsApp user. The type field in the request body
         determines the message format. Also used to mark incoming messages as
         read by setting status to read.
       tags:
-        - Messages
+      - Messages
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -72,17 +72,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/media:
     post:
       operationId: uploadMedia
-      summary: WhatsApp Upload media
+      summary: WhatsApp Upload Media
       description: >-
         Uploads media to WhatsApp servers. Returns a media ID that can be used
         when sending media messages. Uploaded media persists for 30 days.
       tags:
-        - Media
+      - Media
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -90,9 +93,9 @@ paths:
             schema:
               type: object
               required:
-                - file
-                - type
-                - messaging_product
+              - file
+              - type
+              - messaging_product
               properties:
                 file:
                   type: string
@@ -102,13 +105,13 @@ paths:
                   type: string
                   description: MIME type of the file
                   examples:
-                    - image/jpeg
-                    - video/mp4
-                    - application/pdf
+                  - image/jpeg
+                  - video/mp4
+                  - application/pdf
                 messaging_product:
                   type: string
                   enum:
-                    - whatsapp
+                  - whatsapp
       responses:
         '200':
           description: Media uploaded successfully
@@ -120,18 +123,21 @@ paths:
                   id:
                     type: string
                     description: Media ID for use in messages
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{media-id}:
     get:
       operationId: getMediaUrl
-      summary: WhatsApp Get media URL
+      summary: WhatsApp Get Media URL
       description: >-
         Retrieves a temporary download URL for a media file. The URL expires
         after 5 minutes. To download the file, make a GET request to the
         returned URL with the same Bearer token.
       tags:
-        - Media
+      - Media
       parameters:
-        - $ref: '#/components/parameters/MediaId'
+      - $ref: '#/components/parameters/MediaId'
       responses:
         '200':
           description: Media URL retrieved successfully
@@ -139,14 +145,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MediaResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteMedia
-      summary: WhatsApp Delete media
+      summary: WhatsApp Delete Media
       description: Deletes a media file from WhatsApp servers.
       tags:
-        - Media
+      - Media
       parameters:
-        - $ref: '#/components/parameters/MediaId'
+      - $ref: '#/components/parameters/MediaId'
       responses:
         '200':
           description: Media deleted successfully
@@ -154,20 +163,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}:
     get:
       operationId: getPhoneNumber
-      summary: WhatsApp Get phone number info
+      summary: WhatsApp Get Phone Number Info
       description: Retrieves information about a registered phone number.
       tags:
-        - Phone Numbers
+      - Phone Numbers
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
-        - name: fields
-          in: query
-          description: Comma-separated list of fields to return
-          schema:
-            type: string
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to return
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Phone number info retrieved
@@ -175,14 +188,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PhoneNumberInfo'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: setTwoStepVerification
-      summary: WhatsApp Set two-step verification PIN
+      summary: WhatsApp Set Two-step Verification PIN
       description: Sets or updates the two-step verification PIN for a phone number.
       tags:
-        - Two-Step Verification
+      - Two-Step Verification
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -190,7 +206,7 @@ paths:
             schema:
               type: object
               required:
-                - pin
+              - pin
               properties:
                 pin:
                   type: string
@@ -203,23 +219,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/whatsapp_business_profile:
     get:
       operationId: getBusinessProfile
-      summary: WhatsApp Get business profile
+      summary: WhatsApp Get Business Profile
       description: Retrieves the WhatsApp Business profile for a phone number.
       tags:
-        - Business Profile
+      - Business Profile
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
-        - name: fields
-          in: query
-          required: true
-          description: Comma-separated fields to return
-          schema:
-            type: string
-            examples:
-              - about,address,description,email,profile_picture_url,websites,vertical
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - name: fields
+        in: query
+        required: true
+        description: Comma-separated fields to return
+        schema:
+          type: string
+          examples:
+          - about,address,description,email,profile_picture_url,websites,vertical
+        example: example_value
       responses:
         '200':
           description: Business profile retrieved
@@ -232,14 +252,17 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/BusinessProfile'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: updateBusinessProfile
-      summary: WhatsApp Update business profile
+      summary: WhatsApp Update Business Profile
       description: Updates the WhatsApp Business profile for a phone number.
       tags:
-        - Business Profile
+      - Business Profile
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -253,15 +276,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/request_code:
     post:
       operationId: requestVerificationCode
-      summary: WhatsApp Request verification code
+      summary: WhatsApp Request Verification Code
       description: Requests a verification code via SMS or voice call for phone registration.
       tags:
-        - Registration
+      - Registration
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -269,14 +295,14 @@ paths:
             schema:
               type: object
               required:
-                - code_method
-                - language
+              - code_method
+              - language
               properties:
                 code_method:
                   type: string
                   enum:
-                    - SMS
-                    - VOICE
+                  - SMS
+                  - VOICE
                   description: Delivery method for the verification code
                 language:
                   type: string
@@ -288,15 +314,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/verify_code:
     post:
       operationId: verifyCode
-      summary: WhatsApp Verify phone number
+      summary: WhatsApp Verify Phone Number
       description: Verifies a phone number using the code received via SMS or voice.
       tags:
-        - Registration
+      - Registration
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -304,7 +333,7 @@ paths:
             schema:
               type: object
               required:
-                - code
+              - code
               properties:
                 code:
                   type: string
@@ -316,15 +345,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/register:
     post:
       operationId: registerPhoneNumber
-      summary: WhatsApp Register phone number
+      summary: WhatsApp Register Phone Number
       description: Registers a phone number for use with the Cloud API.
       tags:
-        - Registration
+      - Registration
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -332,13 +364,13 @@ paths:
             schema:
               type: object
               required:
-                - messaging_product
-                - pin
+              - messaging_product
+              - pin
               properties:
                 messaging_product:
                   type: string
                   enum:
-                    - whatsapp
+                  - whatsapp
                 pin:
                   type: string
                   description: 6-digit two-step verification PIN
@@ -352,15 +384,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/deregister:
     post:
       operationId: deregisterPhoneNumber
-      summary: WhatsApp Deregister phone number
+      summary: WhatsApp Deregister Phone Number
       description: Deregisters a phone number from the Cloud API.
       tags:
-        - Registration
+      - Registration
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -368,12 +403,12 @@ paths:
             schema:
               type: object
               required:
-                - messaging_product
+              - messaging_product
               properties:
                 messaging_product:
                   type: string
                   enum:
-                    - whatsapp
+                  - whatsapp
       responses:
         '200':
           description: Phone number deregistered
@@ -381,15 +416,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/message_qrdls:
     post:
       operationId: createQrCode
-      summary: WhatsApp Create QR code
+      summary: WhatsApp Create QR Code
       description: Creates a QR code that customers can scan to start a conversation.
       tags:
-        - QR Codes
+      - QR Codes
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       requestBody:
         required: true
         content:
@@ -397,8 +435,8 @@ paths:
             schema:
               type: object
               required:
-                - prefilled_message
-                - generate_qr_image
+              - prefilled_message
+              - generate_qr_image
               properties:
                 prefilled_message:
                   type: string
@@ -406,8 +444,8 @@ paths:
                 generate_qr_image:
                   type: string
                   enum:
-                    - SVG
-                    - PNG
+                  - SVG
+                  - PNG
                   description: Image format for the QR code
       responses:
         '200':
@@ -416,14 +454,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     get:
       operationId: listQrCodes
-      summary: WhatsApp List QR codes
+      summary: WhatsApp List QR Codes
       description: Lists all QR codes for a phone number.
       tags:
-        - QR Codes
+      - QR Codes
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/PhoneNumberId'
       responses:
         '200':
           description: QR codes retrieved
@@ -436,16 +477,19 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{phone-number-id}/message_qrdls/{qr-code-id}:
     get:
       operationId: getQrCode
-      summary: WhatsApp Get QR code
+      summary: WhatsApp Get QR Code
       description: Retrieves a specific QR code.
       tags:
-        - QR Codes
+      - QR Codes
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
-        - $ref: '#/components/parameters/QrCodeId'
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/QrCodeId'
       responses:
         '200':
           description: QR code retrieved
@@ -453,15 +497,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: updateQrCode
-      summary: WhatsApp Update QR code
+      summary: WhatsApp Update QR Code
       description: Updates the prefilled message for a QR code.
       tags:
-        - QR Codes
+      - QR Codes
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
-        - $ref: '#/components/parameters/QrCodeId'
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/QrCodeId'
       requestBody:
         required: true
         content:
@@ -478,15 +525,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteQrCode
-      summary: WhatsApp Delete QR code
+      summary: WhatsApp Delete QR Code
       description: Deletes a QR code.
       tags:
-        - QR Codes
+      - QR Codes
       parameters:
-        - $ref: '#/components/parameters/PhoneNumberId'
-        - $ref: '#/components/parameters/QrCodeId'
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/QrCodeId'
       responses:
         '200':
           description: QR code deleted
@@ -494,6 +544,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -526,34 +579,38 @@ components:
     SendMessageRequest:
       type: object
       required:
-        - messaging_product
-        - to
-        - type
+      - messaging_product
+      - to
+      - type
       properties:
         messaging_product:
           type: string
           enum:
-            - whatsapp
+          - whatsapp
+          example: whatsapp
         recipient_type:
           type: string
           default: individual
+          example: text
         to:
           type: string
           description: Recipient phone number in E.164 format without the leading +
+          example: example_value
         type:
           type: string
           enum:
-            - text
-            - image
-            - video
-            - audio
-            - document
-            - sticker
-            - location
-            - contacts
-            - interactive
-            - template
-            - reaction
+          - text
+          - image
+          - video
+          - audio
+          - document
+          - sticker
+          - location
+          - contacts
+          - interactive
+          - template
+          - reaction
+          example: text
         context:
           type: object
           description: Context for reply messages
@@ -564,14 +621,17 @@ components:
         biz_opaque_callback_data:
           type: string
           description: Arbitrary string for tracking, returned in webhooks
+          example: example_value
         status:
           type: string
           enum:
-            - read
+          - read
           description: Set to read to mark an incoming message as read
+          example: read
         message_id:
           type: string
           description: ID of the message to mark as read (required when status is read)
+          example: wamid.abc123
         text:
           $ref: '#/components/schemas/TextMessage'
         image:
@@ -599,95 +659,112 @@ components:
     TextMessage:
       type: object
       required:
-        - body
+      - body
       properties:
         body:
           type: string
           description: Message text
           maxLength: 4096
+          example: Hello from WhatsApp!
         preview_url:
           type: boolean
           description: Set true to render URL previews
           default: false
+          example: true
     MediaObject:
       type: object
       properties:
         id:
           type: string
           description: Media ID from upload
+          example: wamid.abc123
         link:
           type: string
           format: uri
           description: HTTPS URL of the media file
+          example: example_value
         caption:
           type: string
           description: Caption text
           maxLength: 1024
+          example: example_value
     AudioObject:
       type: object
       properties:
         id:
           type: string
           description: Media ID from upload
+          example: wamid.abc123
         link:
           type: string
           format: uri
           description: HTTPS URL of the audio file
+          example: example_value
     DocumentObject:
       type: object
       properties:
         id:
           type: string
           description: Media ID from upload
+          example: wamid.abc123
         link:
           type: string
           format: uri
           description: HTTPS URL of the document
+          example: example_value
         caption:
           type: string
           description: Caption text
+          example: example_value
         filename:
           type: string
           description: Filename to display to recipient
+          example: Example Business
     StickerObject:
       type: object
       properties:
         id:
           type: string
           description: Media ID from upload
+          example: wamid.abc123
         link:
           type: string
           format: uri
           description: HTTPS URL of the sticker (WebP format)
+          example: example_value
     LocationMessage:
       type: object
       required:
-        - latitude
-        - longitude
+      - latitude
+      - longitude
       properties:
         latitude:
           type: number
           minimum: -90
           maximum: 90
+          example: 42.5
         longitude:
           type: number
           minimum: -180
           maximum: 180
+          example: 42.5
         name:
           type: string
           description: Location name
+          example: Example Business
         address:
           type: string
           description: Location address
+          example: example_value
     ContactObject:
       type: object
       required:
-        - name
+      - name
       properties:
         name:
           type: object
           required:
-            - formatted_name
+          - formatted_name
           properties:
             formatted_name:
               type: string
@@ -721,11 +798,12 @@ components:
               type:
                 type: string
                 enum:
-                  - HOME
-                  - WORK
+                - HOME
+                - WORK
         birthday:
           type: string
           description: Birthday in YYYY-MM-DD format
+          example: example_value
         emails:
           type: array
           items:
@@ -737,8 +815,8 @@ components:
               type:
                 type: string
                 enum:
-                  - HOME
-                  - WORK
+                - HOME
+                - WORK
         org:
           type: object
           properties:
@@ -758,11 +836,11 @@ components:
               type:
                 type: string
                 enum:
-                  - CELL
-                  - MAIN
-                  - IPHONE
-                  - HOME
-                  - WORK
+                - CELL
+                - MAIN
+                - IPHONE
+                - HOME
+                - WORK
               wa_id:
                 type: string
         urls:
@@ -776,34 +854,35 @@ components:
               type:
                 type: string
                 enum:
-                  - HOME
-                  - WORK
+                - HOME
+                - WORK
     InteractiveMessage:
       type: object
       required:
-        - type
-        - action
+      - type
+      - action
       properties:
         type:
           type: string
           enum:
-            - button
-            - list
-            - product
-            - product_list
-            - cta_url
-            - location_request_message
-            - flow
+          - button
+          - list
+          - product
+          - product_list
+          - cta_url
+          - location_request_message
+          - flow
+          example: button
         header:
           type: object
           properties:
             type:
               type: string
               enum:
-                - text
-                - image
-                - video
-                - document
+              - text
+              - image
+              - video
+              - document
             text:
               type: string
             image:
@@ -815,7 +894,7 @@ components:
         body:
           type: object
           required:
-            - text
+          - text
           properties:
             text:
               type: string
@@ -839,7 +918,7 @@ components:
                   type:
                     type: string
                     enum:
-                      - reply
+                    - reply
                   reply:
                     type: object
                     properties:
@@ -873,6 +952,7 @@ components:
       properties:
         title:
           type: string
+          example: example_value
         rows:
           type: array
           maxItems: 10
@@ -891,16 +971,17 @@ components:
     TemplateMessage:
       type: object
       required:
-        - name
-        - language
+      - name
+      - language
       properties:
         name:
           type: string
           description: Template name
+          example: Example Business
         language:
           type: object
           required:
-            - code
+          - code
           properties:
             code:
               type: string
@@ -915,26 +996,29 @@ components:
     TemplateComponent:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           enum:
-            - header
-            - body
-            - button
+          - header
+          - body
+          - button
+          example: header
         sub_type:
           type: string
           enum:
-            - quick_reply
-            - url
-            - copy_code
-            - flow
-            - catalog
+          - quick_reply
+          - url
+          - copy_code
+          - flow
+          - catalog
           description: Required for button components
+          example: quick_reply
         index:
           type: string
           description: Button index (required for button components)
+          example: example_value
         parameters:
           type: array
           items:
@@ -942,26 +1026,30 @@ components:
     TemplateParameter:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           enum:
-            - text
-            - image
-            - video
-            - document
-            - location
-            - currency
-            - date_time
-            - payload
-            - coupon_code
+          - text
+          - image
+          - video
+          - document
+          - location
+          - currency
+          - date_time
+          - payload
+          - coupon_code
+          example: text
         text:
           type: string
+          example: Hello from WhatsApp!
         payload:
           type: string
+          example: example_value
         coupon_code:
           type: string
+          example: example_value
         image:
           $ref: '#/components/schemas/MediaObject'
         video:
@@ -987,20 +1075,23 @@ components:
     ReactionMessage:
       type: object
       required:
-        - message_id
-        - emoji
+      - message_id
+      - emoji
       properties:
         message_id:
           type: string
           description: ID of the message to react to
+          example: wamid.abc123
         emoji:
           type: string
           description: Emoji character or empty string to remove reaction
+          example: example_value
     SendMessageResponse:
       type: object
       properties:
         messaging_product:
           type: string
+          example: example_value
         contacts:
           type: array
           items:
@@ -1025,71 +1116,89 @@ components:
           type: string
           format: uri
           description: Temporary download URL (expires in 5 minutes)
+          example: https://example.com/image.jpg
         mime_type:
           type: string
+          example: text
         sha256:
           type: string
+          example: example_value
         file_size:
           type: integer
+          example: 42
         id:
           type: string
+          example: wamid.abc123
         messaging_product:
           type: string
+          example: example_value
     PhoneNumberInfo:
       type: object
       properties:
         id:
           type: string
+          example: wamid.abc123
         verified_name:
           type: string
+          example: Example Business
         display_phone_number:
           type: string
+          example: '+15551234567'
         quality_rating:
           type: string
           enum:
-            - GREEN
-            - YELLOW
-            - RED
-            - UNKNOWN
+          - GREEN
+          - YELLOW
+          - RED
+          - UNKNOWN
+          example: GREEN
         code_verification_status:
           type: string
           enum:
-            - VERIFIED
-            - NOT_VERIFIED
-            - EXPIRED
+          - VERIFIED
+          - NOT_VERIFIED
+          - EXPIRED
+          example: VERIFIED
         platform_type:
           type: string
           enum:
-            - CLOUD_API
-            - ON_PREMISE
-            - NOT_APPLICABLE
+          - CLOUD_API
+          - ON_PREMISE
+          - NOT_APPLICABLE
+          example: CLOUD_API
         throughput:
           type: object
           properties:
             level:
               type: string
               enum:
-                - STANDARD
-                - HIGH
+              - STANDARD
+              - HIGH
         is_official_business_account:
           type: boolean
+          example: true
     BusinessProfile:
       type: object
       properties:
         about:
           type: string
           maxLength: 139
+          example: example_value
         address:
           type: string
+          example: example_value
         description:
           type: string
           maxLength: 512
+          example: example_value
         email:
           type: string
           format: email
+          example: example_value
         profile_picture_url:
           type: string
           format: uri
+          example: https://example.com/image.jpg
         websites:
           type: array
           maxItems: 2
@@ -1099,47 +1208,54 @@ components:
         vertical:
           type: string
           enum:
-            - UNDEFINED
-            - OTHER
-            - AUTO
-            - BEAUTY
-            - APPAREL
-            - EDU
-            - ENTERTAIN
-            - EVENT_PLAN
-            - FINANCE
-            - GROCERY
-            - GOVT
-            - HOTEL
-            - HEALTH
-            - NONPROFIT
-            - PROF_SERVICES
-            - RETAIL
-            - TRAVEL
-            - RESTAURANT
-            - NOT_A_BIZ
+          - UNDEFINED
+          - OTHER
+          - AUTO
+          - BEAUTY
+          - APPAREL
+          - EDU
+          - ENTERTAIN
+          - EVENT_PLAN
+          - FINANCE
+          - GROCERY
+          - GOVT
+          - HOTEL
+          - HEALTH
+          - NONPROFIT
+          - PROF_SERVICES
+          - RETAIL
+          - TRAVEL
+          - RESTAURANT
+          - NOT_A_BIZ
+          example: UNDEFINED
         messaging_product:
           type: string
+          example: example_value
     UpdateBusinessProfileRequest:
       type: object
       required:
-        - messaging_product
+      - messaging_product
       properties:
         messaging_product:
           type: string
           enum:
-            - whatsapp
+          - whatsapp
+          example: whatsapp
         about:
           type: string
           maxLength: 139
+          example: example_value
         address:
           type: string
+          example: example_value
         description:
           type: string
           maxLength: 512
+          example: example_value
         email:
           type: string
           format: email
+          example: example_value
         websites:
           type: array
           maxItems: 2
@@ -1148,28 +1264,35 @@ components:
             format: uri
         vertical:
           type: string
+          example: example_value
         profile_picture_handle:
           type: string
           description: Handle of uploaded profile picture
+          example: example_value
     QrCodeResponse:
       type: object
       properties:
         code:
           type: string
           description: QR code identifier
+          example: example_value
         prefilled_message:
           type: string
+          example: Hello from WhatsApp!
         deep_link_url:
           type: string
           format: uri
+          example: https://example.com/image.jpg
         qr_image_url:
           type: string
           format: uri
+          example: https://example.com/image.jpg
     SuccessResponse:
       type: object
       properties:
         success:
           type: boolean
+          example: true
     ErrorResponse:
       type: object
       properties:

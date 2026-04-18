@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-cloud-api-text-message-structure.json",
+  "name": "TextMessage",
+  "description": "TextMessage from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "string",
+      "description": "Message text",
+      "maxLength": 4096,
+      "example": "Hello from WhatsApp!"
+    },
+    "preview_url": {
+      "type": "boolean",
+      "description": "Set true to render URL previews",
+      "default": false,
+      "example": true
+    }
+  },
+  "required": [
+    "body"
+  ]
+}

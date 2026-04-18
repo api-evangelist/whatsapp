@@ -1,0 +1,8 @@
+{
+  "name": "Example Business",
+  "categories": [
+    "example_value"
+  ],
+  "endpoint_uri": "example_value",
+  "application_id": "wamid.abc123"
+}

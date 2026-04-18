@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-cloud-api-template-component-structure.json",
+  "name": "TemplateComponent",
+  "description": "TemplateComponent from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "header",
+        "body",
+        "button"
+      ],
+      "example": "header"
+    },
+    "sub_type": {
+      "type": "string",
+      "enum": [
+        "quick_reply",
+        "url",
+        "copy_code",
+        "flow",
+        "catalog"
+      ],
+      "description": "Required for button components",
+      "example": "quick_reply"
+    },
+    "index": {
+      "type": "string",
+      "description": "Button index (required for button components)",
+      "example": "example_value"
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TemplateParameter"
+      }
+    }
+  },
+  "required": [
+    "type"
+  ]
+}

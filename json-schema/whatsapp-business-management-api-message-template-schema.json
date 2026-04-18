@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-business-management-api-message-template-schema.json",
+  "title": "MessageTemplate",
+  "description": "MessageTemplate from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "PENDING",
+        "REJECTED",
+        "PAUSED",
+        "DISABLED"
+      ],
+      "example": "APPROVED"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "AUTHENTICATION",
+        "MARKETING",
+        "UTILITY"
+      ],
+      "example": "AUTHENTICATION"
+    },
+    "language": {
+      "type": "string",
+      "example": "en_US"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TemplateComponentDefinition"
+      }
+    },
+    "parameter_format": {
+      "type": "string",
+      "enum": [
+        "POSITIONAL",
+        "NAMED"
+      ],
+      "example": "POSITIONAL"
+    },
+    "quality_score": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

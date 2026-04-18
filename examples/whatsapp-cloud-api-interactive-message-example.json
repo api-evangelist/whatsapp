@@ -1,0 +1,32 @@
+{
+  "type": "button",
+  "header": {
+    "type": "image",
+    "text": "Hello from WhatsApp!",
+    "image": "example_value",
+    "video": "wamid.abc123",
+    "document": "example_value"
+  },
+  "body": {
+    "text": "Hello from WhatsApp!"
+  },
+  "footer": {
+    "text": "Hello from WhatsApp!"
+  },
+  "action": {
+    "buttons": [
+      {
+        "type": {},
+        "reply": {}
+      }
+    ],
+    "button": "example_value",
+    "sections": [
+      "example_value"
+    ],
+    "catalog_id": "wamid.abc123",
+    "product_retailer_id": "wamid.abc123",
+    "name": "Example Business",
+    "parameters": {}
+  }
+}

@@ -1,0 +1,58 @@
+vocabulary: 1.0.0
+info:
+  provider: WhatsApp
+  description: Vocabulary for WhatsApp Business Platform APIs.
+  created: '2026-04-17'
+  modified: '2026-04-17'
+operational:
+  apis:
+  - name: WhatsApp Cloud API
+    namespace: wa-cloud
+    baseUrl: https://graph.facebook.com/v21.0
+    status: active
+  - name: WhatsApp Business Management API
+    namespace: wa-business-mgmt
+    baseUrl: https://graph.facebook.com/v21.0
+    status: active
+  - name: WhatsApp On-Premises API
+    namespace: wa-on-premises
+    status: active
+  resources:
+  - name: messages
+    description: Text, media, template, and interactive messages.
+  - name: templates
+    description: Pre-approved message templates.
+  - name: media
+    description: Images, videos, documents, and audio files.
+  - name: contacts
+    description: Business contacts and phone numbers.
+  - name: webhooks
+    description: Real-time event notifications.
+  - name: flows
+    description: Interactive multi-step conversation flows.
+  - name: catalogs
+    description: Product catalogs for commerce.
+capability:
+  personas:
+  - id: customer-support
+    name: Customer Support Agent
+  - id: marketing-manager
+    name: Marketing Manager
+  - id: developer
+    name: Integration Developer
+  - id: business-admin
+    name: Business Administrator
+  domains:
+  - name: messaging
+    resources:
+    - messages
+    - templates
+    - media
+  - name: commerce
+    resources:
+    - catalogs
+    - flows
+  - name: management
+    resources:
+    - contacts
+    - webhooks

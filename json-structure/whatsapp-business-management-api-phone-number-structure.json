@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-business-management-api-phone-number-structure.json",
+  "name": "PhoneNumber",
+  "description": "PhoneNumber from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    },
+    "display_phone_number": {
+      "type": "string",
+      "example": "+15551234567"
+    },
+    "verified_name": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "quality_rating": {
+      "type": "string",
+      "enum": [
+        "GREEN",
+        "YELLOW",
+        "RED",
+        "UNKNOWN"
+      ],
+      "example": "GREEN"
+    },
+    "code_verification_status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "NOT_VERIFIED",
+        "EXPIRED"
+      ],
+      "example": "VERIFIED"
+    },
+    "is_official_business_account": {
+      "type": "boolean",
+      "example": true
+    },
+    "name_status": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "platform_type": {
+      "type": "string",
+      "enum": [
+        "CLOUD_API",
+        "ON_PREMISE",
+        "NOT_APPLICABLE"
+      ],
+      "example": "CLOUD_API"
+    },
+    "throughput": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "STANDARD",
+            "HIGH"
+          ]
+        }
+      }
+    },
+    "account_mode": {
+      "type": "string",
+      "enum": [
+        "LIVE",
+        "SANDBOX"
+      ],
+      "example": "LIVE"
+    },
+    "messaging_limit_tier": {
+      "type": "string",
+      "enum": [
+        "TIER_1K",
+        "TIER_10K",
+        "TIER_100K",
+        "TIER_UNLIMITED"
+      ],
+      "example": "TIER_1K"
+    }
+  }
+}

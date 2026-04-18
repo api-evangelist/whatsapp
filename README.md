@@ -1,135 +1,93 @@
 # WhatsApp (whatsapp)
-APIs for the WhatsApp messaging platform, enabling businesses to communicate with customers through the world's most popular messaging app. The WhatsApp Business Platform, built on Meta's Graph API, provides cloud-hosted APIs for messaging, account management, interactive flows, and webhooks.
+WhatsApp is the world's most popular messaging platform. The WhatsApp Business Platform APIs enable businesses to communicate with customers at scale through text, media, templates, interactive messages, and commerce features.
 
-**URL:** [Visit APIs.json URL](https://www.whatsapp.com/)
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/apis.yml)
 
-## Scope
-
-- **Type:** Contract
-- **Position:** Consuming
-- **Access:** 3rd-Party
+**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
 
 ## Tags:
 
- - Messaging, Business, Communications, Chat
+ - Business, Chat, Communications, Messaging, Meta
 
 ## Timestamps
 
 - **Created:** 2024-01-15
-- **Modified:** 2026-03-01
+- **Modified:** 2026-04-17
 
 ## APIs
 
-### WhatsApp Business Platform API
-The Cloud API and On-Premises API that enables medium and large businesses to communicate with customers at scale.
+4 APIs: WhatsApp Business Platform API, WhatsApp Business Management API, WhatsApp On-Premises API, WhatsApp Flows API.
 
-**Human URL:** [https://developers.facebook.com/docs/whatsapp](https://developers.facebook.com/docs/whatsapp)
+See [apis.yml](apis.yml) for the complete inventory.
 
+## Features
 
-#### Tags:
+| Name | Description |
+|------|-------------|
+| Cloud API | Send and receive messages through Meta-hosted infrastructure. |
+| Message Templates | Pre-approved templates for proactive customer communication. |
+| Interactive Messages | Buttons, lists, product catalogs, and flows for engagement. |
+| Media Messaging | Images, videos, documents, audio, stickers, and location. |
+| Webhooks | Real-time notifications for messages, delivery, and events. |
+| Business Management API | Manage accounts, phone numbers, and messaging limits. |
+| Flows | Interactive multi-step forms and workflows in conversations. |
+| Catalogs and Commerce | Product catalogs and in-chat commerce experiences. |
+| Encryption | End-to-end encryption for all messages and media. |
+| Multi-Agent Support | Route conversations to multiple agents. |
 
- - messaging, business, communications, chat
+## Use Cases
 
-#### Properties
+| Name | Description |
+|------|-------------|
+| Customer Support | Real-time customer service through WhatsApp messaging. |
+| Order Notifications | Order confirmations, shipping updates, and delivery notifications. |
+| Appointment Reminders | Reminders and rescheduling via interactive messages. |
+| Marketing Campaigns | Promotional messages using approved templates. |
+| Two-Factor Authentication | OTP codes and verification messages. |
+| Chatbot Integration | Automated conversational bots for FAQs and self-service. |
+| E-commerce | Product catalogs, orders, and payment reminders. |
+| Healthcare Communication | Appointments, test results, and health tips. |
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api)
-- [OpenAPI](openapi/whatsapp-cloud-api-openapi.yml)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [Webhooks](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks)
-- [AsyncAPI](asyncapi/whatsapp-webhooks-asyncapi.yml)
-- [JSONSchema](json-schema/whatsapp-message-schema.json)
-- [Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
-- [Pricing](https://developers.facebook.com/docs/whatsapp/pricing)
-- [Rate Limits](https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput)
-- [Status](https://metastatus.com/)
-- [Change Log](https://developers.facebook.com/docs/whatsapp/cloud-api/changelog)
-- [Error Codes](https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes)
-- [PostmanCollection](https://www.postman.com/meta/whatsapp-business-platform/collection/wlk6lh4/whatsapp-cloud-api)
+## Solutions
 
-### WhatsApp Business Account Management API
-API for managing WhatsApp Business Accounts, phone numbers, and messaging templates.
+| Name | Description |
+|------|-------------|
+| WhatsApp Business Platform | Cloud API and On-Premises API for businesses at scale. |
+| WhatsApp Business App | Free mobile app for small businesses. |
+| WhatsApp Flows | Interactive forms and workflows within conversations. |
 
-**Human URL:** [https://developers.facebook.com/docs/whatsapp/business-management-api](https://developers.facebook.com/docs/whatsapp/business-management-api)
+## Artifacts
 
+### OpenAPI
 
-#### Tags:
+3 OpenAPI specs in [openapi/](openapi/) covering Cloud API, Business Management, and Flows.
 
- - business, management, templates, accounts
+### JSON Schema
 
-#### Properties
+35 standalone JSON Schema files in [json-schema/](json-schema/).
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/business-management-api)
-- [OpenAPI](openapi/whatsapp-business-management-api-openapi.yml)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [JSONSchema](json-schema/whatsapp-message-template-schema.json)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [PostmanCollection](https://www.postman.com/meta/whatsapp-business-platform/collection/3kru5r6/whatsapp-business-management-api)
+### JSON Structure
 
-### WhatsApp Flows API
-API for creating structured, interactive forms and multi-step flows within WhatsApp conversations, enabling appointment booking, surveys, lead capture, and other guided experiences using a JSON-based screen definition format.
+35 JSON Structure files in [json-structure/](json-structure/).
 
-**Human URL:** [https://developers.facebook.com/docs/whatsapp/flows](https://developers.facebook.com/docs/whatsapp/flows)
+### JSON-LD
 
+- [WhatsApp Context](json-ld/whatsapp-context.jsonld) — 35 types, 109 properties
 
-#### Tags:
+### Examples
 
- - Flows, Forms, Interactive, Messaging
+35 example JSON files in [examples/](examples/).
 
-#### Properties
+## Vocabulary
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/flows)
-- [OpenAPI](openapi/whatsapp-flows-api-openapi.yml)
-- [Reference](https://developers.facebook.com/docs/whatsapp/flows/reference/components)
-- [JSONSchema](json-schema/whatsapp-flow-json-schema.json)
-- [Change Log](https://developers.facebook.com/docs/whatsapp/flows/changelogs)
-- [Error Codes](https://developers.facebook.com/docs/whatsapp/flows/reference/error-codes)
-- [PostmanCollection](https://www.postman.com/meta/whatsapp-business-platform/collection/y5swede/whatsapp-flows-api)
-- [GitHubRepository](https://github.com/WhatsApp/WhatsApp-Flows-Tools)
+- [WhatsApp Vocabulary](vocabulary/whatsapp-vocabulary.yaml) — 7 resources, 3 APIs, 3 domains, 4 personas
 
-### WhatsApp On-Premises API
-The self-hosted version of the WhatsApp Business API that allowed businesses to run the API on their own infrastructure. This API was deprecated on October 23, 2025, and all users must migrate to the Cloud API.
+## Rules
 
-**Human URL:** [https://developers.facebook.com/docs/whatsapp/on-premises](https://developers.facebook.com/docs/whatsapp/on-premises)
-
-
-#### Tags:
-
- - Messaging, On-Premises, Self-Hosted, Deprecated
-
-#### Properties
-
-- [Documentation](https://developers.facebook.com/docs/whatsapp/on-premises)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/on-premises/get-started/installation)
-- [Deprecation Notice](https://developers.facebook.com/docs/whatsapp/on-premises)
-- [PostmanCollection](https://www.postman.com/meta/whatsapp-business-platform/collection/vdi189b/whatsapp-on-premises-api-deprecated)
-
-## Common Properties
-
-- [Terms of Service](https://www.whatsapp.com/legal/business-terms)
-- [Privacy Policy](https://www.whatsapp.com/legal/privacy-policy-eea)
-- [Commerce Policy](https://www.whatsapp.com/legal/commerce-policy)
-- [Developer Portal](https://developers.facebook.com/)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [Best Practices](https://developers.facebook.com/docs/whatsapp/cloud-api/best-practices)
-- [Use Cases](https://business.whatsapp.com/products/business-platform)
-- [Change Log](https://developers.facebook.com/docs/whatsapp/cloud-api/changelog)
-- [Status](https://metastatus.com/)
-- [Blog](https://business.whatsapp.com/blog)
-- [Support](https://developers.facebook.com/support/)
-- [Console](https://developers.facebook.com/apps/)
-- [GitHub Organization](https://github.com/WhatsApp)
-- [Community](https://business.whatsapp.com/developers/developer-hub)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/whatsapp-cloud-api)
-- [Security](https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf)
-- [PostmanCollection](https://www.postman.com/meta/whatsapp-business-platform/overview)
-- [Pricing](https://business.whatsapp.com/products/platform-pricing)
-- [JSON-LD](json-ld/whatsapp-context.jsonld)
-- [JSONSchema](json-schema/whatsapp-webhook-payload-schema.json)
+- [WhatsApp Spectral Rules](rules/whatsapp-spectral-rules.yml) — 17 rules
 
 ## Maintainers
 
-**FN:** API Evangelist
+**FN:** Kin Lane
 
-**Email:** info@apievangelist.com
+**Email:** kin@apievangelist.com

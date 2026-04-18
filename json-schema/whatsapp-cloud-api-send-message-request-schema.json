@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-cloud-api-send-message-request-schema.json",
+  "title": "SendMessageRequest",
+  "description": "SendMessageRequest from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "messaging_product": {
+      "type": "string",
+      "enum": [
+        "whatsapp"
+      ],
+      "example": "whatsapp"
+    },
+    "recipient_type": {
+      "type": "string",
+      "default": "individual",
+      "example": "text"
+    },
+    "to": {
+      "type": "string",
+      "description": "Recipient phone number in E.164 format without the leading +",
+      "example": "example_value"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "document",
+        "sticker",
+        "location",
+        "contacts",
+        "interactive",
+        "template",
+        "reaction"
+      ],
+      "example": "text"
+    },
+    "context": {
+      "type": "object",
+      "description": "Context for reply messages",
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "ID of the message being replied to"
+        }
+      }
+    },
+    "biz_opaque_callback_data": {
+      "type": "string",
+      "description": "Arbitrary string for tracking, returned in webhooks",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "read"
+      ],
+      "description": "Set to read to mark an incoming message as read",
+      "example": "read"
+    },
+    "message_id": {
+      "type": "string",
+      "description": "ID of the message to mark as read (required when status is read)",
+      "example": "wamid.abc123"
+    },
+    "text": {
+      "$ref": "#/components/schemas/TextMessage"
+    },
+    "image": {
+      "$ref": "#/components/schemas/MediaObject"
+    },
+    "video": {
+      "$ref": "#/components/schemas/MediaObject"
+    },
+    "audio": {
+      "$ref": "#/components/schemas/AudioObject"
+    },
+    "document": {
+      "$ref": "#/components/schemas/DocumentObject"
+    },
+    "sticker": {
+      "$ref": "#/components/schemas/StickerObject"
+    },
+    "location": {
+      "$ref": "#/components/schemas/LocationMessage"
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ContactObject"
+      }
+    },
+    "interactive": {
+      "$ref": "#/components/schemas/InteractiveMessage"
+    },
+    "template": {
+      "$ref": "#/components/schemas/TemplateMessage"
+    },
+    "reaction": {
+      "$ref": "#/components/schemas/ReactionMessage"
+    }
+  },
+  "required": [
+    "messaging_product",
+    "to",
+    "type"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "messaging_product": "whatsapp",
+  "recipient_type": "text",
+  "to": "example_value",
+  "type": "text",
+  "context": {
+    "message_id": "wamid.abc123"
+  },
+  "biz_opaque_callback_data": "example_value",
+  "status": "read",
+  "message_id": "wamid.abc123",
+  "text": "Hello from WhatsApp!",
+  "image": "example_value"
+}

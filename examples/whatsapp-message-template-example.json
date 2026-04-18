@@ -1,0 +1,9 @@
+{
+  "name": "Example Business",
+  "language": "example_value",
+  "category": "MARKETING",
+  "parameter_format": "NAMED",
+  "components": [
+    "example_value"
+  ]
+}

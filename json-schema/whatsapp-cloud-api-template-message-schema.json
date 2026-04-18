@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-cloud-api-template-message-schema.json",
+  "title": "TemplateMessage",
+  "description": "TemplateMessage from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Template name",
+      "example": "Example Business"
+    },
+    "language": {
+      "type": "object",
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Language/locale code"
+        },
+        "policy": {
+          "type": "string",
+          "default": "deterministic"
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TemplateComponent"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "language"
+  ]
+}

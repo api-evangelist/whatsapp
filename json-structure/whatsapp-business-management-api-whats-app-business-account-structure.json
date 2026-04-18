@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-structure/whatsapp-business-management-api-whats-app-business-account-structure.json",
+  "name": "WhatsAppBusinessAccount",
+  "description": "WhatsAppBusinessAccount from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "currency": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "timezone_id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    },
+    "country": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "example": "ACTIVE"
+    },
+    "business_verification_status": {
+      "type": "string",
+      "example": "sent"
+    },
+    "message_template_namespace": {
+      "type": "string",
+      "example": "Example Business"
+    },
+    "owner_business": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "primary_funding_id": {
+      "type": "string",
+      "example": "wamid.abc123"
+    },
+    "purchase_order_number": {
+      "type": "string",
+      "example": "example_value"
+    }
+  }
+}

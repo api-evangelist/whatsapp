@@ -15,40 +15,41 @@ externalDocs:
   description: WhatsApp Business Management API Documentation
   url: https://developers.facebook.com/docs/whatsapp/business-management-api
 servers:
-  - url: https://graph.facebook.com/v21.0
-    description: Meta Graph API Production Server
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
 tags:
-  - name: Analytics
-    description: Retrieve conversation and template analytics
-  - name: Assigned Users
-    description: Manage user access to a WABA
-  - name: Business Accounts
-    description: Manage WhatsApp Business Account information
-  - name: Message Templates
-    description: Create, update, and delete message templates
-  - name: Phone Numbers
-    description: List and manage phone numbers on a WABA
-  - name: Product Catalogs
-    description: Connect and manage product catalogs
-  - name: Subscribed Apps
-    description: Manage webhook subscriptions for a WABA
+- name: Analytics
+  description: Retrieve conversation and template analytics
+- name: Assigned Users
+  description: Manage user access to a WABA
+- name: Business Accounts
+  description: Manage WhatsApp Business Account information
+- name: Message Templates
+  description: Create, update, and delete message templates
+- name: Phone Numbers
+  description: List and manage phone numbers on a WABA
+- name: Product Catalogs
+  description: Connect and manage product catalogs
+- name: Subscribed Apps
+  description: Manage webhook subscriptions for a WABA
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /{waba-id}:
     get:
       operationId: getWhatsAppBusinessAccount
-      summary: WhatsApp Get WABA info
+      summary: WhatsApp Get WABA Info
       description: Retrieves information about a WhatsApp Business Account.
       tags:
-        - Business Accounts
+      - Business Accounts
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: fields
-          in: query
-          description: Comma-separated list of fields to return
-          schema:
-            type: string
+      - $ref: '#/components/parameters/WabaId'
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to return
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: WABA info retrieved
@@ -56,35 +57,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WhatsAppBusinessAccount'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/phone_numbers:
     get:
       operationId: listPhoneNumbers
-      summary: WhatsApp List phone numbers
+      summary: WhatsApp List Phone Numbers
       description: Lists all phone numbers associated with a WhatsApp Business Account.
       tags:
-        - Phone Numbers
+      - Phone Numbers
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: fields
-          in: query
-          description: Comma-separated fields to return
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: Pagination limit
-          schema:
-            type: integer
-        - name: after
-          in: query
-          description: Cursor for forward pagination
-          schema:
-            type: string
-        - name: before
-          in: query
-          description: Cursor for backward pagination
-          schema:
-            type: string
+      - $ref: '#/components/parameters/WabaId'
+      - name: fields
+        in: query
+        description: Comma-separated fields to return
+        schema:
+          type: string
+        example: example_value
+      - name: limit
+        in: query
+        description: Pagination limit
+        schema:
+          type: integer
+        example: 42
+      - name: after
+        in: query
+        description: Cursor for forward pagination
+        schema:
+          type: string
+        example: example_value
+      - name: before
+        in: query
+        description: Cursor for backward pagination
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Phone numbers retrieved
@@ -99,62 +107,73 @@ paths:
                       $ref: '#/components/schemas/PhoneNumber'
                   paging:
                     $ref: '#/components/schemas/CursorPaging'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/message_templates:
     get:
       operationId: listMessageTemplates
-      summary: WhatsApp List message templates
+      summary: WhatsApp List Message Templates
       description: Lists all message templates for a WhatsApp Business Account.
       tags:
-        - Message Templates
+      - Message Templates
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: fields
-          in: query
-          schema:
-            type: string
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            default: 25
-        - name: after
-          in: query
-          schema:
-            type: string
-        - name: before
-          in: query
-          schema:
-            type: string
-        - name: name
-          in: query
-          description: Filter by template name
-          schema:
-            type: string
-        - name: language
-          in: query
-          description: Filter by language code
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Filter by approval status
-          schema:
-            type: string
-            enum:
-              - APPROVED
-              - PENDING
-              - REJECTED
-              - PAUSED
-              - DISABLED
-        - name: category
-          in: query
-          description: Filter by template category
-          schema:
-            type: string
-            enum:
-              - AUTHENTICATION
-              - MARKETING
-              - UTILITY
+      - $ref: '#/components/parameters/WabaId'
+      - name: fields
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+        example: 42
+      - name: after
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: before
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: name
+        in: query
+        description: Filter by template name
+        schema:
+          type: string
+        example: Example Business
+      - name: language
+        in: query
+        description: Filter by language code
+        schema:
+          type: string
+        example: en_US
+      - name: status
+        in: query
+        description: Filter by approval status
+        schema:
+          type: string
+          enum:
+          - APPROVED
+          - PENDING
+          - REJECTED
+          - PAUSED
+          - DISABLED
+        example: APPROVED
+      - name: category
+        in: query
+        description: Filter by template category
+        schema:
+          type: string
+          enum:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+        example: AUTHENTICATION
       responses:
         '200':
           description: Templates retrieved
@@ -169,17 +188,20 @@ paths:
                       $ref: '#/components/schemas/MessageTemplate'
                   paging:
                     $ref: '#/components/schemas/CursorPaging'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createMessageTemplate
-      summary: WhatsApp Create message template
+      summary: WhatsApp Create Message Template
       description: >-
         Creates a new message template for a WhatsApp Business Account.
         Templates must be approved by Meta before they can be used to send
         messages.
       tags:
-        - Message Templates
+      - Message Templates
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       requestBody:
         required: true
         content:
@@ -200,27 +222,32 @@ paths:
                     type: string
                   category:
                     type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteMessageTemplate
-      summary: WhatsApp Delete message template
+      summary: WhatsApp Delete Message Template
       description: >-
         Deletes a message template. Deleting by name removes all language
         variants. Pass hsm_id to delete a specific language version.
       tags:
-        - Message Templates
+      - Message Templates
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: name
-          in: query
-          required: true
-          description: Template name to delete
-          schema:
-            type: string
-        - name: hsm_id
-          in: query
-          description: Specific template ID to delete a single language variant
-          schema:
-            type: string
+      - $ref: '#/components/parameters/WabaId'
+      - name: name
+        in: query
+        required: true
+        description: Template name to delete
+        schema:
+          type: string
+        example: Example Business
+      - name: hsm_id
+        in: query
+        description: Specific template ID to delete a single language variant
+        schema:
+          type: string
+        example: wamid.abc123
       responses:
         '200':
           description: Template deleted
@@ -228,21 +255,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{message-template-id}:
     post:
       operationId: updateMessageTemplate
-      summary: WhatsApp Update message template
+      summary: WhatsApp Update Message Template
       description: >-
         Updates an existing message template. Only APPROVED or PAUSED templates
         can be edited. Edits re-trigger the approval process.
       tags:
-        - Message Templates
+      - Message Templates
       parameters:
-        - name: message-template-id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: message-template-id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: wamid.abc123
       requestBody:
         required: true
         content:
@@ -257,9 +288,9 @@ paths:
                 category:
                   type: string
                   enum:
-                    - AUTHENTICATION
-                    - MARKETING
-                    - UTILITY
+                  - AUTHENTICATION
+                  - MARKETING
+                  - UTILITY
       responses:
         '200':
           description: Template updated
@@ -267,75 +298,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/conversation_analytics:
     get:
       operationId: getConversationAnalytics
-      summary: WhatsApp Get conversation analytics
+      summary: WhatsApp Get Conversation Analytics
       description: Retrieves conversation analytics for a WhatsApp Business Account.
       tags:
-        - Analytics
+      - Analytics
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: start
-          in: query
-          required: true
-          description: Start time (Unix timestamp or YYYY-MM-DD)
-          schema:
+      - $ref: '#/components/parameters/WabaId'
+      - name: start
+        in: query
+        required: true
+        description: Start time (Unix timestamp or YYYY-MM-DD)
+        schema:
+          type: string
+        example: example_value
+      - name: end
+        in: query
+        required: true
+        description: End time (Unix timestamp or YYYY-MM-DD)
+        schema:
+          type: string
+        example: example_value
+      - name: granularity
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - HALF_HOUR
+          - DAILY
+          - MONTHLY
+        example: HALF_HOUR
+      - name: phone_numbers
+        in: query
+        description: Filter by phone number IDs
+        schema:
+          type: array
+          items:
             type: string
-        - name: end
-          in: query
-          required: true
-          description: End time (Unix timestamp or YYYY-MM-DD)
-          schema:
-            type: string
-        - name: granularity
-          in: query
-          required: true
-          schema:
+      - name: metric_types
+        in: query
+        schema:
+          type: array
+          items:
             type: string
             enum:
-              - HALF_HOUR
-              - DAILY
-              - MONTHLY
-        - name: phone_numbers
-          in: query
-          description: Filter by phone number IDs
-          schema:
-            type: array
-            items:
-              type: string
-        - name: metric_types
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - CONVERSATION
-                - COST
-        - name: conversation_categories
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - AUTHENTICATION
-                - MARKETING
-                - UTILITY
-                - SERVICE
-                - REFERRAL_CONVERSION
-        - name: dimensions
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - CONVERSATION_CATEGORY
-                - CONVERSATION_TYPE
-                - COUNTRY
-                - PHONE
+            - CONVERSATION
+            - COST
+      - name: conversation_categories
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - AUTHENTICATION
+            - MARKETING
+            - UTILITY
+            - SERVICE
+            - REFERRAL_CONVERSION
+      - name: dimensions
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CONVERSATION_CATEGORY
+            - CONVERSATION_TYPE
+            - COUNTRY
+            - PHONE
       responses:
         '200':
           description: Analytics retrieved
@@ -343,53 +380,59 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConversationAnalytics'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/template_analytics:
     get:
       operationId: getTemplateAnalytics
-      summary: WhatsApp Get template analytics
+      summary: WhatsApp Get Template Analytics
       description: Retrieves analytics for specific message templates.
       tags:
-        - Analytics
+      - Analytics
       parameters:
-        - $ref: '#/components/parameters/WabaId'
-        - name: start
-          in: query
-          required: true
-          schema:
+      - $ref: '#/components/parameters/WabaId'
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: granularity
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - DAILY
+        example: DAILY
+      - name: template_ids
+        in: query
+        required: true
+        description: Template IDs to analyze (max 10)
+        schema:
+          type: array
+          maxItems: 10
+          items:
             type: string
-        - name: end
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: granularity
-          in: query
-          required: true
-          schema:
+      - name: metric_types
+        in: query
+        schema:
+          type: array
+          items:
             type: string
             enum:
-              - DAILY
-        - name: template_ids
-          in: query
-          required: true
-          description: Template IDs to analyze (max 10)
-          schema:
-            type: array
-            maxItems: 10
-            items:
-              type: string
-        - name: metric_types
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - SENT
-                - DELIVERED
-                - READ
-                - CLICKED
-                - COST
+            - SENT
+            - DELIVERED
+            - READ
+            - CLICKED
+            - COST
       responses:
         '200':
           description: Template analytics retrieved
@@ -397,15 +440,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TemplateAnalytics'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/subscribed_apps:
     get:
       operationId: listSubscribedApps
-      summary: WhatsApp List webhook subscriptions
+      summary: WhatsApp List Webhook Subscriptions
       description: Lists all apps subscribed to webhook events for this WABA.
       tags:
-        - Subscribed Apps
+      - Subscribed Apps
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       responses:
         '200':
           description: Subscriptions retrieved
@@ -425,14 +471,17 @@ paths:
                           type: string
                         name:
                           type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: subscribeApp
-      summary: WhatsApp Subscribe app to webhooks
+      summary: WhatsApp Subscribe App to Webhooks
       description: Subscribes the current app to receive webhook events for this WABA.
       tags:
-        - Subscribed Apps
+      - Subscribed Apps
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       responses:
         '200':
           description: App subscribed
@@ -440,14 +489,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: unsubscribeApp
-      summary: WhatsApp Unsubscribe app from webhooks
+      summary: WhatsApp Unsubscribe App from Webhooks
       description: Unsubscribes the current app from webhook events.
       tags:
-        - Subscribed Apps
+      - Subscribed Apps
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       responses:
         '200':
           description: App unsubscribed
@@ -455,15 +507,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/assigned_users:
     get:
       operationId: listAssignedUsers
-      summary: WhatsApp List assigned users
+      summary: WhatsApp List Assigned Users
       description: Lists all users assigned to a WhatsApp Business Account.
       tags:
-        - Assigned Users
+      - Assigned Users
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       responses:
         '200':
           description: Users retrieved
@@ -485,14 +540,17 @@ paths:
                           type: array
                           items:
                             type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: assignUser
-      summary: WhatsApp Assign user to WABA
+      summary: WhatsApp Assign User to WABA
       description: Assigns a user with specific tasks to a WhatsApp Business Account.
       tags:
-        - Assigned Users
+      - Assigned Users
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       requestBody:
         required: true
         content:
@@ -500,8 +558,8 @@ paths:
             schema:
               type: object
               required:
-                - user
-                - tasks
+              - user
+              - tasks
               properties:
                 user:
                   type: string
@@ -511,12 +569,12 @@ paths:
                   items:
                     type: string
                     enum:
-                      - MANAGE
-                      - DEVELOP
-                      - MANAGE_TEMPLATES
-                      - MANAGE_PHONE
-                      - VIEW_COST
-                      - MANAGE_EXTENSIONS
+                    - MANAGE
+                    - DEVELOP
+                    - MANAGE_TEMPLATES
+                    - MANAGE_PHONE
+                    - VIEW_COST
+                    - MANAGE_EXTENSIONS
       responses:
         '200':
           description: User assigned
@@ -524,14 +582,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: removeAssignedUser
-      summary: WhatsApp Remove assigned user
+      summary: WhatsApp Remove Assigned User
       description: Removes a user from a WhatsApp Business Account.
       tags:
-        - Assigned Users
+      - Assigned Users
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       requestBody:
         required: true
         content:
@@ -539,7 +600,7 @@ paths:
             schema:
               type: object
               required:
-                - user
+              - user
               properties:
                 user:
                   type: string
@@ -550,15 +611,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{waba-id}/product_catalogs:
     get:
       operationId: listProductCatalogs
-      summary: WhatsApp List product catalogs
+      summary: WhatsApp List Product Catalogs
       description: Lists product catalogs connected to a WABA.
       tags:
-        - Product Catalogs
+      - Product Catalogs
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       responses:
         '200':
           description: Catalogs retrieved
@@ -576,14 +640,17 @@ paths:
                           type: string
                         name:
                           type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: connectProductCatalog
-      summary: WhatsApp Connect product catalog
+      summary: WhatsApp Connect Product Catalog
       description: Connects a product catalog to a WABA.
       tags:
-        - Product Catalogs
+      - Product Catalogs
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       requestBody:
         required: true
         content:
@@ -591,7 +658,7 @@ paths:
             schema:
               type: object
               required:
-                - catalog_id
+              - catalog_id
               properties:
                 catalog_id:
                   type: string
@@ -602,14 +669,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: disconnectProductCatalog
-      summary: WhatsApp Disconnect product catalog
+      summary: WhatsApp Disconnect Product Catalog
       description: Disconnects a product catalog from a WABA.
       tags:
-        - Product Catalogs
+      - Product Catalogs
       parameters:
-        - $ref: '#/components/parameters/WabaId'
+      - $ref: '#/components/parameters/WabaId'
       requestBody:
         required: true
         content:
@@ -617,7 +687,7 @@ paths:
             schema:
               type: object
               required:
-                - catalog_id
+              - catalog_id
               properties:
                 catalog_id:
                   type: string
@@ -628,6 +698,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -648,23 +721,31 @@ components:
       properties:
         id:
           type: string
+          example: wamid.abc123
         name:
           type: string
+          example: Example Business
         currency:
           type: string
+          example: example_value
         timezone_id:
           type: string
+          example: wamid.abc123
         country:
           type: string
+          example: example_value
         status:
           type: string
           enum:
-            - ACTIVE
-            - INACTIVE
+          - ACTIVE
+          - INACTIVE
+          example: ACTIVE
         business_verification_status:
           type: string
+          example: sent
         message_template_namespace:
           type: string
+          example: Example Business
         owner_business:
           type: object
           properties:
@@ -674,83 +755,100 @@ components:
               type: string
         primary_funding_id:
           type: string
+          example: wamid.abc123
         purchase_order_number:
           type: string
+          example: example_value
     PhoneNumber:
       type: object
       properties:
         id:
           type: string
+          example: wamid.abc123
         display_phone_number:
           type: string
+          example: '+15551234567'
         verified_name:
           type: string
+          example: Example Business
         quality_rating:
           type: string
           enum:
-            - GREEN
-            - YELLOW
-            - RED
-            - UNKNOWN
+          - GREEN
+          - YELLOW
+          - RED
+          - UNKNOWN
+          example: GREEN
         code_verification_status:
           type: string
           enum:
-            - VERIFIED
-            - NOT_VERIFIED
-            - EXPIRED
+          - VERIFIED
+          - NOT_VERIFIED
+          - EXPIRED
+          example: VERIFIED
         is_official_business_account:
           type: boolean
+          example: true
         name_status:
           type: string
+          example: Example Business
         platform_type:
           type: string
           enum:
-            - CLOUD_API
-            - ON_PREMISE
-            - NOT_APPLICABLE
+          - CLOUD_API
+          - ON_PREMISE
+          - NOT_APPLICABLE
+          example: CLOUD_API
         throughput:
           type: object
           properties:
             level:
               type: string
               enum:
-                - STANDARD
-                - HIGH
+              - STANDARD
+              - HIGH
         account_mode:
           type: string
           enum:
-            - LIVE
-            - SANDBOX
+          - LIVE
+          - SANDBOX
+          example: LIVE
         messaging_limit_tier:
           type: string
           enum:
-            - TIER_1K
-            - TIER_10K
-            - TIER_100K
-            - TIER_UNLIMITED
+          - TIER_1K
+          - TIER_10K
+          - TIER_100K
+          - TIER_UNLIMITED
+          example: TIER_1K
     MessageTemplate:
       type: object
       properties:
         id:
           type: string
+          example: wamid.abc123
         name:
           type: string
+          example: Example Business
         status:
           type: string
           enum:
-            - APPROVED
-            - PENDING
-            - REJECTED
-            - PAUSED
-            - DISABLED
+          - APPROVED
+          - PENDING
+          - REJECTED
+          - PAUSED
+          - DISABLED
+          example: APPROVED
         category:
           type: string
           enum:
-            - AUTHENTICATION
-            - MARKETING
-            - UTILITY
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
         language:
           type: string
+          example: en_US
         components:
           type: array
           items:
@@ -758,8 +856,9 @@ components:
         parameter_format:
           type: string
           enum:
-            - POSITIONAL
-            - NAMED
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
         quality_score:
           type: object
           properties:
@@ -768,25 +867,28 @@ components:
     CreateTemplateRequest:
       type: object
       required:
-        - name
-        - language
-        - category
-        - components
+      - name
+      - language
+      - category
+      - components
       properties:
         name:
           type: string
           description: Template name (lowercase, underscores only, max 512 chars)
           maxLength: 512
           pattern: '^[a-z][a-z0-9_]*$'
+          example: Example Business
         language:
           type: string
           description: Language code
+          example: en_US
         category:
           type: string
           enum:
-            - AUTHENTICATION
-            - MARKETING
-            - UTILITY
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
         components:
           type: array
           items:
@@ -794,32 +896,36 @@ components:
         parameter_format:
           type: string
           enum:
-            - POSITIONAL
-            - NAMED
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
     TemplateComponentDefinition:
       type: object
       required:
-        - type
+      - type
       properties:
         type:
           type: string
           enum:
-            - HEADER
-            - BODY
-            - FOOTER
-            - BUTTONS
+          - HEADER
+          - BODY
+          - FOOTER
+          - BUTTONS
+          example: HEADER
         format:
           type: string
           enum:
-            - TEXT
-            - IMAGE
-            - VIDEO
-            - DOCUMENT
-            - LOCATION
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - DOCUMENT
+          - LOCATION
           description: Header format type
+          example: TEXT
         text:
           type: string
           description: Component text content
+          example: Hello from WhatsApp!
         example:
           type: object
           description: Example values for variables
@@ -830,43 +936,53 @@ components:
         add_security_recommendation:
           type: boolean
           description: Authentication templates only
+          example: true
         code_expiration_minutes:
           type: integer
           description: Authentication templates only (1-90)
           minimum: 1
           maximum: 90
+          example: 42
     TemplateButton:
       type: object
       required:
-        - type
-        - text
+      - type
+      - text
       properties:
         type:
           type: string
           enum:
-            - QUICK_REPLY
-            - URL
-            - PHONE_NUMBER
-            - COPY_CODE
-            - FLOW
-            - OTP
-            - CATALOG
-            - MPM
+          - QUICK_REPLY
+          - URL
+          - PHONE_NUMBER
+          - COPY_CODE
+          - FLOW
+          - OTP
+          - CATALOG
+          - MPM
+          example: QUICK_REPLY
         text:
           type: string
+          example: Hello from WhatsApp!
         url:
           type: string
           format: uri
+          example: https://example.com/image.jpg
         phone_number:
           type: string
+          example: '+15551234567'
         example:
           type: string
+          example: example_value
         flow_id:
           type: string
+          example: wamid.abc123
         flow_action:
           type: string
+          example: example_value
         navigate_screen:
           type: string
+          example: example_value
     ConversationAnalytics:
       type: object
       properties:
@@ -936,11 +1052,14 @@ components:
         next:
           type: string
           format: uri
+          example: example_value
         previous:
           type: string
           format: uri
+          example: example_value
     SuccessResponse:
       type: object
       properties:
         success:
           type: boolean
+          example: true

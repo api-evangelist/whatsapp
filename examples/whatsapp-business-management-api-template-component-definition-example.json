@@ -1,0 +1,11 @@
+{
+  "type": "HEADER",
+  "format": "TEXT",
+  "text": "Hello from WhatsApp!",
+  "example": {},
+  "buttons": [
+    "example_value"
+  ],
+  "add_security_recommendation": true,
+  "code_expiration_minutes": 42
+}

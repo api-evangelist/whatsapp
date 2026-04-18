@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/json-schema/whatsapp-business-management-api-template-component-definition-schema.json",
+  "title": "TemplateComponentDefinition",
+  "description": "TemplateComponentDefinition from WhatsApp API",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "HEADER",
+        "BODY",
+        "FOOTER",
+        "BUTTONS"
+      ],
+      "example": "HEADER"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "TEXT",
+        "IMAGE",
+        "VIDEO",
+        "DOCUMENT",
+        "LOCATION"
+      ],
+      "description": "Header format type",
+      "example": "TEXT"
+    },
+    "text": {
+      "type": "string",
+      "description": "Component text content",
+      "example": "Hello from WhatsApp!"
+    },
+    "example": {
+      "type": "object",
+      "description": "Example values for variables"
+    },
+    "buttons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TemplateButton"
+      }
+    },
+    "add_security_recommendation": {
+      "type": "boolean",
+      "description": "Authentication templates only",
+      "example": true
+    },
+    "code_expiration_minutes": {
+      "type": "integer",
+      "description": "Authentication templates only (1-90)",
+      "minimum": 1,
+      "maximum": 90,
+      "example": 42
+    }
+  },
+  "required": [
+    "type"
+  ]
+}

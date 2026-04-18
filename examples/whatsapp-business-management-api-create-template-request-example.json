@@ -1,0 +1,9 @@
+{
+  "name": "Example Business",
+  "language": "en_US",
+  "category": "AUTHENTICATION",
+  "components": [
+    "example_value"
+  ],
+  "parameter_format": "POSITIONAL"
+}

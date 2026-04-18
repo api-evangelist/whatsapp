@@ -1,0 +1,23 @@
+{
+  "id": "wamid.abc123",
+  "name": "Example Business",
+  "status": "DRAFT",
+  "categories": [
+    "SIGN_IN"
+  ],
+  "validation_errors": [
+    "wamid.abc123"
+  ],
+  "json_version": "example_value",
+  "data_api_version": "example_value",
+  "endpoint_uri": "example_value",
+  "preview": {
+    "preview_url": "https://example.com/media.jpg",
+    "expires_at": "example_value",
+    "id": "wamid.abc123"
+  },
+  "whatsapp_business_account": {
+    "id": "wamid.abc123",
+    "name": "Example Business"
+  }
+}

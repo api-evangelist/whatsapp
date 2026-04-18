@@ -1,0 +1,535 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://developers.facebook.com/schemas/whatsapp/message.json",
+  "name": "WhatsApp Message",
+  "description": "Schema for outbound WhatsApp messages sent via the Cloud API POST /{phone-number-id}/messages endpoint. Covers all message types including text, media, location, contacts, interactive, template, and reaction messages.",
+  "type": "object",
+  "required": [
+    "messaging_product",
+    "to",
+    "type"
+  ],
+  "properties": {
+    "messaging_product": {
+      "type": "string",
+      "const": "whatsapp",
+      "description": "Must be 'whatsapp'"
+    },
+    "recipient_type": {
+      "type": "string",
+      "default": "individual",
+      "description": "Recipient type, currently only 'individual' is supported"
+    },
+    "to": {
+      "type": "string",
+      "description": "Recipient phone number in E.164 format without the leading +",
+      "pattern": "^[1-9]\\d{1,14}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "image",
+        "video",
+        "audio",
+        "document",
+        "sticker",
+        "location",
+        "contacts",
+        "interactive",
+        "template",
+        "reaction"
+      ],
+      "description": "Message type"
+    },
+    "context": {
+      "$ref": "#/$defs/Context"
+    },
+    "biz_opaque_callback_data": {
+      "type": "string",
+      "description": "Arbitrary string for tracking, included in webhook delivery"
+    },
+    "text": {
+      "$ref": "#/$defs/TextMessage"
+    },
+    "image": {
+      "$ref": "#/$defs/MediaMessage"
+    },
+    "video": {
+      "$ref": "#/$defs/MediaMessage"
+    },
+    "audio": {
+      "$ref": "#/$defs/AudioMessage"
+    },
+    "document": {
+      "$ref": "#/$defs/DocumentMessage"
+    },
+    "sticker": {
+      "$ref": "#/$defs/StickerMessage"
+    },
+    "location": {
+      "$ref": "#/$defs/LocationMessage"
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Contact"
+      },
+      "description": "Array of contact cards to send"
+    },
+    "interactive": {
+      "$ref": "#/$defs/InteractiveMessage"
+    },
+    "template": {
+      "$ref": "#/$defs/TemplateMessage"
+    },
+    "reaction": {
+      "$ref": "#/$defs/ReactionMessage"
+    }
+  },
+  "$defs": {
+    "Context": {
+      "type": "object",
+      "description": "Context for reply messages",
+      "required": [
+        "message_id"
+      ],
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "ID of the message being replied to"
+        }
+      }
+    },
+    "TextMessage": {
+      "type": "object",
+      "required": [
+        "body"
+      ],
+      "properties": {
+        "body": {
+          "type": "string",
+          "maxLength": 4096,
+          "description": "Message text content"
+        },
+        "preview_url": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set true to render URL previews"
+        }
+      }
+    },
+    "MediaMessage": {
+      "type": "object",
+      "description": "Image or video message. Provide either id (for uploaded media) or link (for URL-hosted media), not both.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Media ID from a previous upload"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "description": "HTTPS URL of the media file"
+        },
+        "caption": {
+          "type": "string",
+          "maxLength": 1024,
+          "description": "Caption text"
+        }
+      }
+    },
+    "AudioMessage": {
+      "type": "object",
+      "description": "Audio message. Supported formats: AAC, MP4, MPEG, AMR, OGG (OPUS). Max 16 MB.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Media ID from a previous upload"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "description": "HTTPS URL of the audio file"
+        }
+      }
+    },
+    "DocumentMessage": {
+      "type": "object",
+      "description": "Document message. Max 100 MB.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Media ID from a previous upload"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "description": "HTTPS URL of the document"
+        },
+        "caption": {
+          "type": "string",
+          "description": "Caption text"
+        },
+        "filename": {
+          "type": "string",
+          "description": "Filename to display to recipient"
+        }
+      }
+    },
+    "StickerMessage": {
+      "type": "object",
+      "description": "Sticker message. WebP format only. Max 100 KB (static), 500 KB (animated).",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "LocationMessage": {
+      "type": "object",
+      "required": [
+        "latitude",
+        "longitude"
+      ],
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "name": {
+          "type": "string",
+          "description": "Location name"
+        },
+        "address": {
+          "type": "string",
+          "description": "Location address"
+        }
+      }
+    },
+    "Contact": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "object",
+          "required": [
+            "formatted_name"
+          ],
+          "properties": {
+            "formatted_name": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "middle_name": {
+              "type": "string"
+            },
+            "prefix": {
+              "type": "string"
+            },
+            "suffix": {
+              "type": "string"
+            }
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "HOME",
+                  "WORK"
+                ]
+              }
+            }
+          }
+        },
+        "birthday": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Birthday in YYYY-MM-DD format"
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "HOME",
+                  "WORK"
+                ]
+              }
+            }
+          }
+        },
+        "org": {
+          "type": "object",
+          "properties": {
+            "company": {
+              "type": "string"
+            },
+            "department": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        },
+        "phones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "phone": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CELL",
+                  "MAIN",
+                  "IPHONE",
+                  "HOME",
+                  "WORK"
+                ]
+              },
+              "wa_id": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "HOME",
+                  "WORK"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "InteractiveMessage": {
+      "type": "object",
+      "required": [
+        "type",
+        "action"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "button",
+            "list",
+            "product",
+            "product_list",
+            "cta_url",
+            "location_request_message",
+            "flow"
+          ]
+        },
+        "header": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "text",
+                "image",
+                "video",
+                "document"
+              ]
+            },
+            "text": {
+              "type": "string"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          }
+        },
+        "footer": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 60
+            }
+          }
+        },
+        "action": {
+          "type": "object",
+          "description": "Action configuration varies by interactive type"
+        }
+      }
+    },
+    "TemplateMessage": {
+      "type": "object",
+      "required": [
+        "name",
+        "language"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Template name"
+        },
+        "language": {
+          "type": "object",
+          "required": [
+            "code"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Language/locale code (e.g., en_US)"
+            },
+            "policy": {
+              "type": "string",
+              "default": "deterministic"
+            }
+          }
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "header",
+                  "body",
+                  "button"
+                ]
+              },
+              "sub_type": {
+                "type": "string",
+                "enum": [
+                  "quick_reply",
+                  "url",
+                  "copy_code",
+                  "flow",
+                  "catalog"
+                ]
+              },
+              "index": {
+                "type": "string"
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "type"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "text",
+                        "image",
+                        "video",
+                        "document",
+                        "location",
+                        "currency",
+                        "date_time",
+                        "payload",
+                        "coupon_code"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ReactionMessage": {
+      "type": "object",
+      "required": [
+        "message_id",
+        "emoji"
+      ],
+      "properties": {
+        "message_id": {
+          "type": "string",
+          "description": "ID of the message to react to"
+        },
+        "emoji": {
+          "type": "string",
+          "description": "Emoji character or empty string to remove reaction"
+        }
+      }
+    }
+  }
+}
