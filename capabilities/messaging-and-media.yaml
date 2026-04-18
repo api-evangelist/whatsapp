@@ -1,0 +1,303 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WhatsApp Messaging And Media"
+  description: "Unified workflow for sending messages, managing media files, and creating QR codes for customer conversations. Combines WhatsApp Cloud API messaging, media management, and QR code capabilities used by customer engagement teams and chatbot developers."
+  tags:
+    - WhatsApp
+    - Messaging
+    - Media
+    - QR Codes
+    - Customer Engagement
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - import: whatsapp-cloud
+      location: ./shared/cloud-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: whatsapp-messaging-api
+      description: "Unified REST API for WhatsApp messaging, media management, and QR codes."
+      resources:
+        - path: /v1/messages
+          name: messages
+          description: "Send messages of all types to WhatsApp users."
+          operations:
+            - method: POST
+              name: send-message
+              description: "Sends a message to a WhatsApp user."
+              call: "whatsapp-cloud.send-message"
+              with:
+                phone_number_id: "rest.phone_number_id"
+                messaging_product: "rest.messaging_product"
+                to: "rest.to"
+                type: "rest.type"
+                text: "rest.text"
+                template: "rest.template"
+                interactive: "rest.interactive"
+                image: "rest.image"
+                video: "rest.video"
+                audio: "rest.audio"
+                document: "rest.document"
+                sticker: "rest.sticker"
+                location: "rest.location"
+                contacts: "rest.contacts"
+                reaction: "rest.reaction"
+                context: "rest.context"
+                status: "rest.status"
+                message_id: "rest.message_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/media
+          name: media-upload
+          description: "Upload media files to WhatsApp servers."
+          operations:
+            - method: POST
+              name: upload-media
+              description: "Uploads media to WhatsApp servers."
+              call: "whatsapp-cloud.upload-media"
+              with:
+                phone_number_id: "rest.phone_number_id"
+                file: "rest.file"
+                type: "rest.type"
+                messaging_product: "rest.messaging_product"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/media/{media_id}
+          name: media
+          description: "Retrieve and delete media files."
+          operations:
+            - method: GET
+              name: get-media-url
+              description: "Retrieves a temporary download URL for media."
+              call: "whatsapp-cloud.get-media-url"
+              with:
+                media_id: "rest.media_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-media
+              description: "Deletes a media file."
+              call: "whatsapp-cloud.delete-media"
+              with:
+                media_id: "rest.media_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/qr-codes
+          name: qr-codes
+          description: "QR codes for starting customer conversations."
+          operations:
+            - method: GET
+              name: list-qr-codes
+              description: "Lists all QR codes for a phone number."
+              call: "whatsapp-cloud.list-qr-codes"
+              with:
+                phone_number_id: "rest.phone_number_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-qr-code
+              description: "Creates a QR code for starting conversations."
+              call: "whatsapp-cloud.create-qr-code"
+              with:
+                phone_number_id: "rest.phone_number_id"
+                prefilled_message: "rest.prefilled_message"
+                generate_qr_image: "rest.generate_qr_image"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/qr-codes/{qr_code_id}
+          name: qr-code
+          description: "Individual QR code management."
+          operations:
+            - method: GET
+              name: get-qr-code
+              description: "Retrieves a specific QR code."
+              call: "whatsapp-cloud.get-qr-code"
+              with:
+                phone_number_id: "rest.phone_number_id"
+                qr_code_id: "rest.qr_code_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: update-qr-code
+              description: "Updates a QR code."
+              call: "whatsapp-cloud.update-qr-code"
+              with:
+                phone_number_id: "rest.phone_number_id"
+                qr_code_id: "rest.qr_code_id"
+                prefilled_message: "rest.prefilled_message"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-qr-code
+              description: "Deletes a QR code."
+              call: "whatsapp-cloud.delete-qr-code"
+              with:
+                phone_number_id: "rest.phone_number_id"
+                qr_code_id: "rest.qr_code_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: whatsapp-messaging-mcp
+      transport: http
+      description: "MCP server for AI-assisted WhatsApp messaging, media management, and QR code operations."
+      tools:
+        - name: send-message
+          description: "Sends a message to a WhatsApp user. Supports text, image, video, audio, document, sticker, location, contacts, interactive, template, and reaction message types."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "whatsapp-cloud.send-message"
+          with:
+            phone_number_id: "tools.phone_number_id"
+            messaging_product: "tools.messaging_product"
+            to: "tools.to"
+            type: "tools.type"
+            text: "tools.text"
+            template: "tools.template"
+            interactive: "tools.interactive"
+            image: "tools.image"
+            video: "tools.video"
+            audio: "tools.audio"
+            document: "tools.document"
+            sticker: "tools.sticker"
+            location: "tools.location"
+            contacts: "tools.contacts"
+            reaction: "tools.reaction"
+            context: "tools.context"
+            status: "tools.status"
+            message_id: "tools.message_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: upload-media
+          description: "Uploads media to WhatsApp servers. Returns a media ID for use when sending media messages."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "whatsapp-cloud.upload-media"
+          with:
+            phone_number_id: "tools.phone_number_id"
+            file: "tools.file"
+            type: "tools.type"
+            messaging_product: "tools.messaging_product"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-media-url
+          description: "Retrieves a temporary download URL for a media file. URL expires after 5 minutes."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "whatsapp-cloud.get-media-url"
+          with:
+            media_id: "tools.media_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: delete-media
+          description: "Deletes a media file from WhatsApp servers."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "whatsapp-cloud.delete-media"
+          with:
+            media_id: "tools.media_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-qr-code
+          description: "Creates a QR code that customers can scan to start a conversation."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "whatsapp-cloud.create-qr-code"
+          with:
+            phone_number_id: "tools.phone_number_id"
+            prefilled_message: "tools.prefilled_message"
+            generate_qr_image: "tools.generate_qr_image"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-qr-codes
+          description: "Lists all QR codes for a phone number."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "whatsapp-cloud.list-qr-codes"
+          with:
+            phone_number_id: "tools.phone_number_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-qr-code
+          description: "Retrieves a specific QR code."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "whatsapp-cloud.get-qr-code"
+          with:
+            phone_number_id: "tools.phone_number_id"
+            qr_code_id: "tools.qr_code_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-qr-code
+          description: "Updates the prefilled message for a QR code."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "whatsapp-cloud.update-qr-code"
+          with:
+            phone_number_id: "tools.phone_number_id"
+            qr_code_id: "tools.qr_code_id"
+            prefilled_message: "tools.prefilled_message"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: delete-qr-code
+          description: "Deletes a QR code."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "whatsapp-cloud.delete-qr-code"
+          with:
+            phone_number_id: "tools.phone_number_id"
+            qr_code_id: "tools.qr_code_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

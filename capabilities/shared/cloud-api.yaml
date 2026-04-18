@@ -1,0 +1,634 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WhatsApp Cloud API"
+  description: "The WhatsApp Cloud API enables businesses to send and receive messages, manage media, configure business profiles, and handle phone number registration through Meta's cloud-hosted infrastructure."
+  tags:
+    - WhatsApp
+    - Cloud API
+    - Meta
+    - Messaging
+    - Media
+    - Business Profile
+    - Registration
+    - QR Codes
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: whatsapp-cloud
+      baseUri: https://graph.facebook.com/v21.0
+      description: "WhatsApp Cloud API for sending messages, managing media, business profiles, phone registration, and QR codes."
+      authentication:
+        type: bearer
+        token: "{{WHATSAPP_ACCESS_TOKEN}}"
+      resources:
+        - name: messages
+          path: /
+          description: "Send messages of all types to WhatsApp users."
+          operations:
+            - name: send-message
+              method: POST
+              path: /{phone_number_id}/messages
+              description: "Sends a message to a WhatsApp user. Also used to mark incoming messages as read."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID from the WhatsApp Business Account"
+              body:
+                type: json
+                data:
+                  messaging_product: "{{tools.messaging_product}}"
+                  to: "{{tools.to}}"
+                  type: "{{tools.type}}"
+                  text: "{{tools.text}}"
+                  template: "{{tools.template}}"
+                  interactive: "{{tools.interactive}}"
+                  image: "{{tools.image}}"
+                  video: "{{tools.video}}"
+                  audio: "{{tools.audio}}"
+                  document: "{{tools.document}}"
+                  sticker: "{{tools.sticker}}"
+                  location: "{{tools.location}}"
+                  contacts: "{{tools.contacts}}"
+                  reaction: "{{tools.reaction}}"
+                  context: "{{tools.context}}"
+                  status: "{{tools.status}}"
+                  message_id: "{{tools.message_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: media
+          path: /
+          description: "Upload, retrieve, and delete media files."
+          operations:
+            - name: upload-media
+              method: POST
+              path: /{phone_number_id}/media
+              description: "Uploads media to WhatsApp servers. Returns a media ID for use in messages."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID from the WhatsApp Business Account"
+              body:
+                type: json
+                data:
+                  file: "{{tools.file}}"
+                  type: "{{tools.type}}"
+                  messaging_product: "{{tools.messaging_product}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-media-url
+              method: GET
+              path: /{media_id}
+              description: "Retrieves a temporary download URL for a media file. URL expires after 5 minutes."
+              inputParameters:
+                - name: media_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Media ID returned from upload or webhook"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-media
+              method: DELETE
+              path: /{media_id}
+              description: "Deletes a media file from WhatsApp servers."
+              inputParameters:
+                - name: media_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Media ID returned from upload or webhook"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: phone-numbers
+          path: /
+          description: "Manage and verify phone numbers."
+          operations:
+            - name: get-phone-number
+              method: GET
+              path: /{phone_number_id}
+              description: "Retrieves information about a registered phone number."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: two-step-verification
+          path: /
+          description: "Manage two-step verification PIN."
+          operations:
+            - name: set-two-step-verification
+              method: POST
+              path: /{phone_number_id}
+              description: "Sets or updates the two-step verification PIN for a phone number."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  pin: "{{tools.pin}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: business-profile
+          path: /
+          description: "Get and update WhatsApp Business profile information."
+          operations:
+            - name: get-business-profile
+              method: GET
+              path: /{phone_number_id}/whatsapp_business_profile
+              description: "Retrieves the WhatsApp Business profile for a phone number."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: true
+                  description: "Comma-separated fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-business-profile
+              method: POST
+              path: /{phone_number_id}/whatsapp_business_profile
+              description: "Updates the WhatsApp Business profile for a phone number."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  messaging_product: "{{tools.messaging_product}}"
+                  about: "{{tools.about}}"
+                  address: "{{tools.address}}"
+                  description: "{{tools.description}}"
+                  email: "{{tools.email}}"
+                  websites: "{{tools.websites}}"
+                  vertical: "{{tools.vertical}}"
+                  profile_picture_handle: "{{tools.profile_picture_handle}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: registration
+          path: /
+          description: "Register and deregister phone numbers."
+          operations:
+            - name: request-verification-code
+              method: POST
+              path: /{phone_number_id}/request_code
+              description: "Requests a verification code via SMS or voice call for phone registration."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  code_method: "{{tools.code_method}}"
+                  language: "{{tools.language}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: verify-code
+              method: POST
+              path: /{phone_number_id}/verify_code
+              description: "Verifies a phone number using the code received via SMS or voice."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  code: "{{tools.code}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: register-phone-number
+              method: POST
+              path: /{phone_number_id}/register
+              description: "Registers a phone number for use with the Cloud API."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  messaging_product: "{{tools.messaging_product}}"
+                  pin: "{{tools.pin}}"
+                  data_localization_region: "{{tools.data_localization_region}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: deregister-phone-number
+              method: POST
+              path: /{phone_number_id}/deregister
+              description: "Deregisters a phone number from the Cloud API."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  messaging_product: "{{tools.messaging_product}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: qr-codes
+          path: /
+          description: "Create and manage QR codes for customer conversations."
+          operations:
+            - name: create-qr-code
+              method: POST
+              path: /{phone_number_id}/message_qrdls
+              description: "Creates a QR code that customers can scan to start a conversation."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              body:
+                type: json
+                data:
+                  prefilled_message: "{{tools.prefilled_message}}"
+                  generate_qr_image: "{{tools.generate_qr_image}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: list-qr-codes
+              method: GET
+              path: /{phone_number_id}/message_qrdls
+              description: "Lists all QR codes for a phone number."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-qr-code
+              method: GET
+              path: /{phone_number_id}/message_qrdls/{qr_code_id}
+              description: "Retrieves a specific QR code."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+                - name: qr_code_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "QR code identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-qr-code
+              method: POST
+              path: /{phone_number_id}/message_qrdls/{qr_code_id}
+              description: "Updates the prefilled message for a QR code."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+                - name: qr_code_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "QR code identifier"
+              body:
+                type: json
+                data:
+                  prefilled_message: "{{tools.prefilled_message}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-qr-code
+              method: DELETE
+              path: /{phone_number_id}/message_qrdls/{qr_code_id}
+              description: "Deletes a QR code."
+              inputParameters:
+                - name: phone_number_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Phone Number ID"
+                - name: qr_code_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "QR code identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: whatsapp-cloud-api
+      resources:
+        - path: /v1/messages
+          name: messages
+          description: "Send messages to WhatsApp users."
+          operations:
+            - method: POST
+              name: send-message
+              description: "Sends a message to a WhatsApp user."
+
+        - path: /v1/media
+          name: media-upload
+          description: "Upload media files."
+          operations:
+            - method: POST
+              name: upload-media
+              description: "Uploads media to WhatsApp servers."
+
+        - path: /v1/media/{media_id}
+          name: media
+          description: "Retrieve and delete media files."
+          operations:
+            - method: GET
+              name: get-media-url
+              description: "Retrieves a temporary download URL for media."
+            - method: DELETE
+              name: delete-media
+              description: "Deletes a media file."
+
+        - path: /v1/phone-numbers/{phone_number_id}
+          name: phone-numbers
+          description: "Phone number information."
+          operations:
+            - method: GET
+              name: get-phone-number
+              description: "Retrieves phone number information."
+
+        - path: /v1/two-step-verification
+          name: two-step-verification
+          description: "Two-step verification PIN management."
+          operations:
+            - method: POST
+              name: set-two-step-verification
+              description: "Sets or updates the two-step verification PIN."
+
+        - path: /v1/business-profiles
+          name: business-profiles
+          description: "Business profile management."
+          operations:
+            - method: GET
+              name: get-business-profile
+              description: "Retrieves the business profile."
+            - method: POST
+              name: update-business-profile
+              description: "Updates the business profile."
+
+        - path: /v1/registrations/request-code
+          name: registration-request-code
+          description: "Request verification codes."
+          operations:
+            - method: POST
+              name: request-verification-code
+              description: "Requests a verification code."
+
+        - path: /v1/registrations/verify-code
+          name: registration-verify-code
+          description: "Verify phone numbers."
+          operations:
+            - method: POST
+              name: verify-code
+              description: "Verifies a phone number."
+
+        - path: /v1/registrations/register
+          name: registration-register
+          description: "Register phone numbers."
+          operations:
+            - method: POST
+              name: register-phone-number
+              description: "Registers a phone number for Cloud API."
+
+        - path: /v1/registrations/deregister
+          name: registration-deregister
+          description: "Deregister phone numbers."
+          operations:
+            - method: POST
+              name: deregister-phone-number
+              description: "Deregisters a phone number."
+
+        - path: /v1/qr-codes
+          name: qr-codes
+          description: "QR code management."
+          operations:
+            - method: GET
+              name: list-qr-codes
+              description: "Lists all QR codes."
+            - method: POST
+              name: create-qr-code
+              description: "Creates a QR code."
+
+        - path: /v1/qr-codes/{qr_code_id}
+          name: qr-code
+          description: "Individual QR code management."
+          operations:
+            - method: GET
+              name: get-qr-code
+              description: "Retrieves a specific QR code."
+            - method: POST
+              name: update-qr-code
+              description: "Updates a QR code."
+            - method: DELETE
+              name: delete-qr-code
+              description: "Deletes a QR code."
+
+    - type: mcp
+      port: 9101
+      namespace: whatsapp-cloud-mcp
+      transport: http
+      tools:
+        - name: send-message
+          description: "Sends a message to a WhatsApp user."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: upload-media
+          description: "Uploads media to WhatsApp servers."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: get-media-url
+          description: "Retrieves a temporary download URL for media."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: delete-media
+          description: "Deletes a media file from WhatsApp servers."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+        - name: get-phone-number
+          description: "Retrieves information about a registered phone number."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: set-two-step-verification
+          description: "Sets or updates the two-step verification PIN."
+          hints:
+            readOnly: false
+            idempotent: true
+        - name: get-business-profile
+          description: "Retrieves the WhatsApp Business profile."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: update-business-profile
+          description: "Updates the WhatsApp Business profile."
+          hints:
+            readOnly: false
+            idempotent: true
+        - name: request-verification-code
+          description: "Requests a verification code via SMS or voice call."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: verify-code
+          description: "Verifies a phone number using a verification code."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: register-phone-number
+          description: "Registers a phone number for use with the Cloud API."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: deregister-phone-number
+          description: "Deregisters a phone number from the Cloud API."
+          hints:
+            readOnly: false
+            destructive: true
+        - name: create-qr-code
+          description: "Creates a QR code for starting conversations."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: list-qr-codes
+          description: "Lists all QR codes for a phone number."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: get-qr-code
+          description: "Retrieves a specific QR code."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: update-qr-code
+          description: "Updates the prefilled message for a QR code."
+          hints:
+            readOnly: false
+            idempotent: true
+        - name: delete-qr-code
+          description: "Deletes a QR code."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true

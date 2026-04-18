@@ -1,0 +1,323 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WhatsApp Flows API"
+  description: "The WhatsApp Flows API enables businesses to create, manage, publish, and deprecate structured interactive flows within WhatsApp conversations. Flows support appointment booking, surveys, lead capture, and other guided experiences."
+  tags:
+    - WhatsApp
+    - Flows
+    - Meta
+    - Interactive
+    - Automation
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: whatsapp-flows
+      baseUri: https://graph.facebook.com/v21.0
+      description: "WhatsApp Flows API for creating, managing, publishing, and deprecating interactive flows."
+      authentication:
+        type: bearer
+        token: "{{WHATSAPP_ACCESS_TOKEN}}"
+      resources:
+        - name: flows
+          path: /
+          description: "Create, read, update, and delete flows."
+          operations:
+            - name: list-flows
+              method: GET
+              path: /{waba_id}/flows
+              description: "Lists all flows for a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-flow
+              method: POST
+              path: /{waba_id}/flows
+              description: "Creates a new flow for a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  categories: "{{tools.categories}}"
+                  clone_flow_id: "{{tools.clone_flow_id}}"
+                  endpoint_uri: "{{tools.endpoint_uri}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-flow
+              method: GET
+              path: /{flow_id}
+              description: "Retrieves details about a specific flow."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-flow
+              method: POST
+              path: /{flow_id}
+              description: "Updates a flow. Only DRAFT flows can be updated."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  categories: "{{tools.categories}}"
+                  endpoint_uri: "{{tools.endpoint_uri}}"
+                  application_id: "{{tools.application_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-flow
+              method: DELETE
+              path: /{flow_id}
+              description: "Deletes a flow. Only DRAFT flows can be deleted."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: assets
+          path: /
+          description: "Upload and retrieve flow JSON assets."
+          operations:
+            - name: get-flow-assets
+              method: GET
+              path: /{flow_id}/assets
+              description: "Retrieves the assets (flow JSON file) for a flow."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: upload-flow-json
+              method: POST
+              path: /{flow_id}/assets
+              description: "Uploads or replaces the flow JSON definition file."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+              body:
+                type: json
+                data:
+                  file: "{{tools.file}}"
+                  name: "{{tools.name}}"
+                  asset_type: "{{tools.asset_type}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: lifecycle
+          path: /
+          description: "Publish and deprecate flows."
+          operations:
+            - name: publish-flow
+              method: POST
+              path: /{flow_id}/publish
+              description: "Publishes a draft flow, making it available for use in messages."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: deprecate-flow
+              method: POST
+              path: /{flow_id}/deprecate
+              description: "Deprecates a published flow. Deprecated flows cannot be sent to customers."
+              inputParameters:
+                - name: flow_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Flow ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: whatsapp-flows-api
+      resources:
+        - path: /v1/flows
+          name: flows
+          description: "Flow management."
+          operations:
+            - method: GET
+              name: list-flows
+              description: "Lists all flows for a WABA."
+            - method: POST
+              name: create-flow
+              description: "Creates a new flow."
+
+        - path: /v1/flows/{flow_id}
+          name: flow
+          description: "Individual flow management."
+          operations:
+            - method: GET
+              name: get-flow
+              description: "Retrieves details about a flow."
+            - method: POST
+              name: update-flow
+              description: "Updates a draft flow."
+            - method: DELETE
+              name: delete-flow
+              description: "Deletes a draft flow."
+
+        - path: /v1/flows/{flow_id}/assets
+          name: flow-assets
+          description: "Flow JSON assets."
+          operations:
+            - method: GET
+              name: get-flow-assets
+              description: "Retrieves flow assets."
+            - method: POST
+              name: upload-flow-json
+              description: "Uploads flow JSON definition."
+
+        - path: /v1/flows/{flow_id}/publish
+          name: flow-publish
+          description: "Publish a flow."
+          operations:
+            - method: POST
+              name: publish-flow
+              description: "Publishes a draft flow."
+
+        - path: /v1/flows/{flow_id}/deprecate
+          name: flow-deprecate
+          description: "Deprecate a flow."
+          operations:
+            - method: POST
+              name: deprecate-flow
+              description: "Deprecates a published flow."
+
+    - type: mcp
+      port: 9102
+      namespace: whatsapp-flows-mcp
+      transport: http
+      tools:
+        - name: list-flows
+          description: "Lists all flows for a WhatsApp Business Account."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: create-flow
+          description: "Creates a new flow."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: get-flow
+          description: "Retrieves details about a specific flow."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: update-flow
+          description: "Updates a draft flow."
+          hints:
+            readOnly: false
+            idempotent: true
+        - name: delete-flow
+          description: "Deletes a draft flow."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+        - name: get-flow-assets
+          description: "Retrieves the flow JSON assets."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: upload-flow-json
+          description: "Uploads or replaces the flow JSON definition."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: publish-flow
+          description: "Publishes a draft flow for use in messages."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: deprecate-flow
+          description: "Deprecates a published flow."
+          hints:
+            readOnly: false
+            destructive: true

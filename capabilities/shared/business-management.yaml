@@ -1,0 +1,691 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WhatsApp Business Management API"
+  description: "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API."
+  tags:
+    - WhatsApp
+    - Business Management
+    - Meta
+    - Analytics
+    - Message Templates
+    - Phone Numbers
+    - Product Catalogs
+    - Webhooks
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: whatsapp-business-mgmt
+      baseUri: https://graph.facebook.com/v21.0
+      description: "WhatsApp Business Management API for managing WABAs, phone numbers, templates, analytics, users, catalogs, and webhooks."
+      authentication:
+        type: bearer
+        token: "{{WHATSAPP_ACCESS_TOKEN}}"
+      resources:
+        - name: business-accounts
+          path: /
+          description: "Manage WhatsApp Business Account information."
+          operations:
+            - name: get-whatsapp-business-account
+              method: GET
+              path: /{waba_id}
+              description: "Retrieves information about a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated list of fields to return"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: phone-numbers
+          path: /
+          description: "List and manage phone numbers on a WABA."
+          operations:
+            - name: list-phone-numbers
+              method: GET
+              path: /{waba_id}/phone_numbers
+              description: "Lists all phone numbers associated with a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated fields to return"
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination limit"
+                - name: after
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for forward pagination"
+                - name: before
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for backward pagination"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: message-templates
+          path: /
+          description: "Create, update, and delete message templates."
+          operations:
+            - name: list-message-templates
+              method: GET
+              path: /{waba_id}/message_templates
+              description: "Lists all message templates for a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: fields
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated fields to return"
+                - name: limit
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Pagination limit"
+                - name: after
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for forward pagination"
+                - name: before
+                  in: query
+                  type: string
+                  required: false
+                  description: "Cursor for backward pagination"
+                - name: name
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by template name"
+                - name: language
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by language code"
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by approval status (APPROVED, PENDING, REJECTED, PAUSED, DISABLED)"
+                - name: category
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by template category (AUTHENTICATION, MARKETING, UTILITY)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-message-template
+              method: POST
+              path: /{waba_id}/message_templates
+              description: "Creates a new message template for a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  language: "{{tools.language}}"
+                  category: "{{tools.category}}"
+                  components: "{{tools.components}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-message-template
+              method: POST
+              path: /{message_template_id}
+              description: "Updates an existing message template. Only APPROVED or PAUSED templates can be edited."
+              inputParameters:
+                - name: message_template_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "Message template ID"
+              body:
+                type: json
+                data:
+                  components: "{{tools.components}}"
+                  category: "{{tools.category}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-message-template
+              method: DELETE
+              path: /{waba_id}/message_templates
+              description: "Deletes a message template. Deleting by name removes all language variants."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: name
+                  in: query
+                  type: string
+                  required: true
+                  description: "Template name to delete"
+                - name: hsm_id
+                  in: query
+                  type: string
+                  required: false
+                  description: "Specific template ID to delete a single language variant"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: analytics
+          path: /
+          description: "Retrieve conversation and template analytics."
+          operations:
+            - name: get-conversation-analytics
+              method: GET
+              path: /{waba_id}/conversation_analytics
+              description: "Retrieves conversation analytics for a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: start
+                  in: query
+                  type: string
+                  required: true
+                  description: "Start time (Unix timestamp or YYYY-MM-DD)"
+                - name: end
+                  in: query
+                  type: string
+                  required: true
+                  description: "End time (Unix timestamp or YYYY-MM-DD)"
+                - name: granularity
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time granularity (HALF_HOUR, DAILY, MONTHLY)"
+                - name: phone_numbers
+                  in: query
+                  type: array
+                  required: false
+                  description: "Filter by phone number IDs"
+                - name: metric_types
+                  in: query
+                  type: array
+                  required: false
+                  description: "Metric types (CONVERSATION, COST)"
+                - name: conversation_categories
+                  in: query
+                  type: array
+                  required: false
+                  description: "Conversation categories filter"
+                - name: dimensions
+                  in: query
+                  type: array
+                  required: false
+                  description: "Dimensions for breakdown"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-template-analytics
+              method: GET
+              path: /{waba_id}/template_analytics
+              description: "Retrieves analytics for specific message templates."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+                - name: start
+                  in: query
+                  type: string
+                  required: true
+                  description: "Start time"
+                - name: end
+                  in: query
+                  type: string
+                  required: true
+                  description: "End time"
+                - name: granularity
+                  in: query
+                  type: string
+                  required: true
+                  description: "Time granularity (DAILY)"
+                - name: template_ids
+                  in: query
+                  type: array
+                  required: true
+                  description: "Template IDs to analyze (max 10)"
+                - name: metric_types
+                  in: query
+                  type: array
+                  required: false
+                  description: "Metric types (SENT, DELIVERED, READ, CLICKED, COST)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: subscribed-apps
+          path: /
+          description: "Manage webhook subscriptions for a WABA."
+          operations:
+            - name: list-subscribed-apps
+              method: GET
+              path: /{waba_id}/subscribed_apps
+              description: "Lists all apps subscribed to webhook events for this WABA."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: subscribe-app
+              method: POST
+              path: /{waba_id}/subscribed_apps
+              description: "Subscribes the current app to receive webhook events for this WABA."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: unsubscribe-app
+              method: DELETE
+              path: /{waba_id}/subscribed_apps
+              description: "Unsubscribes the current app from webhook events."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: assigned-users
+          path: /
+          description: "Manage user access to a WABA."
+          operations:
+            - name: list-assigned-users
+              method: GET
+              path: /{waba_id}/assigned_users
+              description: "Lists all users assigned to a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: assign-user
+              method: POST
+              path: /{waba_id}/assigned_users
+              description: "Assigns a user with specific tasks to a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              body:
+                type: json
+                data:
+                  user: "{{tools.user}}"
+                  tasks: "{{tools.tasks}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: remove-assigned-user
+              method: DELETE
+              path: /{waba_id}/assigned_users
+              description: "Removes a user from a WhatsApp Business Account."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              body:
+                type: json
+                data:
+                  user: "{{tools.user}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: product-catalogs
+          path: /
+          description: "Connect and manage product catalogs."
+          operations:
+            - name: list-product-catalogs
+              method: GET
+              path: /{waba_id}/product_catalogs
+              description: "Lists product catalogs connected to a WABA."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: connect-product-catalog
+              method: POST
+              path: /{waba_id}/product_catalogs
+              description: "Connects a product catalog to a WABA."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              body:
+                type: json
+                data:
+                  catalog_id: "{{tools.catalog_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: disconnect-product-catalog
+              method: DELETE
+              path: /{waba_id}/product_catalogs
+              description: "Disconnects a product catalog from a WABA."
+              inputParameters:
+                - name: waba_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "WhatsApp Business Account ID"
+              body:
+                type: json
+                data:
+                  catalog_id: "{{tools.catalog_id}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: whatsapp-business-mgmt-api
+      resources:
+        - path: /v1/business-accounts/{waba_id}
+          name: business-accounts
+          description: "WhatsApp Business Account information."
+          operations:
+            - method: GET
+              name: get-whatsapp-business-account
+              description: "Retrieves information about a WhatsApp Business Account."
+
+        - path: /v1/phone-numbers
+          name: phone-numbers
+          description: "Phone numbers on a WABA."
+          operations:
+            - method: GET
+              name: list-phone-numbers
+              description: "Lists all phone numbers associated with a WABA."
+
+        - path: /v1/message-templates
+          name: message-templates
+          description: "Message templates for a WABA."
+          operations:
+            - method: GET
+              name: list-message-templates
+              description: "Lists all message templates for a WABA."
+            - method: POST
+              name: create-message-template
+              description: "Creates a new message template."
+            - method: DELETE
+              name: delete-message-template
+              description: "Deletes a message template."
+
+        - path: /v1/message-templates/{message_template_id}
+          name: message-template
+          description: "Individual message template."
+          operations:
+            - method: POST
+              name: update-message-template
+              description: "Updates an existing message template."
+
+        - path: /v1/conversation-analytics
+          name: conversation-analytics
+          description: "Conversation analytics for a WABA."
+          operations:
+            - method: GET
+              name: get-conversation-analytics
+              description: "Retrieves conversation analytics."
+
+        - path: /v1/template-analytics
+          name: template-analytics
+          description: "Template analytics for a WABA."
+          operations:
+            - method: GET
+              name: get-template-analytics
+              description: "Retrieves template analytics."
+
+        - path: /v1/subscribed-apps
+          name: subscribed-apps
+          description: "Webhook subscriptions for a WABA."
+          operations:
+            - method: GET
+              name: list-subscribed-apps
+              description: "Lists webhook subscriptions."
+            - method: POST
+              name: subscribe-app
+              description: "Subscribes app to webhooks."
+            - method: DELETE
+              name: unsubscribe-app
+              description: "Unsubscribes app from webhooks."
+
+        - path: /v1/assigned-users
+          name: assigned-users
+          description: "User assignments for a WABA."
+          operations:
+            - method: GET
+              name: list-assigned-users
+              description: "Lists assigned users."
+            - method: POST
+              name: assign-user
+              description: "Assigns a user to a WABA."
+            - method: DELETE
+              name: remove-assigned-user
+              description: "Removes an assigned user."
+
+        - path: /v1/product-catalogs
+          name: product-catalogs
+          description: "Product catalogs for a WABA."
+          operations:
+            - method: GET
+              name: list-product-catalogs
+              description: "Lists product catalogs."
+            - method: POST
+              name: connect-product-catalog
+              description: "Connects a product catalog."
+            - method: DELETE
+              name: disconnect-product-catalog
+              description: "Disconnects a product catalog."
+
+    - type: mcp
+      port: 9100
+      namespace: whatsapp-business-mgmt-mcp
+      transport: http
+      tools:
+        - name: get-whatsapp-business-account
+          description: "Retrieves information about a WhatsApp Business Account."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: list-phone-numbers
+          description: "Lists all phone numbers associated with a WABA."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: list-message-templates
+          description: "Lists all message templates for a WABA."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: create-message-template
+          description: "Creates a new message template for a WABA."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: update-message-template
+          description: "Updates an existing message template."
+          hints:
+            readOnly: false
+            idempotent: true
+        - name: delete-message-template
+          description: "Deletes a message template."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+        - name: get-conversation-analytics
+          description: "Retrieves conversation analytics for a WABA."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: get-template-analytics
+          description: "Retrieves analytics for specific message templates."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: list-subscribed-apps
+          description: "Lists all apps subscribed to webhook events."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: subscribe-app
+          description: "Subscribes the current app to webhook events."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: unsubscribe-app
+          description: "Unsubscribes the current app from webhook events."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+        - name: list-assigned-users
+          description: "Lists all users assigned to a WABA."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: assign-user
+          description: "Assigns a user with specific tasks to a WABA."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: remove-assigned-user
+          description: "Removes a user from a WABA."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+        - name: list-product-catalogs
+          description: "Lists product catalogs connected to a WABA."
+          hints:
+            readOnly: true
+            idempotent: true
+        - name: connect-product-catalog
+          description: "Connects a product catalog to a WABA."
+          hints:
+            readOnly: false
+            destructive: false
+        - name: disconnect-product-catalog
+          description: "Disconnects a product catalog from a WABA."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
