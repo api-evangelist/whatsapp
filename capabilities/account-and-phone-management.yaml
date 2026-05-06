@@ -1,488 +1,1297 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "WhatsApp Account And Phone Management"
-  description: "Unified workflow for managing WhatsApp Business Accounts, phone numbers, business profiles, user assignments, product catalogs, and phone registration. Combines Business Management API and Cloud API capabilities used by platform administrators and business operations teams."
+  label: WhatsApp Account And Phone Management
+  description: Unified workflow for managing WhatsApp Business Accounts, phone numbers, business profiles, user assignments,
+    product catalogs, and phone registration. Combines Business Management API and Cloud API capabilities used by platform
+    administrators and business operations teams.
   tags:
-    - WhatsApp
-    - Account Management
-    - Phone Numbers
-    - Business Profile
-    - Registration
-    - User Management
-    - Product Catalogs
-  created: "2026-04-18"
-  modified: "2026-04-18"
-
+  - WhatsApp
+  - Account Management
+  - Phone Numbers
+  - Business Profile
+  - Registration
+  - User Management
+  - Product Catalogs
+  created: '2026-04-18'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
 capability:
   consumes:
-    - import: whatsapp-business-mgmt
-      location: ./shared/business-management.yaml
-    - import: whatsapp-cloud
-      location: ./shared/cloud-api.yaml
-
+  - type: http
+    namespace: whatsapp-business-mgmt
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Business Management API for managing WABAs, phone numbers, templates, analytics, users, catalogs,
+      and webhooks.
+    authentication:
+      type: bearer
+      token: '{{WHATSAPP_ACCESS_TOKEN}}'
+    resources:
+    - name: business-accounts
+      path: /
+      description: Manage WhatsApp Business Account information.
+      operations:
+      - name: get-whatsapp-business-account
+        method: GET
+        path: /{waba_id}
+        description: Retrieves information about a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated list of fields to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: phone-numbers
+      path: /
+      description: List and manage phone numbers on a WABA.
+      operations:
+      - name: list-phone-numbers
+        method: GET
+        path: /{waba_id}/phone_numbers
+        description: Lists all phone numbers associated with a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated fields to return
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Pagination limit
+        - name: after
+          in: query
+          type: string
+          required: false
+          description: Cursor for forward pagination
+        - name: before
+          in: query
+          type: string
+          required: false
+          description: Cursor for backward pagination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: message-templates
+      path: /
+      description: Create, update, and delete message templates.
+      operations:
+      - name: list-message-templates
+        method: GET
+        path: /{waba_id}/message_templates
+        description: Lists all message templates for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated fields to return
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Pagination limit
+        - name: after
+          in: query
+          type: string
+          required: false
+          description: Cursor for forward pagination
+        - name: before
+          in: query
+          type: string
+          required: false
+          description: Cursor for backward pagination
+        - name: name
+          in: query
+          type: string
+          required: false
+          description: Filter by template name
+        - name: language
+          in: query
+          type: string
+          required: false
+          description: Filter by language code
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Filter by approval status (APPROVED, PENDING, REJECTED, PAUSED, DISABLED)
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by template category (AUTHENTICATION, MARKETING, UTILITY)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-message-template
+        method: POST
+        path: /{waba_id}/message_templates
+        description: Creates a new message template for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            language: '{{tools.language}}'
+            category: '{{tools.category}}'
+            components: '{{tools.components}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-message-template
+        method: POST
+        path: /{message_template_id}
+        description: Updates an existing message template. Only APPROVED or PAUSED templates can be edited.
+        inputParameters:
+        - name: message_template_id
+          in: path
+          type: string
+          required: true
+          description: Message template ID
+        body:
+          type: json
+          data:
+            components: '{{tools.components}}'
+            category: '{{tools.category}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-message-template
+        method: DELETE
+        path: /{waba_id}/message_templates
+        description: Deletes a message template. Deleting by name removes all language variants.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: Template name to delete
+        - name: hsm_id
+          in: query
+          type: string
+          required: false
+          description: Specific template ID to delete a single language variant
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics
+      path: /
+      description: Retrieve conversation and template analytics.
+      operations:
+      - name: get-conversation-analytics
+        method: GET
+        path: /{waba_id}/conversation_analytics
+        description: Retrieves conversation analytics for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: start
+          in: query
+          type: string
+          required: true
+          description: Start time (Unix timestamp or YYYY-MM-DD)
+        - name: end
+          in: query
+          type: string
+          required: true
+          description: End time (Unix timestamp or YYYY-MM-DD)
+        - name: granularity
+          in: query
+          type: string
+          required: true
+          description: Time granularity (HALF_HOUR, DAILY, MONTHLY)
+        - name: phone_numbers
+          in: query
+          type: array
+          required: false
+          description: Filter by phone number IDs
+        - name: metric_types
+          in: query
+          type: array
+          required: false
+          description: Metric types (CONVERSATION, COST)
+        - name: conversation_categories
+          in: query
+          type: array
+          required: false
+          description: Conversation categories filter
+        - name: dimensions
+          in: query
+          type: array
+          required: false
+          description: Dimensions for breakdown
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-template-analytics
+        method: GET
+        path: /{waba_id}/template_analytics
+        description: Retrieves analytics for specific message templates.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: start
+          in: query
+          type: string
+          required: true
+          description: Start time
+        - name: end
+          in: query
+          type: string
+          required: true
+          description: End time
+        - name: granularity
+          in: query
+          type: string
+          required: true
+          description: Time granularity (DAILY)
+        - name: template_ids
+          in: query
+          type: array
+          required: true
+          description: Template IDs to analyze (max 10)
+        - name: metric_types
+          in: query
+          type: array
+          required: false
+          description: Metric types (SENT, DELIVERED, READ, CLICKED, COST)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: subscribed-apps
+      path: /
+      description: Manage webhook subscriptions for a WABA.
+      operations:
+      - name: list-subscribed-apps
+        method: GET
+        path: /{waba_id}/subscribed_apps
+        description: Lists all apps subscribed to webhook events for this WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: subscribe-app
+        method: POST
+        path: /{waba_id}/subscribed_apps
+        description: Subscribes the current app to receive webhook events for this WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: unsubscribe-app
+        method: DELETE
+        path: /{waba_id}/subscribed_apps
+        description: Unsubscribes the current app from webhook events.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: assigned-users
+      path: /
+      description: Manage user access to a WABA.
+      operations:
+      - name: list-assigned-users
+        method: GET
+        path: /{waba_id}/assigned_users
+        description: Lists all users assigned to a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: assign-user
+        method: POST
+        path: /{waba_id}/assigned_users
+        description: Assigns a user with specific tasks to a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            user: '{{tools.user}}'
+            tasks: '{{tools.tasks}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: remove-assigned-user
+        method: DELETE
+        path: /{waba_id}/assigned_users
+        description: Removes a user from a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            user: '{{tools.user}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: product-catalogs
+      path: /
+      description: Connect and manage product catalogs.
+      operations:
+      - name: list-product-catalogs
+        method: GET
+        path: /{waba_id}/product_catalogs
+        description: Lists product catalogs connected to a WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: connect-product-catalog
+        method: POST
+        path: /{waba_id}/product_catalogs
+        description: Connects a product catalog to a WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            catalog_id: '{{tools.catalog_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: disconnect-product-catalog
+        method: DELETE
+        path: /{waba_id}/product_catalogs
+        description: Disconnects a product catalog from a WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            catalog_id: '{{tools.catalog_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: whatsapp-cloud
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Cloud API for sending messages, managing media, business profiles, phone registration, and QR codes.
+    authentication:
+      type: bearer
+      token: '{{WHATSAPP_ACCESS_TOKEN}}'
+    resources:
+    - name: messages
+      path: /
+      description: Send messages of all types to WhatsApp users.
+      operations:
+      - name: send-message
+        method: POST
+        path: /{phone_number_id}/messages
+        description: Sends a message to a WhatsApp user. Also used to mark incoming messages as read.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID from the WhatsApp Business Account
+        body:
+          type: json
+          data:
+            messaging_product: '{{tools.messaging_product}}'
+            to: '{{tools.to}}'
+            type: '{{tools.type}}'
+            text: '{{tools.text}}'
+            template: '{{tools.template}}'
+            interactive: '{{tools.interactive}}'
+            image: '{{tools.image}}'
+            video: '{{tools.video}}'
+            audio: '{{tools.audio}}'
+            document: '{{tools.document}}'
+            sticker: '{{tools.sticker}}'
+            location: '{{tools.location}}'
+            contacts: '{{tools.contacts}}'
+            reaction: '{{tools.reaction}}'
+            context: '{{tools.context}}'
+            status: '{{tools.status}}'
+            message_id: '{{tools.message_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: media
+      path: /
+      description: Upload, retrieve, and delete media files.
+      operations:
+      - name: upload-media
+        method: POST
+        path: /{phone_number_id}/media
+        description: Uploads media to WhatsApp servers. Returns a media ID for use in messages.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID from the WhatsApp Business Account
+        body:
+          type: json
+          data:
+            file: '{{tools.file}}'
+            type: '{{tools.type}}'
+            messaging_product: '{{tools.messaging_product}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-media-url
+        method: GET
+        path: /{media_id}
+        description: Retrieves a temporary download URL for a media file. URL expires after 5 minutes.
+        inputParameters:
+        - name: media_id
+          in: path
+          type: string
+          required: true
+          description: Media ID returned from upload or webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-media
+        method: DELETE
+        path: /{media_id}
+        description: Deletes a media file from WhatsApp servers.
+        inputParameters:
+        - name: media_id
+          in: path
+          type: string
+          required: true
+          description: Media ID returned from upload or webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: phone-numbers
+      path: /
+      description: Manage and verify phone numbers.
+      operations:
+      - name: get-phone-number
+        method: GET
+        path: /{phone_number_id}
+        description: Retrieves information about a registered phone number.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated list of fields to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: two-step-verification
+      path: /
+      description: Manage two-step verification PIN.
+      operations:
+      - name: set-two-step-verification
+        method: POST
+        path: /{phone_number_id}
+        description: Sets or updates the two-step verification PIN for a phone number.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            pin: '{{tools.pin}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: business-profile
+      path: /
+      description: Get and update WhatsApp Business profile information.
+      operations:
+      - name: get-business-profile
+        method: GET
+        path: /{phone_number_id}/whatsapp_business_profile
+        description: Retrieves the WhatsApp Business profile for a phone number.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        - name: fields
+          in: query
+          type: string
+          required: true
+          description: Comma-separated fields to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-business-profile
+        method: POST
+        path: /{phone_number_id}/whatsapp_business_profile
+        description: Updates the WhatsApp Business profile for a phone number.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            messaging_product: '{{tools.messaging_product}}'
+            about: '{{tools.about}}'
+            address: '{{tools.address}}'
+            description: '{{tools.description}}'
+            email: '{{tools.email}}'
+            websites: '{{tools.websites}}'
+            vertical: '{{tools.vertical}}'
+            profile_picture_handle: '{{tools.profile_picture_handle}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: registration
+      path: /
+      description: Register and deregister phone numbers.
+      operations:
+      - name: request-verification-code
+        method: POST
+        path: /{phone_number_id}/request_code
+        description: Requests a verification code via SMS or voice call for phone registration.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            code_method: '{{tools.code_method}}'
+            language: '{{tools.language}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: verify-code
+        method: POST
+        path: /{phone_number_id}/verify_code
+        description: Verifies a phone number using the code received via SMS or voice.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            code: '{{tools.code}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: register-phone-number
+        method: POST
+        path: /{phone_number_id}/register
+        description: Registers a phone number for use with the Cloud API.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            messaging_product: '{{tools.messaging_product}}'
+            pin: '{{tools.pin}}'
+            data_localization_region: '{{tools.data_localization_region}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deregister-phone-number
+        method: POST
+        path: /{phone_number_id}/deregister
+        description: Deregisters a phone number from the Cloud API.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            messaging_product: '{{tools.messaging_product}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: qr-codes
+      path: /
+      description: Create and manage QR codes for customer conversations.
+      operations:
+      - name: create-qr-code
+        method: POST
+        path: /{phone_number_id}/message_qrdls
+        description: Creates a QR code that customers can scan to start a conversation.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        body:
+          type: json
+          data:
+            prefilled_message: '{{tools.prefilled_message}}'
+            generate_qr_image: '{{tools.generate_qr_image}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-qr-codes
+        method: GET
+        path: /{phone_number_id}/message_qrdls
+        description: Lists all QR codes for a phone number.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-qr-code
+        method: GET
+        path: /{phone_number_id}/message_qrdls/{qr_code_id}
+        description: Retrieves a specific QR code.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        - name: qr_code_id
+          in: path
+          type: string
+          required: true
+          description: QR code identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-qr-code
+        method: POST
+        path: /{phone_number_id}/message_qrdls/{qr_code_id}
+        description: Updates the prefilled message for a QR code.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        - name: qr_code_id
+          in: path
+          type: string
+          required: true
+          description: QR code identifier
+        body:
+          type: json
+          data:
+            prefilled_message: '{{tools.prefilled_message}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-qr-code
+        method: DELETE
+        path: /{phone_number_id}/message_qrdls/{qr_code_id}
+        description: Deletes a QR code.
+        inputParameters:
+        - name: phone_number_id
+          in: path
+          type: string
+          required: true
+          description: Phone Number ID
+        - name: qr_code_id
+          in: path
+          type: string
+          required: true
+          description: QR code identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8081
-      namespace: whatsapp-account-api
-      description: "Unified REST API for WhatsApp account management, phone numbers, profiles, users, catalogs, and registration."
-      resources:
-        - path: /v1/business-accounts/{waba_id}
-          name: business-accounts
-          description: "WhatsApp Business Account information."
-          operations:
-            - method: GET
-              name: get-business-account
-              description: "Retrieves information about a WhatsApp Business Account."
-              call: "whatsapp-business-mgmt.get-whatsapp-business-account"
-              with:
-                waba_id: "rest.waba_id"
-                fields: "rest.fields"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/phone-numbers
-          name: waba-phone-numbers
-          description: "Phone numbers associated with a WABA."
-          operations:
-            - method: GET
-              name: list-phone-numbers
-              description: "Lists all phone numbers associated with a WABA."
-              call: "whatsapp-business-mgmt.list-phone-numbers"
-              with:
-                waba_id: "rest.waba_id"
-                fields: "rest.fields"
-                limit: "rest.limit"
-                after: "rest.after"
-                before: "rest.before"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/phone-numbers/{phone_number_id}
-          name: phone-number-detail
-          description: "Individual phone number information."
-          operations:
-            - method: GET
-              name: get-phone-number
-              description: "Retrieves information about a registered phone number."
-              call: "whatsapp-cloud.get-phone-number"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                fields: "rest.fields"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/business-profiles
-          name: business-profiles
-          description: "WhatsApp Business profile management."
-          operations:
-            - method: GET
-              name: get-business-profile
-              description: "Retrieves the WhatsApp Business profile."
-              call: "whatsapp-cloud.get-business-profile"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                fields: "rest.fields"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: update-business-profile
-              description: "Updates the WhatsApp Business profile."
-              call: "whatsapp-cloud.update-business-profile"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                messaging_product: "rest.messaging_product"
-                about: "rest.about"
-                address: "rest.address"
-                description: "rest.description"
-                email: "rest.email"
-                websites: "rest.websites"
-                vertical: "rest.vertical"
-                profile_picture_handle: "rest.profile_picture_handle"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/assigned-users
-          name: assigned-users
-          description: "User assignments for a WABA."
-          operations:
-            - method: GET
-              name: list-assigned-users
-              description: "Lists assigned users."
-              call: "whatsapp-business-mgmt.list-assigned-users"
-              with:
-                waba_id: "rest.waba_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: assign-user
-              description: "Assigns a user to a WABA."
-              call: "whatsapp-business-mgmt.assign-user"
-              with:
-                waba_id: "rest.waba_id"
-                user: "rest.user"
-                tasks: "rest.tasks"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: remove-assigned-user
-              description: "Removes an assigned user."
-              call: "whatsapp-business-mgmt.remove-assigned-user"
-              with:
-                waba_id: "rest.waba_id"
-                user: "rest.user"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/product-catalogs
-          name: product-catalogs
-          description: "Product catalog management."
-          operations:
-            - method: GET
-              name: list-product-catalogs
-              description: "Lists product catalogs."
-              call: "whatsapp-business-mgmt.list-product-catalogs"
-              with:
-                waba_id: "rest.waba_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: connect-product-catalog
-              description: "Connects a product catalog."
-              call: "whatsapp-business-mgmt.connect-product-catalog"
-              with:
-                waba_id: "rest.waba_id"
-                catalog_id: "rest.catalog_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: disconnect-product-catalog
-              description: "Disconnects a product catalog."
-              call: "whatsapp-business-mgmt.disconnect-product-catalog"
-              with:
-                waba_id: "rest.waba_id"
-                catalog_id: "rest.catalog_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/two-step-verification
-          name: two-step-verification
-          description: "Two-step verification PIN management."
-          operations:
-            - method: POST
-              name: set-two-step-verification
-              description: "Sets or updates the two-step verification PIN."
-              call: "whatsapp-cloud.set-two-step-verification"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                pin: "rest.pin"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/registrations/request-code
-          name: registration-request-code
-          description: "Request verification codes for registration."
-          operations:
-            - method: POST
-              name: request-verification-code
-              description: "Requests a verification code."
-              call: "whatsapp-cloud.request-verification-code"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                code_method: "rest.code_method"
-                language: "rest.language"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/registrations/verify-code
-          name: registration-verify-code
-          description: "Verify phone numbers."
-          operations:
-            - method: POST
-              name: verify-code
-              description: "Verifies a phone number."
-              call: "whatsapp-cloud.verify-code"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                code: "rest.code"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/registrations/register
-          name: registration-register
-          description: "Register phone numbers."
-          operations:
-            - method: POST
-              name: register-phone-number
-              description: "Registers a phone number for Cloud API."
-              call: "whatsapp-cloud.register-phone-number"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                messaging_product: "rest.messaging_product"
-                pin: "rest.pin"
-                data_localization_region: "rest.data_localization_region"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/registrations/deregister
-          name: registration-deregister
-          description: "Deregister phone numbers."
-          operations:
-            - method: POST
-              name: deregister-phone-number
-              description: "Deregisters a phone number."
-              call: "whatsapp-cloud.deregister-phone-number"
-              with:
-                phone_number_id: "rest.phone_number_id"
-                messaging_product: "rest.messaging_product"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9091
-      namespace: whatsapp-account-mcp
-      transport: http
-      description: "MCP server for AI-assisted WhatsApp account management, phone numbers, profiles, users, catalogs, and registration."
-      tools:
-        - name: get-business-account
-          description: "Retrieves information about a WhatsApp Business Account."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.get-whatsapp-business-account"
-          with:
-            waba_id: "tools.waba_id"
-            fields: "tools.fields"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-phone-numbers
-          description: "Lists all phone numbers associated with a WABA."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.list-phone-numbers"
-          with:
-            waba_id: "tools.waba_id"
-            fields: "tools.fields"
-            limit: "tools.limit"
-            after: "tools.after"
-            before: "tools.before"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-phone-number
-          description: "Retrieves information about a registered phone number."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-cloud.get-phone-number"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            fields: "tools.fields"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-business-profile
-          description: "Retrieves the WhatsApp Business profile for a phone number."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-cloud.get-business-profile"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            fields: "tools.fields"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: update-business-profile
-          description: "Updates the WhatsApp Business profile for a phone number."
-          hints:
-            readOnly: false
-            idempotent: true
-          call: "whatsapp-cloud.update-business-profile"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            messaging_product: "tools.messaging_product"
-            about: "tools.about"
-            address: "tools.address"
-            description: "tools.description"
-            email: "tools.email"
-            websites: "tools.websites"
-            vertical: "tools.vertical"
-            profile_picture_handle: "tools.profile_picture_handle"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-assigned-users
-          description: "Lists all users assigned to a WABA."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.list-assigned-users"
-          with:
-            waba_id: "tools.waba_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: assign-user
-          description: "Assigns a user with specific tasks to a WABA."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-business-mgmt.assign-user"
-          with:
-            waba_id: "tools.waba_id"
-            user: "tools.user"
-            tasks: "tools.tasks"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: remove-assigned-user
-          description: "Removes a user from a WABA."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.remove-assigned-user"
-          with:
-            waba_id: "tools.waba_id"
-            user: "tools.user"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-product-catalogs
-          description: "Lists product catalogs connected to a WABA."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.list-product-catalogs"
-          with:
-            waba_id: "tools.waba_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: connect-product-catalog
-          description: "Connects a product catalog to a WABA."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-business-mgmt.connect-product-catalog"
-          with:
-            waba_id: "tools.waba_id"
-            catalog_id: "tools.catalog_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: disconnect-product-catalog
-          description: "Disconnects a product catalog from a WABA."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.disconnect-product-catalog"
-          with:
-            waba_id: "tools.waba_id"
-            catalog_id: "tools.catalog_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: set-two-step-verification
-          description: "Sets or updates the two-step verification PIN for a phone number."
-          hints:
-            readOnly: false
-            idempotent: true
-          call: "whatsapp-cloud.set-two-step-verification"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            pin: "tools.pin"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: request-verification-code
-          description: "Requests a verification code via SMS or voice call for phone registration."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-cloud.request-verification-code"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            code_method: "tools.code_method"
-            language: "tools.language"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: verify-code
-          description: "Verifies a phone number using a verification code."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-cloud.verify-code"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            code: "tools.code"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: register-phone-number
-          description: "Registers a phone number for use with the Cloud API."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-cloud.register-phone-number"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            messaging_product: "tools.messaging_product"
-            pin: "tools.pin"
-            data_localization_region: "tools.data_localization_region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: deregister-phone-number
-          description: "Deregisters a phone number from the Cloud API."
-          hints:
-            readOnly: false
-            destructive: true
-          call: "whatsapp-cloud.deregister-phone-number"
-          with:
-            phone_number_id: "tools.phone_number_id"
-            messaging_product: "tools.messaging_product"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8081
+    namespace: whatsapp-account-api
+    description: Unified REST API for WhatsApp account management, phone numbers, profiles, users, catalogs, and registration.
+    resources:
+    - path: /v1/business-accounts/{waba_id}
+      name: business-accounts
+      description: WhatsApp Business Account information.
+      operations:
+      - method: GET
+        name: get-business-account
+        description: Retrieves information about a WhatsApp Business Account.
+        call: whatsapp-business-mgmt.get-whatsapp-business-account
+        with:
+          waba_id: rest.waba_id
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/phone-numbers
+      name: waba-phone-numbers
+      description: Phone numbers associated with a WABA.
+      operations:
+      - method: GET
+        name: list-phone-numbers
+        description: Lists all phone numbers associated with a WABA.
+        call: whatsapp-business-mgmt.list-phone-numbers
+        with:
+          waba_id: rest.waba_id
+          fields: rest.fields
+          limit: rest.limit
+          after: rest.after
+          before: rest.before
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/phone-numbers/{phone_number_id}
+      name: phone-number-detail
+      description: Individual phone number information.
+      operations:
+      - method: GET
+        name: get-phone-number
+        description: Retrieves information about a registered phone number.
+        call: whatsapp-cloud.get-phone-number
+        with:
+          phone_number_id: rest.phone_number_id
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/business-profiles
+      name: business-profiles
+      description: WhatsApp Business profile management.
+      operations:
+      - method: GET
+        name: get-business-profile
+        description: Retrieves the WhatsApp Business profile.
+        call: whatsapp-cloud.get-business-profile
+        with:
+          phone_number_id: rest.phone_number_id
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: update-business-profile
+        description: Updates the WhatsApp Business profile.
+        call: whatsapp-cloud.update-business-profile
+        with:
+          phone_number_id: rest.phone_number_id
+          messaging_product: rest.messaging_product
+          about: rest.about
+          address: rest.address
+          description: rest.description
+          email: rest.email
+          websites: rest.websites
+          vertical: rest.vertical
+          profile_picture_handle: rest.profile_picture_handle
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/assigned-users
+      name: assigned-users
+      description: User assignments for a WABA.
+      operations:
+      - method: GET
+        name: list-assigned-users
+        description: Lists assigned users.
+        call: whatsapp-business-mgmt.list-assigned-users
+        with:
+          waba_id: rest.waba_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: assign-user
+        description: Assigns a user to a WABA.
+        call: whatsapp-business-mgmt.assign-user
+        with:
+          waba_id: rest.waba_id
+          user: rest.user
+          tasks: rest.tasks
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: remove-assigned-user
+        description: Removes an assigned user.
+        call: whatsapp-business-mgmt.remove-assigned-user
+        with:
+          waba_id: rest.waba_id
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/product-catalogs
+      name: product-catalogs
+      description: Product catalog management.
+      operations:
+      - method: GET
+        name: list-product-catalogs
+        description: Lists product catalogs.
+        call: whatsapp-business-mgmt.list-product-catalogs
+        with:
+          waba_id: rest.waba_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: connect-product-catalog
+        description: Connects a product catalog.
+        call: whatsapp-business-mgmt.connect-product-catalog
+        with:
+          waba_id: rest.waba_id
+          catalog_id: rest.catalog_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: disconnect-product-catalog
+        description: Disconnects a product catalog.
+        call: whatsapp-business-mgmt.disconnect-product-catalog
+        with:
+          waba_id: rest.waba_id
+          catalog_id: rest.catalog_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/two-step-verification
+      name: two-step-verification
+      description: Two-step verification PIN management.
+      operations:
+      - method: POST
+        name: set-two-step-verification
+        description: Sets or updates the two-step verification PIN.
+        call: whatsapp-cloud.set-two-step-verification
+        with:
+          phone_number_id: rest.phone_number_id
+          pin: rest.pin
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/registrations/request-code
+      name: registration-request-code
+      description: Request verification codes for registration.
+      operations:
+      - method: POST
+        name: request-verification-code
+        description: Requests a verification code.
+        call: whatsapp-cloud.request-verification-code
+        with:
+          phone_number_id: rest.phone_number_id
+          code_method: rest.code_method
+          language: rest.language
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/registrations/verify-code
+      name: registration-verify-code
+      description: Verify phone numbers.
+      operations:
+      - method: POST
+        name: verify-code
+        description: Verifies a phone number.
+        call: whatsapp-cloud.verify-code
+        with:
+          phone_number_id: rest.phone_number_id
+          code: rest.code
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/registrations/register
+      name: registration-register
+      description: Register phone numbers.
+      operations:
+      - method: POST
+        name: register-phone-number
+        description: Registers a phone number for Cloud API.
+        call: whatsapp-cloud.register-phone-number
+        with:
+          phone_number_id: rest.phone_number_id
+          messaging_product: rest.messaging_product
+          pin: rest.pin
+          data_localization_region: rest.data_localization_region
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/registrations/deregister
+      name: registration-deregister
+      description: Deregister phone numbers.
+      operations:
+      - method: POST
+        name: deregister-phone-number
+        description: Deregisters a phone number.
+        call: whatsapp-cloud.deregister-phone-number
+        with:
+          phone_number_id: rest.phone_number_id
+          messaging_product: rest.messaging_product
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9091
+    namespace: whatsapp-account-mcp
+    transport: http
+    description: MCP server for AI-assisted WhatsApp account management, phone numbers, profiles, users, catalogs, and registration.
+    tools:
+    - name: get-business-account
+      description: Retrieves information about a WhatsApp Business Account.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-business-mgmt.get-whatsapp-business-account
+      with:
+        waba_id: tools.waba_id
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-phone-numbers
+      description: Lists all phone numbers associated with a WABA.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-business-mgmt.list-phone-numbers
+      with:
+        waba_id: tools.waba_id
+        fields: tools.fields
+        limit: tools.limit
+        after: tools.after
+        before: tools.before
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-phone-number
+      description: Retrieves information about a registered phone number.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-cloud.get-phone-number
+      with:
+        phone_number_id: tools.phone_number_id
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-business-profile
+      description: Retrieves the WhatsApp Business profile for a phone number.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-cloud.get-business-profile
+      with:
+        phone_number_id: tools.phone_number_id
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-business-profile
+      description: Updates the WhatsApp Business profile for a phone number.
+      hints:
+        readOnly: false
+        idempotent: true
+      call: whatsapp-cloud.update-business-profile
+      with:
+        phone_number_id: tools.phone_number_id
+        messaging_product: tools.messaging_product
+        about: tools.about
+        address: tools.address
+        description: tools.description
+        email: tools.email
+        websites: tools.websites
+        vertical: tools.vertical
+        profile_picture_handle: tools.profile_picture_handle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-assigned-users
+      description: Lists all users assigned to a WABA.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-business-mgmt.list-assigned-users
+      with:
+        waba_id: tools.waba_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: assign-user
+      description: Assigns a user with specific tasks to a WABA.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-business-mgmt.assign-user
+      with:
+        waba_id: tools.waba_id
+        user: tools.user
+        tasks: tools.tasks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-assigned-user
+      description: Removes a user from a WABA.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: whatsapp-business-mgmt.remove-assigned-user
+      with:
+        waba_id: tools.waba_id
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-product-catalogs
+      description: Lists product catalogs connected to a WABA.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-business-mgmt.list-product-catalogs
+      with:
+        waba_id: tools.waba_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: connect-product-catalog
+      description: Connects a product catalog to a WABA.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-business-mgmt.connect-product-catalog
+      with:
+        waba_id: tools.waba_id
+        catalog_id: tools.catalog_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disconnect-product-catalog
+      description: Disconnects a product catalog from a WABA.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: whatsapp-business-mgmt.disconnect-product-catalog
+      with:
+        waba_id: tools.waba_id
+        catalog_id: tools.catalog_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-two-step-verification
+      description: Sets or updates the two-step verification PIN for a phone number.
+      hints:
+        readOnly: false
+        idempotent: true
+      call: whatsapp-cloud.set-two-step-verification
+      with:
+        phone_number_id: tools.phone_number_id
+        pin: tools.pin
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: request-verification-code
+      description: Requests a verification code via SMS or voice call for phone registration.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-cloud.request-verification-code
+      with:
+        phone_number_id: tools.phone_number_id
+        code_method: tools.code_method
+        language: tools.language
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: verify-code
+      description: Verifies a phone number using a verification code.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-cloud.verify-code
+      with:
+        phone_number_id: tools.phone_number_id
+        code: tools.code
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-phone-number
+      description: Registers a phone number for use with the Cloud API.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-cloud.register-phone-number
+      with:
+        phone_number_id: tools.phone_number_id
+        messaging_product: tools.messaging_product
+        pin: tools.pin
+        data_localization_region: tools.data_localization_region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deregister-phone-number
+      description: Deregisters a phone number from the Cloud API.
+      hints:
+        readOnly: false
+        destructive: true
+      call: whatsapp-cloud.deregister-phone-number
+      with:
+        phone_number_id: tools.phone_number_id
+        messaging_product: tools.messaging_product
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,348 +1,966 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "WhatsApp Flows And Automation"
-  description: "Unified workflow for creating and managing interactive flows, publishing lifecycle management, and webhook subscriptions. Combines Flows API and Business Management API webhook capabilities used by developers building guided conversational experiences and automation integrations."
+  label: WhatsApp Flows And Automation
+  description: Unified workflow for creating and managing interactive flows, publishing lifecycle management, and webhook
+    subscriptions. Combines Flows API and Business Management API webhook capabilities used by developers building guided
+    conversational experiences and automation integrations.
   tags:
-    - WhatsApp
-    - Flows
-    - Automation
-    - Webhooks
-    - Interactive Experiences
-    - Conversational Design
-  created: "2026-04-18"
-  modified: "2026-04-18"
-
+  - WhatsApp
+  - Flows
+  - Automation
+  - Webhooks
+  - Interactive Experiences
+  - Conversational Design
+  created: '2026-04-18'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    WHATSAPP_ACCESS_TOKEN: WHATSAPP_ACCESS_TOKEN
 capability:
   consumes:
-    - import: whatsapp-flows
-      location: ./shared/flows.yaml
-    - import: whatsapp-business-mgmt
-      location: ./shared/business-management.yaml
-
+  - type: http
+    namespace: whatsapp-flows
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Flows API for creating, managing, publishing, and deprecating interactive flows.
+    authentication:
+      type: bearer
+      token: '{{WHATSAPP_ACCESS_TOKEN}}'
+    resources:
+    - name: flows
+      path: /
+      description: Create, read, update, and delete flows.
+      operations:
+      - name: list-flows
+        method: GET
+        path: /{waba_id}/flows
+        description: Lists all flows for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated fields to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-flow
+        method: POST
+        path: /{waba_id}/flows
+        description: Creates a new flow for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            categories: '{{tools.categories}}'
+            clone_flow_id: '{{tools.clone_flow_id}}'
+            endpoint_uri: '{{tools.endpoint_uri}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-flow
+        method: GET
+        path: /{flow_id}
+        description: Retrieves details about a specific flow.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated fields to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-flow
+        method: POST
+        path: /{flow_id}
+        description: Updates a flow. Only DRAFT flows can be updated.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            categories: '{{tools.categories}}'
+            endpoint_uri: '{{tools.endpoint_uri}}'
+            application_id: '{{tools.application_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-flow
+        method: DELETE
+        path: /{flow_id}
+        description: Deletes a flow. Only DRAFT flows can be deleted.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: assets
+      path: /
+      description: Upload and retrieve flow JSON assets.
+      operations:
+      - name: get-flow-assets
+        method: GET
+        path: /{flow_id}/assets
+        description: Retrieves the assets (flow JSON file) for a flow.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: upload-flow-json
+        method: POST
+        path: /{flow_id}/assets
+        description: Uploads or replaces the flow JSON definition file.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        body:
+          type: json
+          data:
+            file: '{{tools.file}}'
+            name: '{{tools.name}}'
+            asset_type: '{{tools.asset_type}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lifecycle
+      path: /
+      description: Publish and deprecate flows.
+      operations:
+      - name: publish-flow
+        method: POST
+        path: /{flow_id}/publish
+        description: Publishes a draft flow, making it available for use in messages.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deprecate-flow
+        method: POST
+        path: /{flow_id}/deprecate
+        description: Deprecates a published flow. Deprecated flows cannot be sent to customers.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          required: true
+          description: Flow ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: whatsapp-business-mgmt
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Business Management API for managing WABAs, phone numbers, templates, analytics, users, catalogs,
+      and webhooks.
+    authentication:
+      type: bearer
+      token: '{{WHATSAPP_ACCESS_TOKEN}}'
+    resources:
+    - name: business-accounts
+      path: /
+      description: Manage WhatsApp Business Account information.
+      operations:
+      - name: get-whatsapp-business-account
+        method: GET
+        path: /{waba_id}
+        description: Retrieves information about a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated list of fields to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: phone-numbers
+      path: /
+      description: List and manage phone numbers on a WABA.
+      operations:
+      - name: list-phone-numbers
+        method: GET
+        path: /{waba_id}/phone_numbers
+        description: Lists all phone numbers associated with a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated fields to return
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Pagination limit
+        - name: after
+          in: query
+          type: string
+          required: false
+          description: Cursor for forward pagination
+        - name: before
+          in: query
+          type: string
+          required: false
+          description: Cursor for backward pagination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: message-templates
+      path: /
+      description: Create, update, and delete message templates.
+      operations:
+      - name: list-message-templates
+        method: GET
+        path: /{waba_id}/message_templates
+        description: Lists all message templates for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: fields
+          in: query
+          type: string
+          required: false
+          description: Comma-separated fields to return
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Pagination limit
+        - name: after
+          in: query
+          type: string
+          required: false
+          description: Cursor for forward pagination
+        - name: before
+          in: query
+          type: string
+          required: false
+          description: Cursor for backward pagination
+        - name: name
+          in: query
+          type: string
+          required: false
+          description: Filter by template name
+        - name: language
+          in: query
+          type: string
+          required: false
+          description: Filter by language code
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Filter by approval status (APPROVED, PENDING, REJECTED, PAUSED, DISABLED)
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by template category (AUTHENTICATION, MARKETING, UTILITY)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-message-template
+        method: POST
+        path: /{waba_id}/message_templates
+        description: Creates a new message template for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            language: '{{tools.language}}'
+            category: '{{tools.category}}'
+            components: '{{tools.components}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-message-template
+        method: POST
+        path: /{message_template_id}
+        description: Updates an existing message template. Only APPROVED or PAUSED templates can be edited.
+        inputParameters:
+        - name: message_template_id
+          in: path
+          type: string
+          required: true
+          description: Message template ID
+        body:
+          type: json
+          data:
+            components: '{{tools.components}}'
+            category: '{{tools.category}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-message-template
+        method: DELETE
+        path: /{waba_id}/message_templates
+        description: Deletes a message template. Deleting by name removes all language variants.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: Template name to delete
+        - name: hsm_id
+          in: query
+          type: string
+          required: false
+          description: Specific template ID to delete a single language variant
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: analytics
+      path: /
+      description: Retrieve conversation and template analytics.
+      operations:
+      - name: get-conversation-analytics
+        method: GET
+        path: /{waba_id}/conversation_analytics
+        description: Retrieves conversation analytics for a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: start
+          in: query
+          type: string
+          required: true
+          description: Start time (Unix timestamp or YYYY-MM-DD)
+        - name: end
+          in: query
+          type: string
+          required: true
+          description: End time (Unix timestamp or YYYY-MM-DD)
+        - name: granularity
+          in: query
+          type: string
+          required: true
+          description: Time granularity (HALF_HOUR, DAILY, MONTHLY)
+        - name: phone_numbers
+          in: query
+          type: array
+          required: false
+          description: Filter by phone number IDs
+        - name: metric_types
+          in: query
+          type: array
+          required: false
+          description: Metric types (CONVERSATION, COST)
+        - name: conversation_categories
+          in: query
+          type: array
+          required: false
+          description: Conversation categories filter
+        - name: dimensions
+          in: query
+          type: array
+          required: false
+          description: Dimensions for breakdown
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-template-analytics
+        method: GET
+        path: /{waba_id}/template_analytics
+        description: Retrieves analytics for specific message templates.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        - name: start
+          in: query
+          type: string
+          required: true
+          description: Start time
+        - name: end
+          in: query
+          type: string
+          required: true
+          description: End time
+        - name: granularity
+          in: query
+          type: string
+          required: true
+          description: Time granularity (DAILY)
+        - name: template_ids
+          in: query
+          type: array
+          required: true
+          description: Template IDs to analyze (max 10)
+        - name: metric_types
+          in: query
+          type: array
+          required: false
+          description: Metric types (SENT, DELIVERED, READ, CLICKED, COST)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: subscribed-apps
+      path: /
+      description: Manage webhook subscriptions for a WABA.
+      operations:
+      - name: list-subscribed-apps
+        method: GET
+        path: /{waba_id}/subscribed_apps
+        description: Lists all apps subscribed to webhook events for this WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: subscribe-app
+        method: POST
+        path: /{waba_id}/subscribed_apps
+        description: Subscribes the current app to receive webhook events for this WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: unsubscribe-app
+        method: DELETE
+        path: /{waba_id}/subscribed_apps
+        description: Unsubscribes the current app from webhook events.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: assigned-users
+      path: /
+      description: Manage user access to a WABA.
+      operations:
+      - name: list-assigned-users
+        method: GET
+        path: /{waba_id}/assigned_users
+        description: Lists all users assigned to a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: assign-user
+        method: POST
+        path: /{waba_id}/assigned_users
+        description: Assigns a user with specific tasks to a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            user: '{{tools.user}}'
+            tasks: '{{tools.tasks}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: remove-assigned-user
+        method: DELETE
+        path: /{waba_id}/assigned_users
+        description: Removes a user from a WhatsApp Business Account.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            user: '{{tools.user}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: product-catalogs
+      path: /
+      description: Connect and manage product catalogs.
+      operations:
+      - name: list-product-catalogs
+        method: GET
+        path: /{waba_id}/product_catalogs
+        description: Lists product catalogs connected to a WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: connect-product-catalog
+        method: POST
+        path: /{waba_id}/product_catalogs
+        description: Connects a product catalog to a WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            catalog_id: '{{tools.catalog_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: disconnect-product-catalog
+        method: DELETE
+        path: /{waba_id}/product_catalogs
+        description: Disconnects a product catalog from a WABA.
+        inputParameters:
+        - name: waba_id
+          in: path
+          type: string
+          required: true
+          description: WhatsApp Business Account ID
+        body:
+          type: json
+          data:
+            catalog_id: '{{tools.catalog_id}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8083
-      namespace: whatsapp-flows-automation-api
-      description: "Unified REST API for WhatsApp flows, lifecycle management, and webhook subscriptions."
-      resources:
-        - path: /v1/flows
-          name: flows
-          description: "Flow management."
-          operations:
-            - method: GET
-              name: list-flows
-              description: "Lists all flows for a WABA."
-              call: "whatsapp-flows.list-flows"
-              with:
-                waba_id: "rest.waba_id"
-                fields: "rest.fields"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-flow
-              description: "Creates a new flow."
-              call: "whatsapp-flows.create-flow"
-              with:
-                waba_id: "rest.waba_id"
-                name: "rest.name"
-                categories: "rest.categories"
-                clone_flow_id: "rest.clone_flow_id"
-                endpoint_uri: "rest.endpoint_uri"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/flows/{flow_id}
-          name: flow
-          description: "Individual flow management."
-          operations:
-            - method: GET
-              name: get-flow
-              description: "Retrieves details about a flow."
-              call: "whatsapp-flows.get-flow"
-              with:
-                flow_id: "rest.flow_id"
-                fields: "rest.fields"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: update-flow
-              description: "Updates a draft flow."
-              call: "whatsapp-flows.update-flow"
-              with:
-                flow_id: "rest.flow_id"
-                name: "rest.name"
-                categories: "rest.categories"
-                endpoint_uri: "rest.endpoint_uri"
-                application_id: "rest.application_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-flow
-              description: "Deletes a draft flow."
-              call: "whatsapp-flows.delete-flow"
-              with:
-                flow_id: "rest.flow_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/flows/{flow_id}/assets
-          name: flow-assets
-          description: "Flow JSON assets."
-          operations:
-            - method: GET
-              name: get-flow-assets
-              description: "Retrieves flow assets."
-              call: "whatsapp-flows.get-flow-assets"
-              with:
-                flow_id: "rest.flow_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: upload-flow-json
-              description: "Uploads flow JSON definition."
-              call: "whatsapp-flows.upload-flow-json"
-              with:
-                flow_id: "rest.flow_id"
-                file: "rest.file"
-                name: "rest.name"
-                asset_type: "rest.asset_type"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/flows/{flow_id}/publish
-          name: flow-publish
-          description: "Publish a flow."
-          operations:
-            - method: POST
-              name: publish-flow
-              description: "Publishes a draft flow."
-              call: "whatsapp-flows.publish-flow"
-              with:
-                flow_id: "rest.flow_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/flows/{flow_id}/deprecate
-          name: flow-deprecate
-          description: "Deprecate a flow."
-          operations:
-            - method: POST
-              name: deprecate-flow
-              description: "Deprecates a published flow."
-              call: "whatsapp-flows.deprecate-flow"
-              with:
-                flow_id: "rest.flow_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/webhook-subscriptions
-          name: webhook-subscriptions
-          description: "Webhook subscription management."
-          operations:
-            - method: GET
-              name: list-subscribed-apps
-              description: "Lists webhook subscriptions."
-              call: "whatsapp-business-mgmt.list-subscribed-apps"
-              with:
-                waba_id: "rest.waba_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: subscribe-app
-              description: "Subscribes app to webhooks."
-              call: "whatsapp-business-mgmt.subscribe-app"
-              with:
-                waba_id: "rest.waba_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: unsubscribe-app
-              description: "Unsubscribes app from webhooks."
-              call: "whatsapp-business-mgmt.unsubscribe-app"
-              with:
-                waba_id: "rest.waba_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9093
-      namespace: whatsapp-flows-automation-mcp
-      transport: http
-      description: "MCP server for AI-assisted WhatsApp flow creation, lifecycle management, and webhook automation."
-      tools:
-        - name: list-flows
-          description: "Lists all flows for a WhatsApp Business Account."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-flows.list-flows"
-          with:
-            waba_id: "tools.waba_id"
-            fields: "tools.fields"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-flow
-          description: "Creates a new interactive flow. Supports appointment booking, surveys, lead capture, and other guided experiences."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-flows.create-flow"
-          with:
-            waba_id: "tools.waba_id"
-            name: "tools.name"
-            categories: "tools.categories"
-            clone_flow_id: "tools.clone_flow_id"
-            endpoint_uri: "tools.endpoint_uri"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-flow
-          description: "Retrieves details about a specific flow including status, categories, and validation errors."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-flows.get-flow"
-          with:
-            flow_id: "tools.flow_id"
-            fields: "tools.fields"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: update-flow
-          description: "Updates a draft flow. Only DRAFT flows can be updated; published flows must be cloned."
-          hints:
-            readOnly: false
-            idempotent: true
-          call: "whatsapp-flows.update-flow"
-          with:
-            flow_id: "tools.flow_id"
-            name: "tools.name"
-            categories: "tools.categories"
-            endpoint_uri: "tools.endpoint_uri"
-            application_id: "tools.application_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: delete-flow
-          description: "Deletes a draft flow. Only DRAFT flows can be deleted; published flows must be deprecated."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "whatsapp-flows.delete-flow"
-          with:
-            flow_id: "tools.flow_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-flow-assets
-          description: "Retrieves the flow JSON assets including download URLs."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-flows.get-flow-assets"
-          with:
-            flow_id: "tools.flow_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: upload-flow-json
-          description: "Uploads or replaces the flow JSON definition file. The file is validated on upload."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-flows.upload-flow-json"
-          with:
-            flow_id: "tools.flow_id"
-            file: "tools.file"
-            name: "tools.name"
-            asset_type: "tools.asset_type"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: publish-flow
-          description: "Publishes a draft flow, making it available for use in messages. Requires valid flow JSON with no errors."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-flows.publish-flow"
-          with:
-            flow_id: "tools.flow_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: deprecate-flow
-          description: "Deprecates a published flow. Deprecated flows remain in history but cannot be sent to customers."
-          hints:
-            readOnly: false
-            destructive: true
-          call: "whatsapp-flows.deprecate-flow"
-          with:
-            flow_id: "tools.flow_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-subscribed-apps
-          description: "Lists all apps subscribed to webhook events for a WABA."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.list-subscribed-apps"
-          with:
-            waba_id: "tools.waba_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: subscribe-app
-          description: "Subscribes the current app to receive webhook events for a WABA."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "whatsapp-business-mgmt.subscribe-app"
-          with:
-            waba_id: "tools.waba_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: unsubscribe-app
-          description: "Unsubscribes the current app from webhook events."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "whatsapp-business-mgmt.unsubscribe-app"
-          with:
-            waba_id: "tools.waba_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8083
+    namespace: whatsapp-flows-automation-api
+    description: Unified REST API for WhatsApp flows, lifecycle management, and webhook subscriptions.
+    resources:
+    - path: /v1/flows
+      name: flows
+      description: Flow management.
+      operations:
+      - method: GET
+        name: list-flows
+        description: Lists all flows for a WABA.
+        call: whatsapp-flows.list-flows
+        with:
+          waba_id: rest.waba_id
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-flow
+        description: Creates a new flow.
+        call: whatsapp-flows.create-flow
+        with:
+          waba_id: rest.waba_id
+          name: rest.name
+          categories: rest.categories
+          clone_flow_id: rest.clone_flow_id
+          endpoint_uri: rest.endpoint_uri
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/flows/{flow_id}
+      name: flow
+      description: Individual flow management.
+      operations:
+      - method: GET
+        name: get-flow
+        description: Retrieves details about a flow.
+        call: whatsapp-flows.get-flow
+        with:
+          flow_id: rest.flow_id
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: update-flow
+        description: Updates a draft flow.
+        call: whatsapp-flows.update-flow
+        with:
+          flow_id: rest.flow_id
+          name: rest.name
+          categories: rest.categories
+          endpoint_uri: rest.endpoint_uri
+          application_id: rest.application_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-flow
+        description: Deletes a draft flow.
+        call: whatsapp-flows.delete-flow
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/flows/{flow_id}/assets
+      name: flow-assets
+      description: Flow JSON assets.
+      operations:
+      - method: GET
+        name: get-flow-assets
+        description: Retrieves flow assets.
+        call: whatsapp-flows.get-flow-assets
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: upload-flow-json
+        description: Uploads flow JSON definition.
+        call: whatsapp-flows.upload-flow-json
+        with:
+          flow_id: rest.flow_id
+          file: rest.file
+          name: rest.name
+          asset_type: rest.asset_type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/flows/{flow_id}/publish
+      name: flow-publish
+      description: Publish a flow.
+      operations:
+      - method: POST
+        name: publish-flow
+        description: Publishes a draft flow.
+        call: whatsapp-flows.publish-flow
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/flows/{flow_id}/deprecate
+      name: flow-deprecate
+      description: Deprecate a flow.
+      operations:
+      - method: POST
+        name: deprecate-flow
+        description: Deprecates a published flow.
+        call: whatsapp-flows.deprecate-flow
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhook-subscriptions
+      name: webhook-subscriptions
+      description: Webhook subscription management.
+      operations:
+      - method: GET
+        name: list-subscribed-apps
+        description: Lists webhook subscriptions.
+        call: whatsapp-business-mgmt.list-subscribed-apps
+        with:
+          waba_id: rest.waba_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: subscribe-app
+        description: Subscribes app to webhooks.
+        call: whatsapp-business-mgmt.subscribe-app
+        with:
+          waba_id: rest.waba_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unsubscribe-app
+        description: Unsubscribes app from webhooks.
+        call: whatsapp-business-mgmt.unsubscribe-app
+        with:
+          waba_id: rest.waba_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9093
+    namespace: whatsapp-flows-automation-mcp
+    transport: http
+    description: MCP server for AI-assisted WhatsApp flow creation, lifecycle management, and webhook automation.
+    tools:
+    - name: list-flows
+      description: Lists all flows for a WhatsApp Business Account.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-flows.list-flows
+      with:
+        waba_id: tools.waba_id
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-flow
+      description: Creates a new interactive flow. Supports appointment booking, surveys, lead capture, and other guided experiences.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-flows.create-flow
+      with:
+        waba_id: tools.waba_id
+        name: tools.name
+        categories: tools.categories
+        clone_flow_id: tools.clone_flow_id
+        endpoint_uri: tools.endpoint_uri
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-flow
+      description: Retrieves details about a specific flow including status, categories, and validation errors.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-flows.get-flow
+      with:
+        flow_id: tools.flow_id
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-flow
+      description: Updates a draft flow. Only DRAFT flows can be updated; published flows must be cloned.
+      hints:
+        readOnly: false
+        idempotent: true
+      call: whatsapp-flows.update-flow
+      with:
+        flow_id: tools.flow_id
+        name: tools.name
+        categories: tools.categories
+        endpoint_uri: tools.endpoint_uri
+        application_id: tools.application_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-flow
+      description: Deletes a draft flow. Only DRAFT flows can be deleted; published flows must be deprecated.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: whatsapp-flows.delete-flow
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-flow-assets
+      description: Retrieves the flow JSON assets including download URLs.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-flows.get-flow-assets
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-flow-json
+      description: Uploads or replaces the flow JSON definition file. The file is validated on upload.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-flows.upload-flow-json
+      with:
+        flow_id: tools.flow_id
+        file: tools.file
+        name: tools.name
+        asset_type: tools.asset_type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: publish-flow
+      description: Publishes a draft flow, making it available for use in messages. Requires valid flow JSON with no errors.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-flows.publish-flow
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecate-flow
+      description: Deprecates a published flow. Deprecated flows remain in history but cannot be sent to customers.
+      hints:
+        readOnly: false
+        destructive: true
+      call: whatsapp-flows.deprecate-flow
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-subscribed-apps
+      description: Lists all apps subscribed to webhook events for a WABA.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: whatsapp-business-mgmt.list-subscribed-apps
+      with:
+        waba_id: tools.waba_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: subscribe-app
+      description: Subscribes the current app to receive webhook events for a WABA.
+      hints:
+        readOnly: false
+        destructive: false
+      call: whatsapp-business-mgmt.subscribe-app
+      with:
+        waba_id: tools.waba_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unsubscribe-app
+      description: Unsubscribes the current app from webhook events.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: whatsapp-business-mgmt.unsubscribe-app
+      with:
+        waba_id: tools.waba_id
+      outputParameters:
+      - type: object
+        mapping: $.
