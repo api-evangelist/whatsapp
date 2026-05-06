@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,148 +9,94 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: WhatsApp
 providerId: whatsapp
-publisherName: WhatsApp
-serviceCategory: API
+publisherName: Meta Platforms, Inc.
+serviceCategory: Business Messaging
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - Messaging
+  - Business
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the WhatsApp API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+  - Conversation-Based Pricing
+description: 'FOCUS-aligned FinOps for WhatsApp Business Platform: pay-per-conversation across four categories (Marketing, Utility, Authentication, Service) with per-recipient-country pricing, plus free entry-point and a service-conversation free allotment. The billable unit is the 24-hour conversation, not the API call.'
+sources:
+  - https://developers.facebook.com/docs/whatsapp/pricing
+  - https://developers.facebook.com/docs/whatsapp/pricing/conversation-based-pricing
+  - https://business.whatsapp.com/products/platform-pricing
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Conversation-Based Pay-As-You-Go
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
-    - Purchase
-    - Tax
     - Credit
+    - Tax
     - Adjustment
-  chargeFrequency: Recurring
+    - Refund
 focusColumns:
-  ServiceName: WhatsApp
-  ServiceCategory: Developer Tools / API
-  ProviderName: WhatsApp
-  PublisherName: WhatsApp
-  InvoiceIssuerName: WhatsApp
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: WhatsApp Business Platform
+  ServiceCategory: Business Messaging
+  ProviderName: Meta
+  PublisherName: Meta Platforms, Inc.
+  InvoiceIssuerName: Meta Platforms, Inc.
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: marketing_conversations
+    unit: conversation
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - recipient_country
+      - waba_id
+      - phone_number
+      - template_id
+  - name: utility_conversations
+    unit: conversation
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - recipient_country
+      - waba_id
+      - phone_number
+      - template_id
+  - name: authentication_conversations
+    unit: conversation
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: WhatsApp Business Platform API
-    baseURL: https://graph.facebook.com/v21.0
-    tags:
-      - Business
-      - Chat
-      - Communications
-      - Messaging
-    serviceName: WhatsApp Business Platform API
-    serviceCategory: API
-  - name: WhatsApp Business Account Management API
-    baseURL: https://graph.facebook.com/v21.0
-    tags:
-      - Accounts
-      - Business
-      - Management
-      - Templates
-    serviceName: WhatsApp Business Account Management API
-    serviceCategory: API
-  - name: WhatsApp Flows API
-    baseURL: https://graph.facebook.com/v21.0
-    tags:
-      - Flows
-      - Forms
-      - Interactive
-      - Messaging
-    serviceName: WhatsApp Flows API
-    serviceCategory: API
-  - name: WhatsApp On-Premises API
-    baseURL: https://localhost:443
-    tags:
-      - Deprecated
-      - Messaging
-      - On-Premises
-      - Self-Hosted
-    serviceName: WhatsApp On-Premises API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - recipient_country
+      - waba_id
+      - phone_number
+      - international_authentication_flag
+  - name: service_conversations
+    unit: conversation
+    aggregation: sum
+    dimensions:
+      - recipient_country
+      - waba_id
+      - phone_number
+      - free_tier_allotment_used
+  - name: free_entry_point_conversations
+    unit: conversation
+    aggregation: sum
+    dimensions:
+      - entry_point
+      - waba_id
+  - name: messages_sent
+    unit: message
+    aggregation: sum
+    dimensions:
+      - waba_id
+      - phone_number
+      - direction
+principles:
+  - name: Visibility
+    description: 'Pull conversation analytics from the WhatsApp Business Management API (conversation_analytics, pricing_analytics) and the WABA-level usage views in Meta Business Manager; reconcile against the monthly Meta invoice.'
+  - name: Allocation
+    description: Allocate by WABA, phone number, conversation category, recipient country, and template ID. Templates and entry points drive category classification, which directly drives unit price.
+  - name: Optimization
+    description: 'Levers are: send Utility instead of Marketing where the use case allows (lower per-conversation rate in most countries), exhaust the monthly service-conversation free allotment before opening paid Marketing, route ads-that-click-to-WhatsApp through the free entry-point window, and consolidate multiple notifications into one 24h conversation.'
+  - name: Accountability
+    description: Marketing owns Marketing-conversation spend (campaign tied to template ID); product / lifecycle owns Utility and Authentication; CX owns Service. Phone-number quality rating (Green / Yellow / Red) is a shared signal because demotion lowers tier caps and constrains all categories.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

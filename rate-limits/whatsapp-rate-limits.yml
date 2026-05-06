@@ -4,96 +4,72 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: WhatsApp
 providerId: whatsapp
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - Messaging
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the WhatsApp API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - Messaging Tiers
+  - Quality Rating
+description: WhatsApp Business Platform layers two distinct sets of limits. (1) Messaging Limits / Tiers cap the number of unique users a business can start business-initiated conversations with in a rolling 24-hour window; tiers progress (1K, 10K, 100K, Unlimited) based on phone-number quality rating and message volume. (2) Capacity / API rate limits govern raw request throughput on the Graph API and Cloud API endpoints. Both layers are scoped to the WhatsApp Business Account / phone number, not to per-user keys.
+sources:
+  - https://developers.facebook.com/docs/whatsapp/cloud-api/overview
+  - https://developers.facebook.com/docs/whatsapp/messaging-limits
+  - https://developers.facebook.com/docs/whatsapp/cloud-api/guides/rate-limits
+  - https://developers.facebook.com/docs/graph-api/overview/rate-limiting
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
+  requestId: x-fb-trace-id
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
+  rateLimited: 80007
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - WhatsApp Business Platform API
-      - WhatsApp Business Account Management API
-      - WhatsApp Flows API
-      - WhatsApp On-Premises API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - name: Messaging Tier 1
+    scope: phone-number
+    metric: business_initiated_conversations_per_unique_user
     limit: 1000
-    timeFrame: month
-    applies:
-      - WhatsApp Business Platform API
-      - WhatsApp Business Account Management API
-      - WhatsApp Flows API
-      - WhatsApp On-Premises API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - WhatsApp Business Platform API
-      - WhatsApp Business Account Management API
-      - WhatsApp Flows API
-      - WhatsApp On-Premises API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+    timeFrame: day
+    notes: Default starting tier - up to 1,000 unique recipients per rolling 24h for business-initiated conversations. Quality rating must remain Medium or High to advance.
+  - name: Messaging Tier 2
+    scope: phone-number
+    metric: business_initiated_conversations_per_unique_user
+    limit: 10000
+    timeFrame: day
+    notes: Earned by reaching tier-1 cap with healthy quality.
+  - name: Messaging Tier 3
+    scope: phone-number
+    metric: business_initiated_conversations_per_unique_user
     limit: 100000
-    timeFrame: month
-    applies:
-      - WhatsApp Business Platform API
-      - WhatsApp Business Account Management API
-      - WhatsApp Flows API
-      - WhatsApp On-Premises API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - WhatsApp Business Platform API
-      - WhatsApp Business Account Management API
-      - WhatsApp Flows API
-      - WhatsApp On-Premises API
+    timeFrame: day
+    notes: Earned by reaching tier-2 cap with healthy quality.
+  - name: Messaging Tier Unlimited
+    scope: phone-number
+    metric: business_initiated_conversations_per_unique_user
+    limit: -1
+    timeFrame: day
+    notes: Unlimited unique-recipient conversations per 24h once a phone number qualifies.
+  - name: Cloud API Capacity Rate Limit
+    scope: phone-number
+    metric: requests_per_second
+    limit: see Cloud API capacity rate limits doc (varies by phone-number throughput)
+    notes: Cloud API enforces a per-phone-number request-throughput limit; Meta scales it based on observed traffic and quality. Returns 429 / error code 80007 on throttle.
+  - name: Graph API Application Rate Limit
+    scope: app
+    metric: varies
+    limit: see Graph API rate-limiting headers (X-App-Usage / X-Business-Use-Case-Usage)
+    notes: Standard Graph API throttle applies to Business Management / Account Management / Flows endpoints; clients must inspect X-App-Usage and X-Business-Use-Case-Usage headers.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Quality Rating
+    description: Phone-number quality rating (Green / Yellow / Red) gates messaging-tier progression and can demote a number; user blocks and low-engagement messages drag rating down.
+  - name: Tier Progression
+    description: To move up a messaging tier, a phone number must hit the prior tier's cap within a 7-day window while keeping quality at Medium or High. Demotion happens automatically on poor quality.
+  - name: Conversation Window
+    description: A user-initiated 24-hour service window allows free-form messages; outside the window, only approved templates send (and open paid conversations).
+  - name: Backoff
+    description: Honor Retry-After on 429. Inspect X-App-Usage / X-Business-Use-Case-Usage to back off proactively before being throttled. Apply exponential backoff with jitter on 5xx.
+  - name: Resource Scoping
+    description: Limits attach to the WhatsApp Business Account (WABA) and phone number; rotating access tokens does not raise limits.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
