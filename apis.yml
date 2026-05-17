@@ -42,9 +42,9 @@ apis:
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput
   - type: StatusPage
     url: https://metastatus.com/
-  - type: Change Log
+  - type: ChangeLog
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/changelog
-  - type: Error Codes
+  - type: ErrorCodes
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes
   - type: PostmanCollection
     url: https://www.postman.com/meta/whatsapp-business-platform/collection/wlk6lh4/whatsapp-cloud-api
@@ -96,9 +96,9 @@ apis:
     url: https://www.postman.com/meta/whatsapp-business-platform/collection/3kru5r6/whatsapp-business-management-api
   - type: Reference
     url: https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates
-  - type: Change Log
+  - type: ChangeLog
     url: https://developers.facebook.com/docs/whatsapp/business-management-api/changelog
-  - type: Error Codes
+  - type: ErrorCodes
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes
   - type: RateLimits
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput
@@ -124,9 +124,9 @@ apis:
     url: https://developers.facebook.com/docs/whatsapp/flows/reference/components
   - type: JSONSchema
     url: json-schema/whatsapp-flow-json-schema.json
-  - type: Change Log
+  - type: ChangeLog
     url: https://developers.facebook.com/docs/whatsapp/flows/changelogs
-  - type: Error Codes
+  - type: ErrorCodes
     url: https://developers.facebook.com/docs/whatsapp/flows/reference/error-codes
   - type: PostmanCollection
     url: https://www.postman.com/meta/whatsapp-business-platform/collection/y5swede/whatsapp-flows-api
@@ -181,7 +181,7 @@ common:
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/best-practices
 - type: Use Cases
   url: https://business.whatsapp.com/products/business-platform
-- type: Change Log
+- type: ChangeLog
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/changelog
 - type: StatusPage
   url: https://metastatus.com/
@@ -191,11 +191,11 @@ common:
   url: https://developers.facebook.com/support/
 - type: Console
   url: https://developers.facebook.com/apps/
-- type: GitHub Organization
+- type: GitHubOrganization
   url: https://github.com/WhatsApp
 - type: Community
   url: https://business.whatsapp.com/developers/developer-hub
-- type: Stack Overflow
+- type: StackOverflow
   url: https://stackoverflow.com/questions/tagged/whatsapp-cloud-api
 - type: Security
   url: https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf
@@ -203,7 +203,7 @@ common:
   url: https://www.postman.com/meta/whatsapp-business-platform/overview
 - type: Pricing
   url: https://business.whatsapp.com/products/platform-pricing
-- type: JSON-LD
+- type: JSONLD
   url: json-ld/whatsapp-context.jsonld
 - type: JSONSchema
   url: json-schema/whatsapp-webhook-payload-schema.json
@@ -225,7 +225,7 @@ common:
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/migrate-to-cloud-api
 - type: RateLimits
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput
-- type: Error Codes
+- type: ErrorCodes
   url: https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes
 - type: Features
   data:
