@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WhatsApp Cloud API — Phone Numbers
+  description: 'WhatsApp Cloud API — Phone Numbers. 1 operations. Lead operation: WhatsApp Get Phone Number Info. Self-contained
+    Naftiko capability covering one Whatsapp business surface.'
+  tags:
+  - Whatsapp
+  - Phone Numbers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHATSAPP_API_KEY: WHATSAPP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-phone-numbers
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Cloud API — Phone Numbers business capability. Self-contained, no shared references.
+    resources:
+    - name: phone-number-id
+      path: /{phone-number-id}
+      operations:
+      - name: getphonenumber
+        method: GET
+        description: WhatsApp Get Phone Number Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to return
+    authentication:
+      type: bearer
+      token: '{{env.WHATSAPP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-phone-numbers-rest
+    port: 8080
+    description: REST adapter for WhatsApp Cloud API — Phone Numbers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{phone-number-id}
+      name: phone-number-id
+      description: REST surface for phone-number-id.
+      operations:
+      - method: GET
+        name: getphonenumber
+        description: WhatsApp Get Phone Number Info
+        call: cloud-phone-numbers.getphonenumber
+        with:
+          fields: rest.fields
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-phone-numbers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WhatsApp Cloud API — Phone Numbers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: whatsapp-get-phone-number-info
+      description: WhatsApp Get Phone Number Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-phone-numbers.getphonenumber
+      with:
+        fields: tools.fields
+      outputParameters:
+      - type: object
+        mapping: $.

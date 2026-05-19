@@ -1,16 +1,16 @@
 aid: whatsapp
 name: WhatsApp
-description: APIs for the WhatsApp messaging platform, enabling businesses to communicate
-  with customers through the world's most popular messaging app.
+description: APIs for the WhatsApp messaging platform, enabling businesses to communicate with customers through the world's
+  most popular messaging app.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-04-17'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
 - name: WhatsApp Business Platform API
-  description: The Cloud API and On-Premises API that enables medium and large businesses
-    to communicate with customers at scale.
+  description: The Cloud API and On-Premises API that enables medium and large businesses to communicate with customers at
+    scale.
   image: https://www.whatsapp.com/img/fb-post.jpg
   humanURL: https://developers.facebook.com/docs/whatsapp
   baseURL: https://graph.facebook.com/v21.0
@@ -64,6 +64,20 @@ apis:
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/two-step-verification
   - type: Versioning
     url: https://developers.facebook.com/docs/graph-api/guides/versioning
+  - type: NaftikoCapability
+    url: capabilities/cloud-business-profile.yaml
+  - type: NaftikoCapability
+    url: capabilities/cloud-media.yaml
+  - type: NaftikoCapability
+    url: capabilities/cloud-messages.yaml
+  - type: NaftikoCapability
+    url: capabilities/cloud-phone-numbers.yaml
+  - type: NaftikoCapability
+    url: capabilities/cloud-qr-codes.yaml
+  - type: NaftikoCapability
+    url: capabilities/cloud-registration.yaml
+  - type: NaftikoCapability
+    url: capabilities/cloud-two-step-verification.yaml
   contact:
   - type: Support
     url: https://developers.facebook.com/support/
@@ -71,8 +85,7 @@ apis:
     url: https://twitter.com/WhatsApp
   aid: whatsapp:business-platform-api
 - name: WhatsApp Business Account Management API
-  description: API for managing WhatsApp Business Accounts, phone numbers, and messaging
-    templates.
+  description: API for managing WhatsApp Business Accounts, phone numbers, and messaging templates.
   image: https://www.whatsapp.com/img/fb-post.jpg
   humanURL: https://developers.facebook.com/docs/whatsapp/business-management-api
   baseURL: https://graph.facebook.com/v21.0
@@ -102,11 +115,24 @@ apis:
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes
   - type: RateLimits
     url: https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput
+  - type: NaftikoCapability
+    url: capabilities/business-management-analytics.yaml
+  - type: NaftikoCapability
+    url: capabilities/business-management-assigned-users.yaml
+  - type: NaftikoCapability
+    url: capabilities/business-management-business-accounts.yaml
+  - type: NaftikoCapability
+    url: capabilities/business-management-message-templates.yaml
+  - type: NaftikoCapability
+    url: capabilities/business-management-phone-numbers.yaml
+  - type: NaftikoCapability
+    url: capabilities/business-management-product-catalogs.yaml
+  - type: NaftikoCapability
+    url: capabilities/business-management-subscribed-apps.yaml
   aid: whatsapp:business-account-management-api
 - name: WhatsApp Flows API
-  description: API for creating structured, interactive forms and multi-step flows
-    within WhatsApp conversations, enabling appointment booking, surveys, lead capture,
-    and other guided experiences using a JSON-based screen definition format.
+  description: API for creating structured, interactive forms and multi-step flows within WhatsApp conversations, enabling
+    appointment booking, surveys, lead capture, and other guided experiences using a JSON-based screen definition format.
   image: https://www.whatsapp.com/img/fb-post.jpg
   humanURL: https://developers.facebook.com/docs/whatsapp/flows
   baseURL: https://graph.facebook.com/v21.0
@@ -136,11 +162,16 @@ apis:
     url: https://developers.facebook.com/docs/whatsapp/flows/gettingstarted
   - type: Authentication
     url: https://developers.facebook.com/docs/whatsapp/business-management-api/get-started
+  - type: NaftikoCapability
+    url: capabilities/flows-assets.yaml
+  - type: NaftikoCapability
+    url: capabilities/flows-flows.yaml
+  - type: NaftikoCapability
+    url: capabilities/flows-lifecycle.yaml
   aid: whatsapp:flows-api
 - name: WhatsApp On-Premises API
-  description: The self-hosted version of the WhatsApp Business API that allowed businesses
-    to run the API on their own infrastructure. This API was deprecated on October
-    23, 2025, and all users must migrate to the Cloud API.
+  description: The self-hosted version of the WhatsApp Business API that allowed businesses to run the API on their own infrastructure.
+    This API was deprecated on October 23, 2025, and all users must migrate to the Cloud API.
   image: https://www.whatsapp.com/img/fb-post.jpg
   humanURL: https://developers.facebook.com/docs/whatsapp/on-premises
   baseURL: https://localhost:443
@@ -230,24 +261,19 @@ common:
 - type: Features
   data:
   - name: Cloud API
-    description: Send and receive messages, media, and interactive content through
-      Meta-hosted WhatsApp infrastructure.
+    description: Send and receive messages, media, and interactive content through Meta-hosted WhatsApp infrastructure.
   - name: Message Templates
-    description: Pre-approved message templates for proactive customer communication
-      with variable substitution.
+    description: Pre-approved message templates for proactive customer communication with variable substitution.
   - name: Interactive Messages
     description: Buttons, lists, product catalogs, and flows for rich customer engagement.
   - name: Media Messaging
-    description: Send and receive images, videos, documents, audio, stickers, and
-      location data.
+    description: Send and receive images, videos, documents, audio, stickers, and location data.
   - name: Webhooks
-    description: Real-time notifications for incoming messages, delivery status, and
-      account events.
+    description: Real-time notifications for incoming messages, delivery status, and account events.
   - name: Business Management API
     description: Manage WhatsApp Business accounts, phone numbers, and messaging limits.
   - name: Flows
-    description: Build interactive multi-step forms and workflows within WhatsApp
-      conversations.
+    description: Build interactive multi-step forms and workflows within WhatsApp conversations.
   - name: Catalogs and Commerce
     description: Share product catalogs and enable in-chat commerce experiences.
   - name: Encryption
@@ -261,8 +287,7 @@ common:
   - name: Order Notifications
     description: Send order confirmations, shipping updates, and delivery notifications.
   - name: Appointment Reminders
-    description: Send appointment reminders and allow rescheduling via interactive
-      messages.
+    description: Send appointment reminders and allow rescheduling via interactive messages.
   - name: Marketing Campaigns
     description: Send promotional messages using approved templates to opted-in customers.
   - name: Two-Factor Authentication
@@ -288,8 +313,7 @@ common:
 - type: Solutions
   data:
   - name: WhatsApp Business Platform
-    description: Cloud API and On-Premises API for medium and large businesses at
-      scale.
+    description: Cloud API and On-Premises API for medium and large businesses at scale.
   - name: WhatsApp Business App
     description: Free mobile app for small businesses with basic messaging features.
   - name: WhatsApp Flows

@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WhatsApp Cloud API — Media
+  description: 'WhatsApp Cloud API — Media. 3 operations. Lead operation: WhatsApp Get Media URL. Self-contained Naftiko capability
+    covering one Whatsapp business surface.'
+  tags:
+  - Whatsapp
+  - Media
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHATSAPP_API_KEY: WHATSAPP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-media
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Cloud API — Media business capability. Self-contained, no shared references.
+    resources:
+    - name: media-id
+      path: /{media-id}
+      operations:
+      - name: getmediaurl
+        method: GET
+        description: WhatsApp Get Media URL
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletemedia
+        method: DELETE
+        description: WhatsApp Delete Media
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: phone-number-id-media
+      path: /{phone-number-id}/media
+      operations:
+      - name: uploadmedia
+        method: POST
+        description: WhatsApp Upload Media
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WHATSAPP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-media-rest
+    port: 8080
+    description: REST adapter for WhatsApp Cloud API — Media. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/{media-id}
+      name: media-id
+      description: REST surface for media-id.
+      operations:
+      - method: GET
+        name: getmediaurl
+        description: WhatsApp Get Media URL
+        call: cloud-media.getmediaurl
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemedia
+        description: WhatsApp Delete Media
+        call: cloud-media.deletemedia
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{phone-number-id}/media
+      name: phone-number-id-media
+      description: REST surface for phone-number-id-media.
+      operations:
+      - method: POST
+        name: uploadmedia
+        description: WhatsApp Upload Media
+        call: cloud-media.uploadmedia
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-media-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WhatsApp Cloud API — Media. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: whatsapp-get-media-url
+      description: WhatsApp Get Media URL
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: cloud-media.getmediaurl
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-delete-media
+      description: WhatsApp Delete Media
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: cloud-media.deletemedia
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-upload-media
+      description: WhatsApp Upload Media
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-media.uploadmedia
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

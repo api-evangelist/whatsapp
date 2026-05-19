@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WhatsApp Business Management API — Subscribed Apps
+  description: 'WhatsApp Business Management API — Subscribed Apps. 3 operations. Lead operation: WhatsApp List Webhook Subscriptions.
+    Self-contained Naftiko capability covering one Whatsapp business surface.'
+  tags:
+  - Whatsapp
+  - Subscribed Apps
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHATSAPP_API_KEY: WHATSAPP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: business-management-subscribed-apps
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Business Management API — Subscribed Apps business capability. Self-contained, no shared references.
+    resources:
+    - name: waba-id-subscribed_apps
+      path: /{waba-id}/subscribed_apps
+      operations:
+      - name: listsubscribedapps
+        method: GET
+        description: WhatsApp List Webhook Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: subscribeapp
+        method: POST
+        description: WhatsApp Subscribe App to Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: unsubscribeapp
+        method: DELETE
+        description: WhatsApp Unsubscribe App from Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.WHATSAPP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: business-management-subscribed-apps-rest
+    port: 8080
+    description: REST adapter for WhatsApp Business Management API — Subscribed Apps. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/{waba-id}/subscribed-apps
+      name: waba-id-subscribed-apps
+      description: REST surface for waba-id-subscribed_apps.
+      operations:
+      - method: GET
+        name: listsubscribedapps
+        description: WhatsApp List Webhook Subscriptions
+        call: business-management-subscribed-apps.listsubscribedapps
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: subscribeapp
+        description: WhatsApp Subscribe App to Webhooks
+        call: business-management-subscribed-apps.subscribeapp
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unsubscribeapp
+        description: WhatsApp Unsubscribe App from Webhooks
+        call: business-management-subscribed-apps.unsubscribeapp
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: business-management-subscribed-apps-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WhatsApp Business Management API — Subscribed Apps. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: whatsapp-list-webhook-subscriptions
+      description: WhatsApp List Webhook Subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: business-management-subscribed-apps.listsubscribedapps
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-subscribe-app-webhooks
+      description: WhatsApp Subscribe App to Webhooks
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: business-management-subscribed-apps.subscribeapp
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-unsubscribe-app-webhooks
+      description: WhatsApp Unsubscribe App from Webhooks
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: business-management-subscribed-apps.unsubscribeapp
+      outputParameters:
+      - type: object
+        mapping: $.

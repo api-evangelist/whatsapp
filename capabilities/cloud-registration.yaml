@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WhatsApp Cloud API — Registration
+  description: 'WhatsApp Cloud API — Registration. 4 operations. Lead operation: WhatsApp Deregister Phone Number. Self-contained
+    Naftiko capability covering one Whatsapp business surface.'
+  tags:
+  - Whatsapp
+  - Registration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHATSAPP_API_KEY: WHATSAPP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: cloud-registration
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Cloud API — Registration business capability. Self-contained, no shared references.
+    resources:
+    - name: phone-number-id-deregister
+      path: /{phone-number-id}/deregister
+      operations:
+      - name: deregisterphonenumber
+        method: POST
+        description: WhatsApp Deregister Phone Number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: phone-number-id-register
+      path: /{phone-number-id}/register
+      operations:
+      - name: registerphonenumber
+        method: POST
+        description: WhatsApp Register Phone Number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: phone-number-id-request_code
+      path: /{phone-number-id}/request_code
+      operations:
+      - name: requestverificationcode
+        method: POST
+        description: WhatsApp Request Verification Code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: phone-number-id-verify_code
+      path: /{phone-number-id}/verify_code
+      operations:
+      - name: verifycode
+        method: POST
+        description: WhatsApp Verify Phone Number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WHATSAPP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: cloud-registration-rest
+    port: 8080
+    description: REST adapter for WhatsApp Cloud API — Registration. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{phone-number-id}/deregister
+      name: phone-number-id-deregister
+      description: REST surface for phone-number-id-deregister.
+      operations:
+      - method: POST
+        name: deregisterphonenumber
+        description: WhatsApp Deregister Phone Number
+        call: cloud-registration.deregisterphonenumber
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{phone-number-id}/register
+      name: phone-number-id-register
+      description: REST surface for phone-number-id-register.
+      operations:
+      - method: POST
+        name: registerphonenumber
+        description: WhatsApp Register Phone Number
+        call: cloud-registration.registerphonenumber
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{phone-number-id}/request-code
+      name: phone-number-id-request-code
+      description: REST surface for phone-number-id-request_code.
+      operations:
+      - method: POST
+        name: requestverificationcode
+        description: WhatsApp Request Verification Code
+        call: cloud-registration.requestverificationcode
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{phone-number-id}/verify-code
+      name: phone-number-id-verify-code
+      description: REST surface for phone-number-id-verify_code.
+      operations:
+      - method: POST
+        name: verifycode
+        description: WhatsApp Verify Phone Number
+        call: cloud-registration.verifycode
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: cloud-registration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WhatsApp Cloud API — Registration. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: whatsapp-deregister-phone-number
+      description: WhatsApp Deregister Phone Number
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-registration.deregisterphonenumber
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-register-phone-number
+      description: WhatsApp Register Phone Number
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-registration.registerphonenumber
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-request-verification-code
+      description: WhatsApp Request Verification Code
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-registration.requestverificationcode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-verify-phone-number
+      description: WhatsApp Verify Phone Number
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: cloud-registration.verifycode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

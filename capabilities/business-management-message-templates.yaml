@@ -1,0 +1,241 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WhatsApp Business Management API — Message Templates
+  description: 'WhatsApp Business Management API — Message Templates. 4 operations. Lead operation: WhatsApp Update Message
+    Template. Self-contained Naftiko capability covering one Whatsapp business surface.'
+  tags:
+  - Whatsapp
+  - Message Templates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WHATSAPP_API_KEY: WHATSAPP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: business-management-message-templates
+    baseUri: https://graph.facebook.com/v21.0
+    description: WhatsApp Business Management API — Message Templates business capability. Self-contained, no shared references.
+    resources:
+    - name: message-template-id
+      path: /{message-template-id}
+      operations:
+      - name: updatemessagetemplate
+        method: POST
+        description: WhatsApp Update Message Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: message-template-id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: waba-id-message_templates
+      path: /{waba-id}/message_templates
+      operations:
+      - name: listmessagetemplates
+        method: GET
+        description: WhatsApp List Message Templates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+        - name: after
+          in: query
+          type: string
+        - name: before
+          in: query
+          type: string
+        - name: name
+          in: query
+          type: string
+          description: Filter by template name
+        - name: language
+          in: query
+          type: string
+          description: Filter by language code
+        - name: status
+          in: query
+          type: string
+          description: Filter by approval status
+        - name: category
+          in: query
+          type: string
+          description: Filter by template category
+      - name: createmessagetemplate
+        method: POST
+        description: WhatsApp Create Message Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemessagetemplate
+        method: DELETE
+        description: WhatsApp Delete Message Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+          description: Template name to delete
+          required: true
+        - name: hsm_id
+          in: query
+          type: string
+          description: Specific template ID to delete a single language variant
+    authentication:
+      type: bearer
+      token: '{{env.WHATSAPP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: business-management-message-templates-rest
+    port: 8080
+    description: REST adapter for WhatsApp Business Management API — Message Templates. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/{message-template-id}
+      name: message-template-id
+      description: REST surface for message-template-id.
+      operations:
+      - method: POST
+        name: updatemessagetemplate
+        description: WhatsApp Update Message Template
+        call: business-management-message-templates.updatemessagetemplate
+        with:
+          message-template-id: rest.message-template-id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{waba-id}/message-templates
+      name: waba-id-message-templates
+      description: REST surface for waba-id-message_templates.
+      operations:
+      - method: GET
+        name: listmessagetemplates
+        description: WhatsApp List Message Templates
+        call: business-management-message-templates.listmessagetemplates
+        with:
+          fields: rest.fields
+          limit: rest.limit
+          after: rest.after
+          before: rest.before
+          name: rest.name
+          language: rest.language
+          status: rest.status
+          category: rest.category
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmessagetemplate
+        description: WhatsApp Create Message Template
+        call: business-management-message-templates.createmessagetemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemessagetemplate
+        description: WhatsApp Delete Message Template
+        call: business-management-message-templates.deletemessagetemplate
+        with:
+          name: rest.name
+          hsm_id: rest.hsm_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: business-management-message-templates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WhatsApp Business Management API — Message Templates. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: whatsapp-update-message-template
+      description: WhatsApp Update Message Template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: business-management-message-templates.updatemessagetemplate
+      with:
+        message-template-id: tools.message-template-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-list-message-templates
+      description: WhatsApp List Message Templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: business-management-message-templates.listmessagetemplates
+      with:
+        fields: tools.fields
+        limit: tools.limit
+        after: tools.after
+        before: tools.before
+        name: tools.name
+        language: tools.language
+        status: tools.status
+        category: tools.category
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-create-message-template
+      description: WhatsApp Create Message Template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: business-management-message-templates.createmessagetemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: whatsapp-delete-message-template
+      description: WhatsApp Delete Message Template
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: business-management-message-templates.deletemessagetemplate
+      with:
+        name: tools.name
+        hsm_id: tools.hsm_id
+      outputParameters:
+      - type: object
+        mapping: $.
