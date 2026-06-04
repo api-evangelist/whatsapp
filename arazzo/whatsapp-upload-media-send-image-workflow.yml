@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Upload Media and Send Image Message
+  summary: Upload an image to WhatsApp servers and send it to a recipient by media ID.
+  description: >-
+    The canonical media messaging pattern for the WhatsApp Cloud API. The
+    workflow first uploads a binary image file to Meta's media endpoint, which
+    returns a reusable media ID, and then sends an image message to a recipient
+    that references that media ID along with an optional caption. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upload-media-send-image
+  summary: Upload an image and deliver it to a WhatsApp user as an image message.
+  description: >-
+    Uploads an image file to the WhatsApp media store to obtain a media ID, then
+    sends an image message that references the uploaded media ID to the supplied
+    recipient.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - phoneNumberId
+    - to
+    - file
+    - fileType
+    properties:
+      accessToken:
+        type: string
+        description: System User or User Access Token with whatsapp_business_messaging permission.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the message.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      file:
+        type: string
+        description: The binary image file content to upload.
+      fileType:
+        type: string
+        description: MIME type of the image (e.g. image/jpeg).
+      caption:
+        type: string
+        description: Optional caption text to display under the image.
+  steps:
+  - stepId: uploadImage
+    description: >-
+      Upload the binary image file to the WhatsApp media endpoint, returning a
+      media ID that persists for 30 days.
+    operationId: uploadMedia
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        file: $inputs.file
+        type: $inputs.fileType
+        messaging_product: whatsapp
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      mediaId: $response.body#/id
+  - stepId: sendImage
+    description: >-
+      Send an image message to the recipient that references the uploaded media
+      ID, optionally including a caption.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: image
+        image:
+          id: $steps.uploadImage.outputs.mediaId
+          caption: $inputs.caption
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+      contactWaId: $response.body#/contacts/0/wa_id
+  outputs:
+    mediaId: $steps.uploadImage.outputs.mediaId
+    messageId: $steps.sendImage.outputs.messageId

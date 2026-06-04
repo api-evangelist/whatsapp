@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Subscribe App to WABA Webhooks
+  summary: Confirm the WABA is active, subscribe the app to webhooks, then list subscriptions.
+  description: >-
+    Webhook subscriptions are what deliver inbound messages and status updates
+    to a business app. This workflow reads the WhatsApp Business Account to
+    confirm it is ACTIVE, branches on that status, subscribes the current app to
+    the WABA's webhook events when active, and then lists the subscribed apps to
+    confirm the subscription took effect. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappBusinessManagementApi
+  url: ../openapi/whatsapp-business-management-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: subscribe-webhooks
+  summary: Verify the WABA is active, subscribe to webhooks, and confirm the subscription.
+  description: >-
+    Reads the WhatsApp Business Account and only when it is ACTIVE subscribes the
+    current app to its webhook events, then lists subscribed apps to confirm.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - wabaId
+    properties:
+      accessToken:
+        type: string
+        description: System User Token with whatsapp_business_management permission.
+      wabaId:
+        type: string
+        description: The WhatsApp Business Account ID to subscribe to.
+  steps:
+  - stepId: readAccount
+    description: >-
+      Read the WhatsApp Business Account to confirm its status before
+      subscribing.
+    operationId: getWhatsAppBusinessAccount
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: waba-id
+      in: path
+      value: $inputs.wabaId
+    - name: fields
+      in: query
+      value: id,name,status
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accountStatus: $response.body#/status
+    onSuccess:
+    - name: accountActive
+      type: goto
+      stepId: subscribeApp
+      criteria:
+      - context: $response.body
+        condition: $.status == "ACTIVE"
+        type: jsonpath
+    - name: accountInactive
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "ACTIVE"
+        type: jsonpath
+  - stepId: subscribeApp
+    description: >-
+      Subscribe the current app to receive webhook events for the WABA.
+    operationId: subscribeApp
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: waba-id
+      in: path
+      value: $inputs.wabaId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscribed: $response.body#/success
+  - stepId: listSubscriptions
+    description: >-
+      List the apps subscribed to the WABA's webhook events to confirm the
+      subscription is in place.
+    operationId: listSubscribedApps
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: waba-id
+      in: path
+      value: $inputs.wabaId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscribedAppId: $response.body#/data/0/id
+  outputs:
+    subscribed: $steps.subscribeApp.outputs.subscribed
+    subscribedAppId: $steps.listSubscriptions.outputs.subscribedAppId

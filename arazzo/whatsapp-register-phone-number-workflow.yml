@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Verify and Register Phone Number
+  summary: Request a verification code, verify it, then register the phone number.
+  description: >-
+    The full onboarding flow that brings a phone number live on the WhatsApp
+    Cloud API. The workflow requests a verification code over SMS or voice, has
+    the caller supply the received code to verify the number, and then registers
+    the verified number with its two-step verification PIN so it can send and
+    receive messages. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-phone-number
+  summary: Drive a phone number from code request through verification to registration.
+  description: >-
+    Requests a verification code for the phone number, verifies the number with
+    the supplied code, and registers the number for Cloud API use with its PIN.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - phoneNumberId
+    - codeMethod
+    - language
+    - code
+    - pin
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_management permission.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID being registered.
+      codeMethod:
+        type: string
+        description: Delivery method for the verification code (SMS or VOICE).
+      language:
+        type: string
+        description: Two-letter language code for the verification message.
+      code:
+        type: string
+        description: The 6-digit verification code received via SMS or voice.
+      pin:
+        type: string
+        description: 6-digit two-step verification PIN to set during registration.
+  steps:
+  - stepId: requestCode
+    description: >-
+      Request a verification code be sent to the phone number over the chosen
+      delivery method.
+    operationId: requestVerificationCode
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        code_method: $inputs.codeMethod
+        language: $inputs.language
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requested: $response.body#/success
+  - stepId: verifyNumber
+    description: >-
+      Verify the phone number using the code the caller received via SMS or
+      voice.
+    operationId: verifyCode
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        code: $inputs.code
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verified: $response.body#/success
+  - stepId: registerNumber
+    description: >-
+      Register the verified phone number for Cloud API use, setting its two-step
+      verification PIN.
+    operationId: registerPhoneNumber
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        pin: $inputs.pin
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registered: $response.body#/success
+  outputs:
+    verified: $steps.verifyNumber.outputs.verified
+    registered: $steps.registerNumber.outputs.registered

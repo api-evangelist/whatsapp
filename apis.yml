@@ -196,6 +196,51 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/whatsapp-create-qr-code-workflow.yml
+    name: WhatsApp Create and Retrieve QR Code
+    summary: Create a click-to-chat QR code and read back its deep link and image URLs.
+  - url: arazzo/whatsapp-create-template-then-send-workflow.yml
+    name: WhatsApp Create Template then Send
+    summary: Create a new message template and send it once it is available.
+  - url: arazzo/whatsapp-publish-flow-and-send-workflow.yml
+    name: WhatsApp Build, Publish, and Send a Flow
+    summary: Create a flow, upload its JSON, publish it, and send it as an interactive flow message.
+  - url: arazzo/whatsapp-register-phone-number-workflow.yml
+    name: WhatsApp Verify and Register Phone Number
+    summary: Request a verification code, verify it, then register the phone number.
+  - url: arazzo/whatsapp-send-and-react-workflow.yml
+    name: WhatsApp Send Message then React to It
+    summary: Send a text message and then apply an emoji reaction to that same message.
+  - url: arazzo/whatsapp-send-interactive-buttons-workflow.yml
+    name: WhatsApp Check Number then Send Interactive Buttons
+    summary: Confirm the sending number is verified, then send an interactive reply-button message.
+  - url: arazzo/whatsapp-send-location-message-workflow.yml
+    name: WhatsApp Confirm Profile then Send Location
+    summary: Read the business profile to confirm the sender, then send a location pin.
+  - url: arazzo/whatsapp-send-template-message-workflow.yml
+    name: WhatsApp Find Approved Template and Send
+    summary: Look up an approved message template by name and send it to a recipient.
+  - url: arazzo/whatsapp-send-text-and-mark-read-workflow.yml
+    name: WhatsApp Send Text and Mark Inbound Read
+    summary: Send a text reply and mark the customer's inbound message as read.
+  - url: arazzo/whatsapp-subscribe-webhooks-workflow.yml
+    name: WhatsApp Subscribe App to WABA Webhooks
+    summary: Confirm the WABA is active, subscribe the app to webhooks, then list subscriptions.
+  - url: arazzo/whatsapp-update-business-profile-workflow.yml
+    name: WhatsApp Read and Update Business Profile
+    summary: Read the current business profile, then apply updates to it.
+  - url: arazzo/whatsapp-update-template-workflow.yml
+    name: WhatsApp Find and Update Message Template
+    summary: Locate a template by name and edit its body, when it is in an editable state.
+  - url: arazzo/whatsapp-upload-media-send-document-workflow.yml
+    name: WhatsApp Upload and Send Document
+    summary: Upload a document file and send it to a recipient with a display filename.
+  - url: arazzo/whatsapp-upload-media-send-image-workflow.yml
+    name: WhatsApp Upload Media and Send Image Message
+    summary: Upload an image to WhatsApp servers and send it to a recipient by media ID.
 - type: TermsOfService
   url: https://www.whatsapp.com/legal/business-terms
 - type: PrivacyPolicy

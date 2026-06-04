@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Send Message then React to It
+  summary: Send a text message and then apply an emoji reaction to that same message.
+  description: >-
+    Reactions add a lightweight emoji acknowledgement to a specific message.
+    This workflow sends a text message to a recipient, captures the returned
+    message ID, and then sends a reaction message that applies an emoji to that
+    exact message. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: send-and-react
+  summary: Send a text message and react to it with an emoji.
+  description: >-
+    Sends a text message, captures its message ID, and then sends a reaction
+    message that applies the supplied emoji to that message.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - phoneNumberId
+    - to
+    - body
+    - emoji
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_messaging permission.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the messages.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      body:
+        type: string
+        description: The text body of the message to send.
+      emoji:
+        type: string
+        description: The emoji character to react with, or empty string to remove a reaction.
+  steps:
+  - stepId: sendText
+    description: >-
+      Send a text message to the recipient and capture the returned message ID.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: text
+        text:
+          body: $inputs.body
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+  - stepId: reactToText
+    description: >-
+      Send a reaction message that applies the supplied emoji to the message
+      that was just sent.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: reaction
+        reaction:
+          message_id: $steps.sendText.outputs.messageId
+          emoji: $inputs.emoji
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reactionMessageId: $response.body#/messages/0/id
+  outputs:
+    messageId: $steps.sendText.outputs.messageId
+    reactionMessageId: $steps.reactToText.outputs.reactionMessageId

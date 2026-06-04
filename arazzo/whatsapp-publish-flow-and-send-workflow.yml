@@ -1,0 +1,174 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Build, Publish, and Send a Flow
+  summary: Create a flow, upload its JSON, publish it, and send it as an interactive flow message.
+  description: >-
+    The end-to-end lifecycle for a WhatsApp Flow. The workflow creates a draft
+    flow on a WhatsApp Business Account, uploads its flow JSON definition, and
+    branches on whether the upload reported validation errors. When the JSON is
+    valid it publishes the flow and then sends an interactive flow message that
+    launches the published flow for a recipient. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappFlowsApi
+  url: ../openapi/whatsapp-flows-api-openapi.yml
+  type: openapi
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: publish-flow-and-send
+  summary: Create, upload, publish, and deliver a WhatsApp Flow to a recipient.
+  description: >-
+    Creates a draft flow, uploads its flow JSON, and only when the upload is free
+    of validation errors publishes the flow and sends an interactive flow message
+    that launches it for the recipient.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - wabaId
+    - phoneNumberId
+    - to
+    - flowName
+    - flowCategory
+    - flowFile
+    - bodyText
+    - flowCta
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_management and whatsapp_business_messaging permissions.
+      wabaId:
+        type: string
+        description: The WhatsApp Business Account ID that owns the flow.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the flow message.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      flowName:
+        type: string
+        description: Display name for the new flow.
+      flowCategory:
+        type: string
+        description: Flow category such as SIGN_UP, LEAD_GENERATION, or SURVEY.
+      flowFile:
+        type: string
+        description: The binary flow.json file content (max 10 MB).
+      bodyText:
+        type: string
+        description: The interactive message body text.
+      flowCta:
+        type: string
+        description: The call-to-action label on the flow launch button.
+  steps:
+  - stepId: createFlow
+    description: >-
+      Create a new draft flow on the WhatsApp Business Account.
+    operationId: createFlow
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: waba-id
+      in: path
+      value: $inputs.wabaId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.flowName
+        categories:
+        - $inputs.flowCategory
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      flowId: $response.body#/id
+  - stepId: uploadFlowJson
+    description: >-
+      Upload the flow JSON definition file to the draft flow; the API validates
+      the file and returns any validation errors.
+    operationId: uploadFlowJson
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: flow-id
+      in: path
+      value: $steps.createFlow.outputs.flowId
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        file: $inputs.flowFile
+        name: flow.json
+        asset_type: FLOW_JSON
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      uploadSuccess: $response.body#/success
+    onSuccess:
+    - name: jsonValid
+      type: goto
+      stepId: publishFlow
+      criteria:
+      - context: $response.body
+        condition: $.validation_errors.length == 0
+        type: jsonpath
+    - name: jsonInvalid
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.validation_errors.length > 0
+        type: jsonpath
+  - stepId: publishFlow
+    description: >-
+      Publish the validated draft flow, making it available for use in messages.
+    operationId: publishFlow
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: flow-id
+      in: path
+      value: $steps.createFlow.outputs.flowId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      published: $response.body#/success
+  - stepId: sendFlowMessage
+    description: >-
+      Send an interactive flow message to the recipient that launches the newly
+      published flow.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: interactive
+        interactive:
+          type: flow
+          body:
+            text: $inputs.bodyText
+          action:
+            name: $inputs.flowCta
+            parameters:
+              flow_id: $steps.createFlow.outputs.flowId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+  outputs:
+    flowId: $steps.createFlow.outputs.flowId
+    messageId: $steps.sendFlowMessage.outputs.messageId

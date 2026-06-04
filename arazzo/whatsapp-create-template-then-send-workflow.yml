@@ -1,0 +1,134 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Create Template then Send
+  summary: Create a new message template and send it once it is available.
+  description: >-
+    Provisions a brand new message template on a WhatsApp Business Account and
+    then attempts to send it. Because Meta must approve new templates before
+    they can be delivered, the workflow branches on the create response status:
+    when the template is already APPROVED it sends immediately, and otherwise it
+    ends so the caller can wait for approval. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappBusinessManagementApi
+  url: ../openapi/whatsapp-business-management-api-openapi.yml
+  type: openapi
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-template-then-send
+  summary: Create a message template and send it when it returns APPROVED.
+  description: >-
+    Creates a new message template with a single BODY component, and only when
+    the create response reports the template as APPROVED sends a template message
+    to the recipient. When the template is still PENDING the workflow ends.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - wabaId
+    - phoneNumberId
+    - to
+    - templateName
+    - language
+    - bodyText
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_management and whatsapp_business_messaging permissions.
+      wabaId:
+        type: string
+        description: The WhatsApp Business Account ID to create the template on.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the message.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      templateName:
+        type: string
+        description: Lowercase template name using letters, digits, and underscores only.
+      language:
+        type: string
+        description: Template language/locale code (e.g. en_US).
+      bodyText:
+        type: string
+        description: The body text content of the template.
+      category:
+        type: string
+        description: Template category (AUTHENTICATION, MARKETING, or UTILITY).
+        default: UTILITY
+  steps:
+  - stepId: createTemplate
+    description: >-
+      Create a new message template with a single BODY component on the WhatsApp
+      Business Account.
+    operationId: createMessageTemplate
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: waba-id
+      in: path
+      value: $inputs.wabaId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.templateName
+        language: $inputs.language
+        category: $inputs.category
+        components:
+        - type: BODY
+          text: $inputs.bodyText
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      templateId: $response.body#/id
+      templateStatus: $response.body#/status
+    onSuccess:
+    - name: templateApproved
+      type: goto
+      stepId: sendTemplate
+      criteria:
+      - context: $response.body
+        condition: $.status == "APPROVED"
+        type: jsonpath
+    - name: templatePending
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "APPROVED"
+        type: jsonpath
+  - stepId: sendTemplate
+    description: >-
+      Send a template message to the recipient referencing the newly approved
+      template by name and language.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: template
+        template:
+          name: $inputs.templateName
+          language:
+            code: $inputs.language
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+  outputs:
+    templateId: $steps.createTemplate.outputs.templateId
+    messageId: $steps.sendTemplate.outputs.messageId

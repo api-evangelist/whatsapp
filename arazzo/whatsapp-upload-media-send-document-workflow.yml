@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Upload and Send Document
+  summary: Upload a document file and send it to a recipient with a display filename.
+  description: >-
+    Delivers a file such as a PDF invoice or receipt to a WhatsApp user. The
+    workflow uploads the binary document to the WhatsApp media store to obtain a
+    reusable media ID, then sends a document message that references that media
+    ID along with the filename the recipient should see and an optional caption.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upload-media-send-document
+  summary: Upload a document and deliver it to a WhatsApp user as a document message.
+  description: >-
+    Uploads a document file to obtain a media ID, then sends a document message
+    referencing that media ID with the supplied display filename and caption.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - phoneNumberId
+    - to
+    - file
+    - fileType
+    - filename
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_messaging permission.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the message.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      file:
+        type: string
+        description: The binary document file content to upload.
+      fileType:
+        type: string
+        description: MIME type of the document (e.g. application/pdf).
+      filename:
+        type: string
+        description: Filename to display to the recipient.
+      caption:
+        type: string
+        description: Optional caption text to display with the document.
+  steps:
+  - stepId: uploadDocument
+    description: >-
+      Upload the binary document file to the WhatsApp media endpoint to obtain a
+      reusable media ID.
+    operationId: uploadMedia
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        file: $inputs.file
+        type: $inputs.fileType
+        messaging_product: whatsapp
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      mediaId: $response.body#/id
+  - stepId: sendDocument
+    description: >-
+      Send a document message to the recipient referencing the uploaded media ID
+      with the supplied display filename.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: document
+        document:
+          id: $steps.uploadDocument.outputs.mediaId
+          filename: $inputs.filename
+          caption: $inputs.caption
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+  outputs:
+    mediaId: $steps.uploadDocument.outputs.mediaId
+    messageId: $steps.sendDocument.outputs.messageId

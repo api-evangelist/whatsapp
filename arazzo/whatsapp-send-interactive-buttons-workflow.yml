@@ -1,0 +1,132 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Check Number then Send Interactive Buttons
+  summary: Confirm the sending number is verified, then send an interactive reply-button message.
+  description: >-
+    Interactive reply-button messages let customers respond with a single tap.
+    This workflow first reads the sending phone number's info and branches on its
+    code verification status, and only when the number is VERIFIED does it send
+    an interactive button message with up to three quick-reply buttons. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: send-interactive-buttons
+  summary: Verify the sending number then deliver an interactive button message.
+  description: >-
+    Reads the sending phone number's verification status and only sends an
+    interactive reply-button message when the number is VERIFIED, otherwise ends.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - phoneNumberId
+    - to
+    - bodyText
+    - button1Id
+    - button1Title
+    - button2Id
+    - button2Title
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_messaging permission.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the message.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      bodyText:
+        type: string
+        description: The interactive message body text (max 1024 characters).
+      button1Id:
+        type: string
+        description: Unique identifier for the first reply button (max 256 chars).
+      button1Title:
+        type: string
+        description: Display title for the first reply button (max 20 chars).
+      button2Id:
+        type: string
+        description: Unique identifier for the second reply button (max 256 chars).
+      button2Title:
+        type: string
+        description: Display title for the second reply button (max 20 chars).
+  steps:
+  - stepId: checkNumber
+    description: >-
+      Read the sending phone number's info to confirm its code verification
+      status before sending.
+    operationId: getPhoneNumber
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    - name: fields
+      in: query
+      value: code_verification_status,quality_rating
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verificationStatus: $response.body#/code_verification_status
+    onSuccess:
+    - name: numberVerified
+      type: goto
+      stepId: sendButtons
+      criteria:
+      - context: $response.body
+        condition: $.code_verification_status == "VERIFIED"
+        type: jsonpath
+    - name: numberNotVerified
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.code_verification_status != "VERIFIED"
+        type: jsonpath
+  - stepId: sendButtons
+    description: >-
+      Send an interactive reply-button message with two quick-reply buttons to
+      the recipient.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: interactive
+        interactive:
+          type: button
+          body:
+            text: $inputs.bodyText
+          action:
+            buttons:
+            - type: reply
+              reply:
+                id: $inputs.button1Id
+                title: $inputs.button1Title
+            - type: reply
+              reply:
+                id: $inputs.button2Id
+                title: $inputs.button2Title
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+  outputs:
+    verificationStatus: $steps.checkNumber.outputs.verificationStatus
+    messageId: $steps.sendButtons.outputs.messageId

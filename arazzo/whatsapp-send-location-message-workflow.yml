@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: WhatsApp Confirm Profile then Send Location
+  summary: Read the business profile to confirm the sender, then send a location pin.
+  description: >-
+    Sharing a location helps customers find a physical storefront or meeting
+    point. This workflow reads the WhatsApp Business profile to confirm the
+    sending number is configured, and then sends a location message with
+    latitude, longitude, name, and address to a recipient. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: whatsappCloudApi
+  url: ../openapi/whatsapp-cloud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: send-location-message
+  summary: Confirm the business profile then send a location pin to a recipient.
+  description: >-
+    Reads the WhatsApp Business profile for the sending number and then sends a
+    location message with the supplied coordinates, name, and address.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - phoneNumberId
+    - to
+    - latitude
+    - longitude
+    properties:
+      accessToken:
+        type: string
+        description: Access token with whatsapp_business_messaging permission.
+      phoneNumberId:
+        type: string
+        description: The WhatsApp phone number ID that sends the message.
+      to:
+        type: string
+        description: Recipient phone number in E.164 format without the leading plus.
+      latitude:
+        type: number
+        description: Location latitude between -90 and 90.
+      longitude:
+        type: number
+        description: Location longitude between -180 and 180.
+      name:
+        type: string
+        description: Optional location name.
+      address:
+        type: string
+        description: Optional location address.
+  steps:
+  - stepId: confirmProfile
+    description: >-
+      Read the WhatsApp Business profile for the sending number to confirm it is
+      configured before sending.
+    operationId: getBusinessProfile
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    - name: fields
+      in: query
+      value: about,address,messaging_product
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      profileAddress: $response.body#/data/0/address
+  - stepId: sendLocation
+    description: >-
+      Send a location message with the supplied coordinates, name, and address to
+      the recipient.
+    operationId: sendMessage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.accessToken
+    - name: phone-number-id
+      in: path
+      value: $inputs.phoneNumberId
+    requestBody:
+      contentType: application/json
+      payload:
+        messaging_product: whatsapp
+        recipient_type: individual
+        to: $inputs.to
+        type: location
+        location:
+          latitude: $inputs.latitude
+          longitude: $inputs.longitude
+          name: $inputs.name
+          address: $inputs.address
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      messageId: $response.body#/messages/0/id
+  outputs:
+    messageId: $steps.sendLocation.outputs.messageId
