@@ -1,0 +1,2075 @@
+{
+  "info": {
+    "_postman_id": "555e0eb5-710d-4e03-91d9-2ba7e98789ad",
+    "name": "WhatsApp Business Management API",
+    "description": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:21:20.000Z",
+    "updatedAt": "2026-06-05T15:21:20.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-555e0eb5-710d-4e03-91d9-2ba7e98789ad"
+  },
+  "item": [
+    {
+      "name": "{waba-id}",
+      "item": [
+        {
+          "name": "phone_numbers",
+          "item": [
+            {
+              "name": "WhatsApp List Phone Numbers",
+              "id": "04f1876f-d7e1-4e07-8e4c-568edc043fe6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/phone_numbers?fields=<string>&limit=<integer>&after=<string>&before=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "phone_numbers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated fields to return",
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Pagination limit",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for forward pagination",
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cursor for backward pagination",
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "db4d172a-ce8d-4bde-9a80-b07ffb85bd29",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Lists all phone numbers associated with a WhatsApp Business Account."
+              },
+              "response": [
+                {
+                  "id": "987e599a-5d9c-4760-8aee-31fe5c1d27ae",
+                  "name": "Phone numbers retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/phone_numbers?fields=<string>&limit=<integer>&after=<string>&before=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "phone_numbers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated fields to return",
+                          "key": "fields",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Pagination limit",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Cursor for forward pagination",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cursor for backward pagination",
+                          "key": "before",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"display_phone_number\": \"<string>\",\n      \"verified_name\": \"<string>\",\n      \"quality_rating\": \"YELLOW\",\n      \"code_verification_status\": \"EXPIRED\",\n      \"is_official_business_account\": \"<boolean>\",\n      \"name_status\": \"<string>\",\n      \"platform_type\": \"CLOUD_API\",\n      \"throughput\": {\n        \"level\": \"HIGH\"\n      },\n      \"account_mode\": \"SANDBOX\",\n      \"messaging_limit_tier\": \"TIER_100K\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"display_phone_number\": \"<string>\",\n      \"verified_name\": \"<string>\",\n      \"quality_rating\": \"YELLOW\",\n      \"code_verification_status\": \"NOT_VERIFIED\",\n      \"is_official_business_account\": \"<boolean>\",\n      \"name_status\": \"<string>\",\n      \"platform_type\": \"NOT_APPLICABLE\",\n      \"throughput\": {\n        \"level\": \"HIGH\"\n      },\n      \"account_mode\": \"LIVE\",\n      \"messaging_limit_tier\": \"TIER_10K\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"<string>\",\n      \"after\": \"<string>\"\n    },\n    \"next\": \"<uri>\",\n    \"previous\": \"<uri>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-987e599a-5d9c-4760-8aee-31fe5c1d27ae"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-04f1876f-d7e1-4e07-8e4c-568edc043fe6"
+            }
+          ],
+          "id": "0629e998-ff29-49e1-9c2b-84c9b053bb14",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-0629e998-ff29-49e1-9c2b-84c9b053bb14"
+        },
+        {
+          "name": "message_templates",
+          "item": [
+            {
+              "name": "WhatsApp List Message Templates",
+              "id": "aeec7b15-3210-46c7-b21c-970148135366",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/message_templates?fields=<string>&limit=25&after=<string>&before=<string>&name=<string>&language=<string>&status=DISABLED&category=MARKETING",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "message_templates"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by template name",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by language code",
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by approval status",
+                      "key": "status",
+                      "value": "DISABLED"
+                    },
+                    {
+                      "description": "Filter by template category",
+                      "key": "category",
+                      "value": "MARKETING"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "be1ddd5e-d82d-499f-8d4d-68850ce4abdd",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Lists all message templates for a WhatsApp Business Account."
+              },
+              "response": [
+                {
+                  "id": "ddad91d9-4eaa-4235-aeee-d4ebe8fbbbfc",
+                  "name": "Templates retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/message_templates?fields=<string>&limit=25&after=<string>&before=<string>&name=<string>&language=<string>&status=DISABLED&category=MARKETING",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "message_templates"
+                      ],
+                      "query": [
+                        {
+                          "key": "fields",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "25"
+                        },
+                        {
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "before",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by template name",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by language code",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by approval status",
+                          "key": "status",
+                          "value": "DISABLED"
+                        },
+                        {
+                          "description": "Filter by template category",
+                          "key": "category",
+                          "value": "MARKETING"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"APPROVED\",\n      \"category\": \"UTILITY\",\n      \"language\": \"<string>\",\n      \"components\": [\n        {\n          \"type\": \"FOOTER\",\n          \"format\": \"TEXT\",\n          \"text\": \"<string>\",\n          \"example\": {},\n          \"buttons\": [\n            {\n              \"type\": \"URL\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            },\n            {\n              \"type\": \"URL\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            }\n          ],\n          \"add_security_recommendation\": \"<boolean>\",\n          \"code_expiration_minutes\": \"<integer>\"\n        },\n        {\n          \"type\": \"BUTTONS\",\n          \"format\": \"TEXT\",\n          \"text\": \"<string>\",\n          \"example\": {},\n          \"buttons\": [\n            {\n              \"type\": \"COPY_CODE\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            },\n            {\n              \"type\": \"QUICK_REPLY\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            }\n          ],\n          \"add_security_recommendation\": \"<boolean>\",\n          \"code_expiration_minutes\": \"<integer>\"\n        }\n      ],\n      \"parameter_format\": \"POSITIONAL\",\n      \"quality_score\": {\n        \"score\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"PENDING\",\n      \"category\": \"UTILITY\",\n      \"language\": \"<string>\",\n      \"components\": [\n        {\n          \"type\": \"FOOTER\",\n          \"format\": \"TEXT\",\n          \"text\": \"<string>\",\n          \"example\": {},\n          \"buttons\": [\n            {\n              \"type\": \"OTP\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            },\n            {\n              \"type\": \"URL\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            }\n          ],\n          \"add_security_recommendation\": \"<boolean>\",\n          \"code_expiration_minutes\": \"<integer>\"\n        },\n        {\n          \"type\": \"FOOTER\",\n          \"format\": \"IMAGE\",\n          \"text\": \"<string>\",\n          \"example\": {},\n          \"buttons\": [\n            {\n              \"type\": \"URL\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            },\n            {\n              \"type\": \"FLOW\",\n              \"text\": \"<string>\",\n              \"url\": \"<uri>\",\n              \"phone_number\": \"<string>\",\n              \"example\": \"<string>\",\n              \"flow_id\": \"<string>\",\n              \"flow_action\": \"<string>\",\n              \"navigate_screen\": \"<string>\"\n            }\n          ],\n          \"add_security_recommendation\": \"<boolean>\",\n          \"code_expiration_minutes\": \"<integer>\"\n        }\n      ],\n      \"parameter_format\": \"NAMED\",\n      \"quality_score\": {\n        \"score\": \"<string>\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"<string>\",\n      \"after\": \"<string>\"\n    },\n    \"next\": \"<uri>\",\n    \"previous\": \"<uri>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-ddad91d9-4eaa-4235-aeee-d4ebe8fbbbfc"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-aeec7b15-3210-46c7-b21c-970148135366"
+            },
+            {
+              "name": "WhatsApp Create Message Template",
+              "id": "eaa0e755-0a2b-444e-b904-8c4707a26dcb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"sl_q\",\n  \"language\": \"<string>\",\n  \"category\": \"MARKETING\",\n  \"components\": [\n    {\n      \"type\": \"BUTTONS\",\n      \"format\": \"VIDEO\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"CATALOG\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    },\n    {\n      \"type\": \"FOOTER\",\n      \"format\": \"TEXT\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"FLOW\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    }\n  ],\n  \"parameter_format\": \"POSITIONAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/message_templates",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "message_templates"
+                  ],
+                  "variable": [
+                    {
+                      "id": "ff21523e-146f-4e92-a85a-2d481f1b8ad5",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Creates a new message template for a WhatsApp Business Account. Templates must be approved by Meta before they can be used to send messages."
+              },
+              "response": [
+                {
+                  "id": "23a1e9f6-bcd3-4fc0-bb47-2e7aa16e2f61",
+                  "name": "Template created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"sl_q\",\n  \"language\": \"<string>\",\n  \"category\": \"MARKETING\",\n  \"components\": [\n    {\n      \"type\": \"BUTTONS\",\n      \"format\": \"VIDEO\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"CATALOG\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    },\n    {\n      \"type\": \"FOOTER\",\n      \"format\": \"TEXT\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"FLOW\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    }\n  ],\n  \"parameter_format\": \"POSITIONAL\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/message_templates",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "message_templates"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"category\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-23a1e9f6-bcd3-4fc0-bb47-2e7aa16e2f61"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-eaa0e755-0a2b-444e-b904-8c4707a26dcb"
+            },
+            {
+              "name": "WhatsApp Delete Message Template",
+              "id": "7c71a499-c4e1-46aa-b6e7-02dd27754a8c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/message_templates?name=<string>&hsm_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "message_templates"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Template name to delete",
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Specific template ID to delete a single language variant",
+                      "key": "hsm_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "32326ca7-3f9c-4346-9781-73a445d0e4ed",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Deletes a message template. Deleting by name removes all language variants. Pass hsm_id to delete a specific language version."
+              },
+              "response": [
+                {
+                  "id": "a956cc50-be47-4199-af0e-a95e8b88fd09",
+                  "name": "Template deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/message_templates?name=<string>&hsm_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "message_templates"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Template name to delete",
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Specific template ID to delete a single language variant",
+                          "key": "hsm_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-a956cc50-be47-4199-af0e-a95e8b88fd09"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-7c71a499-c4e1-46aa-b6e7-02dd27754a8c"
+            }
+          ],
+          "id": "a915d9e0-0963-4bad-a4a6-37ffc1b71218",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-a915d9e0-0963-4bad-a4a6-37ffc1b71218"
+        },
+        {
+          "name": "conversation_analytics",
+          "item": [
+            {
+              "name": "WhatsApp Get Conversation Analytics",
+              "id": "6d3a4cdf-39a6-4c48-9f37-26e3b3d6f1aa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/conversation_analytics?start=<string>&end=<string>&granularity=HALF_HOUR&phone_numbers=<string>&phone_numbers=<string>&metric_types=CONVERSATION&metric_types=CONVERSATION&conversation_categories=MARKETING&conversation_categories=REFERRAL_CONVERSION&dimensions=COUNTRY&dimensions=CONVERSATION_TYPE",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "conversation_analytics"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Start time (Unix timestamp or YYYY-MM-DD)",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) End time (Unix timestamp or YYYY-MM-DD)",
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "granularity",
+                      "value": "HALF_HOUR"
+                    },
+                    {
+                      "description": "Filter by phone number IDs",
+                      "key": "phone_numbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by phone number IDs",
+                      "key": "phone_numbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "CONVERSATION"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "CONVERSATION"
+                    },
+                    {
+                      "key": "conversation_categories",
+                      "value": "MARKETING"
+                    },
+                    {
+                      "key": "conversation_categories",
+                      "value": "REFERRAL_CONVERSION"
+                    },
+                    {
+                      "key": "dimensions",
+                      "value": "COUNTRY"
+                    },
+                    {
+                      "key": "dimensions",
+                      "value": "CONVERSATION_TYPE"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "745b6edf-4e59-43a1-8ccc-f83ddb8f8569",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Retrieves conversation analytics for a WhatsApp Business Account."
+              },
+              "response": [
+                {
+                  "id": "4a2d1380-2924-4fe4-a391-3e34555b4751",
+                  "name": "Analytics retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/conversation_analytics?start=<string>&end=<string>&granularity=HALF_HOUR&phone_numbers=<string>&metric_types=CONVERSATION&conversation_categories=REFERRAL_CONVERSION&dimensions=CONVERSATION_TYPE",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "conversation_analytics"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Start time (Unix timestamp or YYYY-MM-DD)",
+                          "key": "start",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) End time (Unix timestamp or YYYY-MM-DD)",
+                          "key": "end",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "granularity",
+                          "value": "HALF_HOUR"
+                        },
+                        {
+                          "description": "Filter by phone number IDs",
+                          "key": "phone_numbers",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "metric_types",
+                          "value": "CONVERSATION"
+                        },
+                        {
+                          "key": "conversation_categories",
+                          "value": "REFERRAL_CONVERSION"
+                        },
+                        {
+                          "key": "dimensions",
+                          "value": "CONVERSATION_TYPE"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"conversation_analytics\": {\n    \"data\": [\n      {\n        \"data_points\": [\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"conversation\": \"<integer>\",\n            \"cost\": \"<number>\"\n          },\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"conversation\": \"<integer>\",\n            \"cost\": \"<number>\"\n          }\n        ]\n      },\n      {\n        \"data_points\": [\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"conversation\": \"<integer>\",\n            \"cost\": \"<number>\"\n          },\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"conversation\": \"<integer>\",\n            \"cost\": \"<number>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-4a2d1380-2924-4fe4-a391-3e34555b4751"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-6d3a4cdf-39a6-4c48-9f37-26e3b3d6f1aa"
+            }
+          ],
+          "id": "8415908f-bbef-4dd0-8a8d-d2ea9e688077",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-8415908f-bbef-4dd0-8a8d-d2ea9e688077"
+        },
+        {
+          "name": "template_analytics",
+          "item": [
+            {
+              "name": "WhatsApp Get Template Analytics",
+              "id": "ad610b5c-397d-4a81-bffb-72f44012b1fb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/template_analytics?start=<string>&end=<string>&granularity=DAILY&template_ids=<string>&template_ids=<string>&metric_types=READ&metric_types=READ",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "template_analytics"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "granularity",
+                      "value": "DAILY"
+                    },
+                    {
+                      "description": "(Required) Template IDs to analyze (max 10)",
+                      "key": "template_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Template IDs to analyze (max 10)",
+                      "key": "template_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "READ"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "READ"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "1832f235-8c38-4c30-b39e-f096420a262e",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Retrieves analytics for specific message templates."
+              },
+              "response": [
+                {
+                  "id": "4df26f72-bd74-4b6d-af9e-09445d4d3109",
+                  "name": "Template analytics retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/template_analytics?start=<string>&end=<string>&granularity=DAILY&template_ids=<string>&metric_types=READ",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "template_analytics"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "start",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "end",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "granularity",
+                          "value": "DAILY"
+                        },
+                        {
+                          "description": "(Required) Template IDs to analyze (max 10)",
+                          "key": "template_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "metric_types",
+                          "value": "READ"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"template_analytics\": {\n    \"data\": [\n      {\n        \"template_id\": \"<string>\",\n        \"data_points\": [\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"sent\": \"<integer>\",\n            \"delivered\": \"<integer>\",\n            \"read\": \"<integer>\",\n            \"clicked\": \"<integer>\",\n            \"cost\": \"<number>\"\n          },\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"sent\": \"<integer>\",\n            \"delivered\": \"<integer>\",\n            \"read\": \"<integer>\",\n            \"clicked\": \"<integer>\",\n            \"cost\": \"<number>\"\n          }\n        ]\n      },\n      {\n        \"template_id\": \"<string>\",\n        \"data_points\": [\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"sent\": \"<integer>\",\n            \"delivered\": \"<integer>\",\n            \"read\": \"<integer>\",\n            \"clicked\": \"<integer>\",\n            \"cost\": \"<number>\"\n          },\n          {\n            \"start\": \"<integer>\",\n            \"end\": \"<integer>\",\n            \"sent\": \"<integer>\",\n            \"delivered\": \"<integer>\",\n            \"read\": \"<integer>\",\n            \"clicked\": \"<integer>\",\n            \"cost\": \"<number>\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-4df26f72-bd74-4b6d-af9e-09445d4d3109"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-ad610b5c-397d-4a81-bffb-72f44012b1fb"
+            }
+          ],
+          "id": "dba67e17-3ec5-49c8-afe7-a6acc7e1697c",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-dba67e17-3ec5-49c8-afe7-a6acc7e1697c"
+        },
+        {
+          "name": "subscribed_apps",
+          "item": [
+            {
+              "name": "WhatsApp List Webhook Subscriptions",
+              "id": "346f1f1f-87dc-4de5-9691-88544476428d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/subscribed_apps",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "subscribed_apps"
+                  ],
+                  "variable": [
+                    {
+                      "id": "99f938ca-4185-4c17-a185-cbabbb6f43a3",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Lists all apps subscribed to webhook events for this WABA."
+              },
+              "response": [
+                {
+                  "id": "1e084e80-c056-479d-9497-a4072232fa96",
+                  "name": "Subscriptions retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/subscribed_apps",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "subscribed_apps"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"link\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"link\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-1e084e80-c056-479d-9497-a4072232fa96"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-346f1f1f-87dc-4de5-9691-88544476428d"
+            },
+            {
+              "name": "WhatsApp Subscribe App to Webhooks",
+              "id": "5dde48e3-974b-443e-b018-95b803d25a9a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/subscribed_apps",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "subscribed_apps"
+                  ],
+                  "variable": [
+                    {
+                      "id": "87357c85-3025-420e-b128-64a23ae09335",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Subscribes the current app to receive webhook events for this WABA."
+              },
+              "response": [
+                {
+                  "id": "6c33de03-cdcb-4638-9da9-270e22131d94",
+                  "name": "App subscribed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/subscribed_apps",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "subscribed_apps"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-6c33de03-cdcb-4638-9da9-270e22131d94"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-5dde48e3-974b-443e-b018-95b803d25a9a"
+            },
+            {
+              "name": "WhatsApp Unsubscribe App from Webhooks",
+              "id": "c8fdb1e2-4a34-4a8d-acdc-8dbccb513b23",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/subscribed_apps",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "subscribed_apps"
+                  ],
+                  "variable": [
+                    {
+                      "id": "cd23c019-2f7e-4ecd-99ed-d973ed28a020",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Unsubscribes the current app from webhook events."
+              },
+              "response": [
+                {
+                  "id": "87e33e8b-8109-4d58-9d62-c5b4b691a694",
+                  "name": "App unsubscribed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/subscribed_apps",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "subscribed_apps"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-87e33e8b-8109-4d58-9d62-c5b4b691a694"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-c8fdb1e2-4a34-4a8d-acdc-8dbccb513b23"
+            }
+          ],
+          "id": "594f4e8d-277c-422d-9069-f57fd6fcc74b",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-594f4e8d-277c-422d-9069-f57fd6fcc74b"
+        },
+        {
+          "name": "assigned_users",
+          "item": [
+            {
+              "name": "WhatsApp List Assigned Users",
+              "id": "a8a26b7e-6b6f-4886-b223-6e6d81813ba8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/assigned_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "assigned_users"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f72b26e8-20dc-407d-aa9b-010894886e23",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Lists all users assigned to a WhatsApp Business Account."
+              },
+              "response": [
+                {
+                  "id": "5b38e7fd-a1a4-495d-892e-acf8d972fb57",
+                  "name": "Users retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/assigned_users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "assigned_users"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tasks\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tasks\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-5b38e7fd-a1a4-495d-892e-acf8d972fb57"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-a8a26b7e-6b6f-4886-b223-6e6d81813ba8"
+            },
+            {
+              "name": "WhatsApp Assign User to WABA",
+              "id": "49e7d11e-dba9-4eca-a37d-51c46c09ecde",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": \"<string>\",\n  \"tasks\": [\n    \"DEVELOP\",\n    \"MANAGE_PHONE\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/assigned_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "assigned_users"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5fa65964-96d9-4d48-9252-3a56949c7361",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Assigns a user with specific tasks to a WhatsApp Business Account."
+              },
+              "response": [
+                {
+                  "id": "16020bda-560e-401b-8126-9339a0cca033",
+                  "name": "User assigned",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": \"<string>\",\n  \"tasks\": [\n    \"DEVELOP\",\n    \"MANAGE_PHONE\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/assigned_users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "assigned_users"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-16020bda-560e-401b-8126-9339a0cca033"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-49e7d11e-dba9-4eca-a37d-51c46c09ecde"
+            },
+            {
+              "name": "WhatsApp Remove Assigned User",
+              "id": "7dd9d630-f957-47eb-9ba3-ae0854c10864",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/assigned_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "assigned_users"
+                  ],
+                  "variable": [
+                    {
+                      "id": "48819a92-8fe4-438e-b20b-9609312699de",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Removes a user from a WhatsApp Business Account."
+              },
+              "response": [
+                {
+                  "id": "d52ef760-4627-4a24-8b93-842530a005a8",
+                  "name": "User removed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"user\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/assigned_users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "assigned_users"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-d52ef760-4627-4a24-8b93-842530a005a8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-7dd9d630-f957-47eb-9ba3-ae0854c10864"
+            }
+          ],
+          "id": "2c193425-e004-4656-8281-386d5e795602",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-2c193425-e004-4656-8281-386d5e795602"
+        },
+        {
+          "name": "product_catalogs",
+          "item": [
+            {
+              "name": "WhatsApp List Product Catalogs",
+              "id": "ae8c606f-d9c8-4a98-8cf0-802a3a476803",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/product_catalogs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "product_catalogs"
+                  ],
+                  "variable": [
+                    {
+                      "id": "0907c537-e19c-42e3-90a3-3dbdad2ccbf3",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Lists product catalogs connected to a WABA."
+              },
+              "response": [
+                {
+                  "id": "b3d15c92-528d-4891-93a7-7b2b932d22ba",
+                  "name": "Catalogs retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/product_catalogs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "product_catalogs"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-b3d15c92-528d-4891-93a7-7b2b932d22ba"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-ae8c606f-d9c8-4a98-8cf0-802a3a476803"
+            },
+            {
+              "name": "WhatsApp Connect Product Catalog",
+              "id": "6f59aa3f-9c2a-4466-b20f-ab88975f32b4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/product_catalogs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "product_catalogs"
+                  ],
+                  "variable": [
+                    {
+                      "id": "cd59a38e-67f9-4e8d-9250-ebbdb29482ac",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Connects a product catalog to a WABA."
+              },
+              "response": [
+                {
+                  "id": "8b4b36b2-bec4-413e-a59d-fa1380275b6f",
+                  "name": "Catalog connected",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"catalog_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/product_catalogs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "product_catalogs"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-8b4b36b2-bec4-413e-a59d-fa1380275b6f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-6f59aa3f-9c2a-4466-b20f-ab88975f32b4"
+            },
+            {
+              "name": "WhatsApp Disconnect Product Catalog",
+              "id": "9695b82b-5c1f-46be-9bbd-b3b4ec35962d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id/product_catalogs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id",
+                    "product_catalogs"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c27d4b13-1ceb-4d70-974d-f8e5bf6a1194",
+                      "key": "waba-id",
+                      "value": "<string>",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "description": "Disconnects a product catalog from a WABA."
+              },
+              "response": [
+                {
+                  "id": "1f9f7c2e-2066-4832-b34f-48e0cc563d9b",
+                  "name": "Catalog disconnected",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"catalog_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:waba-id/product_catalogs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":waba-id",
+                        "product_catalogs"
+                      ],
+                      "variable": [
+                        {
+                          "key": "waba-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:21.000Z",
+                  "updatedAt": "2026-06-05T15:21:21.000Z",
+                  "uid": "35240-1f9f7c2e-2066-4832-b34f-48e0cc563d9b"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-9695b82b-5c1f-46be-9bbd-b3b4ec35962d"
+            }
+          ],
+          "id": "18a5df9d-f177-4828-b25b-16ebdab923dd",
+          "createdAt": "2026-06-05T15:21:20.000Z",
+          "updatedAt": "2026-06-05T15:21:20.000Z",
+          "uid": "35240-18a5df9d-f177-4828-b25b-16ebdab923dd"
+        },
+        {
+          "name": "WhatsApp Get WABA Info",
+          "id": "e7976a73-2d21-4a9e-870b-7f292f57f627",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/:waba-id?fields=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":waba-id"
+              ],
+              "query": [
+                {
+                  "description": "Comma-separated list of fields to return",
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "id": "a972126b-150a-4367-bc53-df8e8a0a475a",
+                  "key": "waba-id",
+                  "value": "<string>",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "description": "Retrieves information about a WhatsApp Business Account."
+          },
+          "response": [
+            {
+              "id": "634525c4-a82b-4755-8d32-81a2201628c5",
+              "name": "WABA info retrieved",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:waba-id?fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":waba-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated list of fields to return",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "waba-id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"timezone_id\": \"<string>\",\n  \"country\": \"<string>\",\n  \"status\": \"ACTIVE\",\n  \"business_verification_status\": \"<string>\",\n  \"message_template_namespace\": \"<string>\",\n  \"owner_business\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"primary_funding_id\": \"<string>\",\n  \"purchase_order_number\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-634525c4-a82b-4755-8d32-81a2201628c5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:21:21.000Z",
+          "updatedAt": "2026-06-05T15:21:21.000Z",
+          "uid": "35240-e7976a73-2d21-4a9e-870b-7f292f57f627"
+        }
+      ],
+      "id": "97b638c0-0f7c-4db2-bdbe-cb6dd55103a8",
+      "createdAt": "2026-06-05T15:21:20.000Z",
+      "updatedAt": "2026-06-05T15:21:20.000Z",
+      "uid": "35240-97b638c0-0f7c-4db2-bdbe-cb6dd55103a8"
+    },
+    {
+      "name": "{message-template-id}",
+      "item": [
+        {
+          "name": "WhatsApp Update Message Template",
+          "id": "6c2ddbd3-588a-4c70-a17e-137091fff5db",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"components\": [\n    {\n      \"type\": \"FOOTER\",\n      \"format\": \"TEXT\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"FLOW\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"PHONE_NUMBER\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    },\n    {\n      \"type\": \"BUTTONS\",\n      \"format\": \"VIDEO\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"URL\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    }\n  ],\n  \"category\": \"UTILITY\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:message-template-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":message-template-id"
+              ],
+              "variable": [
+                {
+                  "id": "dc36486a-e035-4494-a63c-91ccbdc16d7c",
+                  "key": "message-template-id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "description": "Updates an existing message template. Only APPROVED or PAUSED templates can be edited. Edits re-trigger the approval process."
+          },
+          "response": [
+            {
+              "id": "58ec5314-1c63-4317-84c9-9e2a14eda8c8",
+              "name": "Template updated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"type\": \"FOOTER\",\n      \"format\": \"TEXT\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"FLOW\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"PHONE_NUMBER\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    },\n    {\n      \"type\": \"BUTTONS\",\n      \"format\": \"VIDEO\",\n      \"text\": \"<string>\",\n      \"example\": {},\n      \"buttons\": [\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"URL\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    }\n  ],\n  \"category\": \"UTILITY\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:message-template-id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":message-template-id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "message-template-id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:21:21.000Z",
+              "updatedAt": "2026-06-05T15:21:21.000Z",
+              "uid": "35240-58ec5314-1c63-4317-84c9-9e2a14eda8c8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:21:21.000Z",
+          "updatedAt": "2026-06-05T15:21:21.000Z",
+          "uid": "35240-6c2ddbd3-588a-4c70-a17e-137091fff5db"
+        }
+      ],
+      "id": "b5def86d-2537-45ff-8ccd-1a864dba4aef",
+      "createdAt": "2026-06-05T15:21:20.000Z",
+      "updatedAt": "2026-06-05T15:21:20.000Z",
+      "uid": "35240-b5def86d-2537-45ff-8ccd-1a864dba4aef"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.facebook.com/v21.0"
+    }
+  ]
+}

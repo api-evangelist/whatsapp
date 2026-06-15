@@ -1,0 +1,2169 @@
+{
+  "item": [
+    {
+      "id": "c528188c-7ff5-4423-be00-ccb97401dd1e",
+      "name": "Business Profile",
+      "description": {
+        "content": "Get and update WhatsApp Business profile information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0ff150cf-a33d-448f-9c87-eda55cb3f611",
+          "name": "WhatsApp Get Business Profile",
+          "request": {
+            "name": "WhatsApp Get Business Profile",
+            "description": {
+              "content": "Retrieves the WhatsApp Business profile for a phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "whatsapp_business_profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated fields to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37c05040-b6a8-44b6-ae68-d3382b39ed0d",
+              "name": "Business profile retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "whatsapp_business_profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "about,address,description,email,profile_picture_url,websites,vertical"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"about\": \"example_value\",\n      \"address\": \"example_value\",\n      \"description\": \"example_value\",\n      \"email\": \"DXKKk@aUGYykUFTpusVyHKlueOcibFtnsvXipB.rsp\",\n      \"profile_picture_url\": \"https://example.com/image.jpg\",\n      \"websites\": [\n        \"https://FtTEXrliMPgCIXbahHxRvIwADsjuHb.oefnmZXjtI0BWHgNaEDWz9JC38mqK7l2IRPSvIuguD1Upe-JhJZjhrXzbHo0\",\n        \"http://coteNbcJChbUhIQAMVf.gsafU2bvZ9As+mLU+0vf4vIK52Oeh6FoEDYO,xVXN4VOVrnhan3A\"\n      ],\n      \"vertical\": \"UNDEFINED\",\n      \"messaging_product\": \"example_value\"\n    },\n    {\n      \"about\": \"example_value\",\n      \"address\": \"example_value\",\n      \"description\": \"example_value\",\n      \"email\": \"t3Z@IUNTUDEsl.rv\",\n      \"profile_picture_url\": \"https://example.com/image.jpg\",\n      \"websites\": [\n        \"http://YCyCdoTpFWVBAfGJczbHprVttDq.xhzUNeQQCubff0H8XAUxbOw9IEr-+xPdK.BwOlFZR+bLr\",\n        \"http://jiEWnaVHUggk.jxJmwEKNp8kzpIIjnY\"\n      ],\n      \"vertical\": \"UNDEFINED\",\n      \"messaging_product\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe947809-0d52-4428-b457-559d00044ea8",
+          "name": "WhatsApp Update Business Profile",
+          "request": {
+            "name": "WhatsApp Update Business Profile",
+            "description": {
+              "content": "Updates the WhatsApp Business profile for a phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "whatsapp_business_profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messaging_product\": \"<string>\",\n  \"about\": \"<string>\",\n  \"address\": \"<string>\",\n  \"description\": \"<string>\",\n  \"email\": \"<email>\",\n  \"websites\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"vertical\": \"<string>\",\n  \"profile_picture_handle\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "361974fc-7678-441d-9879-2025bab0ba09",
+              "name": "Business profile updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "whatsapp_business_profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"about\": \"example_value\",\n  \"address\": \"example_value\",\n  \"description\": \"example_value\",\n  \"email\": \"<email>\",\n  \"websites\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"vertical\": \"example_value\",\n  \"profile_picture_handle\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7f73c509-4b3c-43df-b0bb-0599fb4e7e47",
+      "name": "Media",
+      "description": {
+        "content": "Upload, retrieve, and delete media files",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c9c0887-7ac0-4aba-88a3-fef5522c0a9d",
+          "name": "WhatsApp Upload Media",
+          "request": {
+            "name": "WhatsApp Upload Media",
+            "description": {
+              "content": "Uploads media to WhatsApp servers. Returns a media ID that can be used when sending media messages. Uploaded media persists for 30 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "media"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The media file to upload"
+                },
+                {
+                  "key": "type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) MIME type of the file"
+                },
+                {
+                  "key": "messaging_product",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required)  (This can only be one of whatsapp)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "df707117-5513-466c-8db4-9439ebed7b96",
+              "name": "Media uploaded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "media"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The media file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) MIME type of the file",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "image/jpeg",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required)  (This can only be one of whatsapp)",
+                        "type": "text/plain"
+                      },
+                      "key": "messaging_product",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fb94aa2-4db3-42ee-8a37-08a55d00ac7c",
+          "name": "WhatsApp Get Media URL",
+          "request": {
+            "name": "WhatsApp Get Media URL",
+            "description": {
+              "content": "Retrieves a temporary download URL for a media file. The URL expires after 5 minutes. To download the file, make a GET request to the returned URL with the same Bearer token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":media-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media-id",
+                  "description": "(Required) Media ID returned from upload or webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d69401e6-48fa-4f8d-80d3-0dc1e043b2f1",
+              "name": "Media URL retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":media-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media-id",
+                      "description": "(Required) Media ID returned from upload or webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://example.com/image.jpg\",\n  \"mime_type\": \"text\",\n  \"sha256\": \"example_value\",\n  \"file_size\": 42,\n  \"id\": \"wamid.abc123\",\n  \"messaging_product\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f88a77af-03c4-4d68-ac97-d48137da0351",
+          "name": "WhatsApp Delete Media",
+          "request": {
+            "name": "WhatsApp Delete Media",
+            "description": {
+              "content": "Deletes a media file from WhatsApp servers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":media-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media-id",
+                  "description": "(Required) Media ID returned from upload or webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5983b3a-8235-4f0d-9745-77601dd8e6ca",
+              "name": "Media deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":media-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media-id",
+                      "description": "(Required) Media ID returned from upload or webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "19a5af4f-b683-4013-bdfe-984ab43f2b3c",
+      "name": "Messages",
+      "description": {
+        "content": "Send messages of all types to WhatsApp users",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc8b4f7c-90ac-48ef-a361-220d65c14387",
+          "name": "WhatsApp Send a Message",
+          "request": {
+            "name": "WhatsApp Send a Message",
+            "description": {
+              "content": "Sends a message to a WhatsApp user. The type field in the request body determines the message format. Also used to mark incoming messages as read by setting status to read.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messaging_product\": \"<string>\",\n  \"to\": \"<string>\",\n  \"type\": \"<string>\",\n  \"recipient_type\": \"individual\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"<string>\",\n  \"status\": \"<string>\",\n  \"message_id\": \"<string>\",\n  \"text\": {\n    \"body\": \"<string>\",\n    \"preview_url\": false\n  },\n  \"image\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"video\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"audio\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"document\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\",\n    \"filename\": \"<string>\"\n  },\n  \"sticker\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\",\n    \"name\": \"<string>\",\n    \"address\": \"<string>\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"<string>\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"<string>\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"<string>\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"<string>\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"<string>\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"<string>\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"<string>\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        }\n      ],\n      \"button\": \"<string>\",\n      \"sections\": [\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"<string>\",\n      \"product_retailer_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": \"<object>\"\n    },\n    \"header\": {\n      \"type\": \"<string>\",\n      \"text\": \"<string>\",\n      \"image\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"video\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"document\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\",\n        \"filename\": \"<string>\"\n      }\n    },\n    \"body\": {\n      \"text\": \"<string>\"\n    },\n    \"footer\": {\n      \"text\": \"<string>\"\n    }\n  },\n  \"template\": {\n    \"name\": \"<string>\",\n    \"language\": {\n      \"code\": \"<string>\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"<string>\",\n        \"sub_type\": \"<string>\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"<string>\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"<string>\",\n        \"sub_type\": \"<string>\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"<string>\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"<string>\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"<string>\",\n    \"emoji\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "749c6d48-f9cc-487b-8ed2-4b962473ae4b",
+              "name": "Message sent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"example_value\",\n  \"type\": \"text\",\n  \"recipient_type\": \"text\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"example_value\",\n  \"status\": \"read\",\n  \"message_id\": \"wamid.abc123\",\n  \"text\": {\n    \"body\": \"Hello from WhatsApp!\",\n    \"preview_url\": true\n  },\n  \"image\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://FKXIMgXycpcRDxVkEhaDaFekdBpXBC.gcaod.aYya3VMu8KhcyI8yvGkBqtXT.XtkU9rVpaC3f.Qf-bvxZpjtK\",\n    \"caption\": \"example_value\"\n  },\n  \"video\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://EnrLJGpOapdjDohxbVfBJzUwXd.mifco2FjEYzB,L8C4LFT.N9Ipn9CmvbyzZiw3kpkuOdHs4wqN2waIzxBDBxWv5Q\",\n    \"caption\": \"example_value\"\n  },\n  \"audio\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"http://esyMbqoQwbpLvEegtEaMD.prQygUjw5DZC\"\n  },\n  \"document\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"http://stFd.dsOxU5eC9FkdR2tPkZPU2Y78uU4kMCNLJhWqSEzClQMcWkf\",\n    \"caption\": \"example_value\",\n    \"filename\": \"Example Business\"\n  },\n  \"sticker\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://HyBRCsbEJEWOecbs.tadt6szUPOYjdQ+6XEMmOV89Nx\"\n  },\n  \"location\": {\n    \"latitude\": 42.5,\n    \"longitude\": 42.5,\n    \"name\": \"Example Business\",\n    \"address\": \"example_value\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"prefix\": \"string\",\n        \"suffix\": \"string\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"birthday\": \"example_value\",\n      \"emails\": [\n        {\n          \"email\": \"MRKC3GOr@NzJaCvTgzFcbdeqjWbGetpQt.kcch\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"email\": \"DvJ@pLMwREzGkZCxcXNSmBcQEJwbqF.jp\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"string\",\n        \"department\": \"string\",\n        \"title\": \"string\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"string\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"string\"\n        },\n        {\n          \"phone\": \"string\",\n          \"type\": \"WORK\",\n          \"wa_id\": \"string\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"http://oZuihNIPYyNZQyOBLhVoNswHsZrQgoW.gdIMbS.49raJQ\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"http://XRuzmSYx.xfbtQU2DOjBiilL76fTebPLxncIHx,T6CRvcojf.rFMra3\",\n          \"type\": \"WORK\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"prefix\": \"string\",\n        \"suffix\": \"string\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"birthday\": \"example_value\",\n      \"emails\": [\n        {\n          \"email\": \"ngoQ-wefKwjZSSI@CZ.mxs\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"XShA@ROXOoPNJpatOMp.nm\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"string\",\n        \"department\": \"string\",\n        \"title\": \"string\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"string\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"string\"\n        },\n        {\n          \"phone\": \"string\",\n          \"type\": \"CELL\",\n          \"wa_id\": \"string\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"https://EUgGxVgFu.wckvyN-nb3ErzxILgAj4gD35,WgSO\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"https://ZQJhbPyDj.ssrllHwJBTSnyPVtoqDiqkLhZt2N2I9u8v6cw\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"button\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"string\",\n            \"title\": \"string\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"string\",\n            \"title\": \"string\"\n          }\n        }\n      ],\n      \"button\": \"string\",\n      \"sections\": [\n        {\n          \"title\": \"example_value\",\n          \"rows\": [\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        },\n        {\n          \"title\": \"example_value\",\n          \"rows\": [\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"string\",\n      \"product_retailer_id\": \"string\",\n      \"name\": \"string\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"video\",\n      \"text\": \"string\",\n      \"image\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"https://hdILI.exzcF1UBIgOlBSCawWlqhhkDi141KDyYuhemb,-OZBnKJSnr6ebJ,S\",\n        \"caption\": \"example_value\"\n      },\n      \"video\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"http://HViOfTUSsxaG.izuoUs4kiwl8XaG9wsdU3zbhV,EXtB2d3MZ5qGfaQNH,EE86KXmO\",\n        \"caption\": \"example_value\"\n      },\n      \"document\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"http://qhcUSYB.otvit2iY,,XtdUbj7c4,YYtLWUz28jZ7IuFkv\",\n        \"caption\": \"example_value\",\n        \"filename\": \"Example Business\"\n      }\n    },\n    \"body\": {\n      \"text\": \"string\"\n    },\n    \"footer\": {\n      \"text\": \"string\"\n    }\n  },\n  \"template\": {\n    \"name\": \"Example Business\",\n    \"language\": {\n      \"code\": \"string\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"header\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"example_value\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"header\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"example_value\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"wamid.abc123\",\n    \"emoji\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messaging_product\": \"example_value\",\n  \"contacts\": [\n    {\n      \"input\": \"string\",\n      \"wa_id\": \"string\"\n    },\n    {\n      \"input\": \"string\",\n      \"wa_id\": \"string\"\n    }\n  ],\n  \"messages\": [\n    {\n      \"id\": \"string\"\n    },\n    {\n      \"id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dff8107-da98-4d83-be33-e62c580680e5",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"example_value\",\n  \"type\": \"text\",\n  \"recipient_type\": \"text\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"example_value\",\n  \"status\": \"read\",\n  \"message_id\": \"wamid.abc123\",\n  \"text\": {\n    \"body\": \"Hello from WhatsApp!\",\n    \"preview_url\": true\n  },\n  \"image\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://FKXIMgXycpcRDxVkEhaDaFekdBpXBC.gcaod.aYya3VMu8KhcyI8yvGkBqtXT.XtkU9rVpaC3f.Qf-bvxZpjtK\",\n    \"caption\": \"example_value\"\n  },\n  \"video\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://EnrLJGpOapdjDohxbVfBJzUwXd.mifco2FjEYzB,L8C4LFT.N9Ipn9CmvbyzZiw3kpkuOdHs4wqN2waIzxBDBxWv5Q\",\n    \"caption\": \"example_value\"\n  },\n  \"audio\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"http://esyMbqoQwbpLvEegtEaMD.prQygUjw5DZC\"\n  },\n  \"document\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"http://stFd.dsOxU5eC9FkdR2tPkZPU2Y78uU4kMCNLJhWqSEzClQMcWkf\",\n    \"caption\": \"example_value\",\n    \"filename\": \"Example Business\"\n  },\n  \"sticker\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://HyBRCsbEJEWOecbs.tadt6szUPOYjdQ+6XEMmOV89Nx\"\n  },\n  \"location\": {\n    \"latitude\": 42.5,\n    \"longitude\": 42.5,\n    \"name\": \"Example Business\",\n    \"address\": \"example_value\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"prefix\": \"string\",\n        \"suffix\": \"string\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"birthday\": \"example_value\",\n      \"emails\": [\n        {\n          \"email\": \"MRKC3GOr@NzJaCvTgzFcbdeqjWbGetpQt.kcch\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"email\": \"DvJ@pLMwREzGkZCxcXNSmBcQEJwbqF.jp\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"string\",\n        \"department\": \"string\",\n        \"title\": \"string\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"string\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"string\"\n        },\n        {\n          \"phone\": \"string\",\n          \"type\": \"WORK\",\n          \"wa_id\": \"string\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"http://oZuihNIPYyNZQyOBLhVoNswHsZrQgoW.gdIMbS.49raJQ\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"http://XRuzmSYx.xfbtQU2DOjBiilL76fTebPLxncIHx,T6CRvcojf.rFMra3\",\n          \"type\": \"WORK\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"prefix\": \"string\",\n        \"suffix\": \"string\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"birthday\": \"example_value\",\n      \"emails\": [\n        {\n          \"email\": \"ngoQ-wefKwjZSSI@CZ.mxs\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"XShA@ROXOoPNJpatOMp.nm\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"string\",\n        \"department\": \"string\",\n        \"title\": \"string\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"string\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"string\"\n        },\n        {\n          \"phone\": \"string\",\n          \"type\": \"CELL\",\n          \"wa_id\": \"string\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"https://EUgGxVgFu.wckvyN-nb3ErzxILgAj4gD35,WgSO\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"https://ZQJhbPyDj.ssrllHwJBTSnyPVtoqDiqkLhZt2N2I9u8v6cw\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"button\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"string\",\n            \"title\": \"string\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"string\",\n            \"title\": \"string\"\n          }\n        }\n      ],\n      \"button\": \"string\",\n      \"sections\": [\n        {\n          \"title\": \"example_value\",\n          \"rows\": [\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        },\n        {\n          \"title\": \"example_value\",\n          \"rows\": [\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"string\",\n      \"product_retailer_id\": \"string\",\n      \"name\": \"string\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"video\",\n      \"text\": \"string\",\n      \"image\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"https://hdILI.exzcF1UBIgOlBSCawWlqhhkDi141KDyYuhemb,-OZBnKJSnr6ebJ,S\",\n        \"caption\": \"example_value\"\n      },\n      \"video\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"http://HViOfTUSsxaG.izuoUs4kiwl8XaG9wsdU3zbhV,EXtB2d3MZ5qGfaQNH,EE86KXmO\",\n        \"caption\": \"example_value\"\n      },\n      \"document\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"http://qhcUSYB.otvit2iY,,XtdUbj7c4,YYtLWUz28jZ7IuFkv\",\n        \"caption\": \"example_value\",\n        \"filename\": \"Example Business\"\n      }\n    },\n    \"body\": {\n      \"text\": \"string\"\n    },\n    \"footer\": {\n      \"text\": \"string\"\n    }\n  },\n  \"template\": {\n    \"name\": \"Example Business\",\n    \"language\": {\n      \"code\": \"string\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"header\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"example_value\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"header\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"example_value\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"wamid.abc123\",\n    \"emoji\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 4162,\n    \"error_subcode\": 8667,\n    \"fbtrace_id\": \"string\",\n    \"error_data\": {\n      \"messaging_product\": \"string\",\n      \"details\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f70635f-a0a4-4ed9-94fd-cd8e408d0bb3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"example_value\",\n  \"type\": \"text\",\n  \"recipient_type\": \"text\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"example_value\",\n  \"status\": \"read\",\n  \"message_id\": \"wamid.abc123\",\n  \"text\": {\n    \"body\": \"Hello from WhatsApp!\",\n    \"preview_url\": true\n  },\n  \"image\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://FKXIMgXycpcRDxVkEhaDaFekdBpXBC.gcaod.aYya3VMu8KhcyI8yvGkBqtXT.XtkU9rVpaC3f.Qf-bvxZpjtK\",\n    \"caption\": \"example_value\"\n  },\n  \"video\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://EnrLJGpOapdjDohxbVfBJzUwXd.mifco2FjEYzB,L8C4LFT.N9Ipn9CmvbyzZiw3kpkuOdHs4wqN2waIzxBDBxWv5Q\",\n    \"caption\": \"example_value\"\n  },\n  \"audio\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"http://esyMbqoQwbpLvEegtEaMD.prQygUjw5DZC\"\n  },\n  \"document\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"http://stFd.dsOxU5eC9FkdR2tPkZPU2Y78uU4kMCNLJhWqSEzClQMcWkf\",\n    \"caption\": \"example_value\",\n    \"filename\": \"Example Business\"\n  },\n  \"sticker\": {\n    \"id\": \"wamid.abc123\",\n    \"link\": \"https://HyBRCsbEJEWOecbs.tadt6szUPOYjdQ+6XEMmOV89Nx\"\n  },\n  \"location\": {\n    \"latitude\": 42.5,\n    \"longitude\": 42.5,\n    \"name\": \"Example Business\",\n    \"address\": \"example_value\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"prefix\": \"string\",\n        \"suffix\": \"string\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"birthday\": \"example_value\",\n      \"emails\": [\n        {\n          \"email\": \"MRKC3GOr@NzJaCvTgzFcbdeqjWbGetpQt.kcch\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"email\": \"DvJ@pLMwREzGkZCxcXNSmBcQEJwbqF.jp\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"string\",\n        \"department\": \"string\",\n        \"title\": \"string\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"string\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"string\"\n        },\n        {\n          \"phone\": \"string\",\n          \"type\": \"WORK\",\n          \"wa_id\": \"string\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"http://oZuihNIPYyNZQyOBLhVoNswHsZrQgoW.gdIMbS.49raJQ\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"http://XRuzmSYx.xfbtQU2DOjBiilL76fTebPLxncIHx,T6CRvcojf.rFMra3\",\n          \"type\": \"WORK\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"middle_name\": \"string\",\n        \"prefix\": \"string\",\n        \"suffix\": \"string\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"zip\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"birthday\": \"example_value\",\n      \"emails\": [\n        {\n          \"email\": \"ngoQ-wefKwjZSSI@CZ.mxs\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"XShA@ROXOoPNJpatOMp.nm\",\n          \"type\": \"HOME\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"string\",\n        \"department\": \"string\",\n        \"title\": \"string\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"string\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"string\"\n        },\n        {\n          \"phone\": \"string\",\n          \"type\": \"CELL\",\n          \"wa_id\": \"string\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"https://EUgGxVgFu.wckvyN-nb3ErzxILgAj4gD35,WgSO\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"https://ZQJhbPyDj.ssrllHwJBTSnyPVtoqDiqkLhZt2N2I9u8v6cw\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"button\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"string\",\n            \"title\": \"string\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"string\",\n            \"title\": \"string\"\n          }\n        }\n      ],\n      \"button\": \"string\",\n      \"sections\": [\n        {\n          \"title\": \"example_value\",\n          \"rows\": [\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        },\n        {\n          \"title\": \"example_value\",\n          \"rows\": [\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"title\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"string\",\n      \"product_retailer_id\": \"string\",\n      \"name\": \"string\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"video\",\n      \"text\": \"string\",\n      \"image\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"https://hdILI.exzcF1UBIgOlBSCawWlqhhkDi141KDyYuhemb,-OZBnKJSnr6ebJ,S\",\n        \"caption\": \"example_value\"\n      },\n      \"video\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"http://HViOfTUSsxaG.izuoUs4kiwl8XaG9wsdU3zbhV,EXtB2d3MZ5qGfaQNH,EE86KXmO\",\n        \"caption\": \"example_value\"\n      },\n      \"document\": {\n        \"id\": \"wamid.abc123\",\n        \"link\": \"http://qhcUSYB.otvit2iY,,XtdUbj7c4,YYtLWUz28jZ7IuFkv\",\n        \"caption\": \"example_value\",\n        \"filename\": \"Example Business\"\n      }\n    },\n    \"body\": {\n      \"text\": \"string\"\n    },\n    \"footer\": {\n      \"text\": \"string\"\n    }\n  },\n  \"template\": {\n    \"name\": \"Example Business\",\n    \"language\": {\n      \"code\": \"string\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"header\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"example_value\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"header\",\n        \"sub_type\": \"quick_reply\",\n        \"index\": \"example_value\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"type\": \"text\",\n            \"text\": \"Hello from WhatsApp!\",\n            \"payload\": \"example_value\",\n            \"coupon_code\": \"example_value\",\n            \"image\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"video\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"document\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"amount_1000\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"date_time\": {\n              \"fallback_value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"wamid.abc123\",\n    \"emoji\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 4162,\n    \"error_subcode\": 8667,\n    \"fbtrace_id\": \"string\",\n    \"error_data\": {\n      \"messaging_product\": \"string\",\n      \"details\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "85cd578b-7d17-4723-9076-b0b528409fe2",
+      "name": "Phone Numbers",
+      "description": {
+        "content": "Manage and verify phone numbers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9ae277d-d287-4c1f-bcf0-ebf64ff4d386",
+          "name": "WhatsApp Get Phone Number Info",
+          "request": {
+            "name": "WhatsApp Get Phone Number Info",
+            "description": {
+              "content": "Retrieves information about a registered phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7f8a51b-ba20-42fc-84f7-2dbea2263cf3",
+              "name": "Phone number info retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"wamid.abc123\",\n  \"verified_name\": \"Example Business\",\n  \"display_phone_number\": \"+15551234567\",\n  \"quality_rating\": \"GREEN\",\n  \"code_verification_status\": \"VERIFIED\",\n  \"platform_type\": \"CLOUD_API\",\n  \"throughput\": {\n    \"level\": \"HIGH\"\n  },\n  \"is_official_business_account\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "84739aaf-ad1f-4e37-af03-e23f2285e602",
+      "name": "QR Codes",
+      "description": {
+        "content": "Create and manage QR codes for customer conversations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4322e59d-1548-4cb7-ad8c-c082a2dc6774",
+          "name": "WhatsApp Create QR Code",
+          "request": {
+            "name": "WhatsApp Create QR Code",
+            "description": {
+              "content": "Creates a QR code that customers can scan to start a conversation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "message_qrdls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prefilled_message\": \"<string>\",\n  \"generate_qr_image\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a23ae0e-8a1d-4aeb-8e2d-e99659121aa5",
+              "name": "QR code created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prefilled_message\": \"<string>\",\n  \"generate_qr_image\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"example_value\",\n  \"prefilled_message\": \"Hello from WhatsApp!\",\n  \"deep_link_url\": \"https://example.com/image.jpg\",\n  \"qr_image_url\": \"https://example.com/image.jpg\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3dd9e8fa-b97a-4d02-a0e7-4301af46bc1c",
+          "name": "WhatsApp List QR Codes",
+          "request": {
+            "name": "WhatsApp List QR Codes",
+            "description": {
+              "content": "Lists all QR codes for a phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "message_qrdls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e29d9b3-8131-4bb3-8b45-4ab91d2c2fd8",
+              "name": "QR codes retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"code\": \"example_value\",\n      \"prefilled_message\": \"Hello from WhatsApp!\",\n      \"deep_link_url\": \"https://example.com/image.jpg\",\n      \"qr_image_url\": \"https://example.com/image.jpg\"\n    },\n    {\n      \"code\": \"example_value\",\n      \"prefilled_message\": \"Hello from WhatsApp!\",\n      \"deep_link_url\": \"https://example.com/image.jpg\",\n      \"qr_image_url\": \"https://example.com/image.jpg\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cd1b4ca-adac-4e56-9719-bd6808b32f2d",
+          "name": "WhatsApp Get QR Code",
+          "request": {
+            "name": "WhatsApp Get QR Code",
+            "description": {
+              "content": "Retrieves a specific QR code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "message_qrdls",
+                ":qr-code-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qr-code-id",
+                  "description": "(Required) QR code identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "445f91b0-f47d-4782-9a21-e0b1a85be4d3",
+              "name": "QR code retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls",
+                    ":qr-code-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qr-code-id",
+                      "description": "(Required) QR code identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"example_value\",\n  \"prefilled_message\": \"Hello from WhatsApp!\",\n  \"deep_link_url\": \"https://example.com/image.jpg\",\n  \"qr_image_url\": \"https://example.com/image.jpg\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "add7c27d-091e-4006-8460-caaa8f28cea7",
+          "name": "WhatsApp Update QR Code",
+          "request": {
+            "name": "WhatsApp Update QR Code",
+            "description": {
+              "content": "Updates the prefilled message for a QR code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "message_qrdls",
+                ":qr-code-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qr-code-id",
+                  "description": "(Required) QR code identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prefilled_message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2c5154c-7758-4e50-8501-caa11fd46b1b",
+              "name": "QR code updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls",
+                    ":qr-code-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qr-code-id",
+                      "description": "(Required) QR code identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prefilled_message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"example_value\",\n  \"prefilled_message\": \"Hello from WhatsApp!\",\n  \"deep_link_url\": \"https://example.com/image.jpg\",\n  \"qr_image_url\": \"https://example.com/image.jpg\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "261ff6a4-3b4f-474a-bbc4-1911b21bb50d",
+          "name": "WhatsApp Delete QR Code",
+          "request": {
+            "name": "WhatsApp Delete QR Code",
+            "description": {
+              "content": "Deletes a QR code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "message_qrdls",
+                ":qr-code-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qr-code-id",
+                  "description": "(Required) QR code identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3fd4e4c-0a86-4b7b-889f-f3dc5cfcc62e",
+              "name": "QR code deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls",
+                    ":qr-code-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qr-code-id",
+                      "description": "(Required) QR code identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5c4e7d51-b8a0-45b5-853e-c3ae359fd09e",
+      "name": "Registration",
+      "description": {
+        "content": "Register and deregister phone numbers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fdfeb23c-fd99-4f6f-8a5f-c515a7854216",
+          "name": "WhatsApp Request Verification Code",
+          "request": {
+            "name": "WhatsApp Request Verification Code",
+            "description": {
+              "content": "Requests a verification code via SMS or voice call for phone registration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "request_code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code_method\": \"<string>\",\n  \"language\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87ad9723-788d-4eec-896a-8e861a96c82a",
+              "name": "Verification code sent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "request_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code_method\": \"<string>\",\n  \"language\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dfd89c1-19a3-4910-80e7-d5db262832f5",
+          "name": "WhatsApp Verify Phone Number",
+          "request": {
+            "name": "WhatsApp Verify Phone Number",
+            "description": {
+              "content": "Verifies a phone number using the code received via SMS or voice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "verify_code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75ed8fdd-d26f-4236-ae93-12b5924b0cab",
+              "name": "Phone number verified",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "verify_code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "437c8ac4-5b89-457e-847f-f4432b7e1176",
+          "name": "WhatsApp Register Phone Number",
+          "request": {
+            "name": "WhatsApp Register Phone Number",
+            "description": {
+              "content": "Registers a phone number for use with the Cloud API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messaging_product\": \"<string>\",\n  \"pin\": \"<string>\",\n  \"data_localization_region\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6ccd23d-ee86-4e06-86a8-1f8f14364836",
+              "name": "Phone number registered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"<string>\",\n  \"pin\": \"<string>\",\n  \"data_localization_region\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "871f8ecd-9ff1-46a0-9232-5c4bd9dcb7c3",
+          "name": "WhatsApp Deregister Phone Number",
+          "request": {
+            "name": "WhatsApp Deregister Phone Number",
+            "description": {
+              "content": "Deregisters a phone number from the Cloud API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "deregister"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messaging_product\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0cff1ce2-a04d-42d2-a9e8-555e4e07560f",
+              "name": "Phone number deregistered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "deregister"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4cceb6ad-a7a5-42bb-8077-7571d6e2ed77",
+      "name": "Two-Step Verification",
+      "description": {
+        "content": "Manage two-step verification PIN",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "18124662-2a7b-47b1-9a97-8e22901d7167",
+          "name": "WhatsApp Set Two-step Verification PIN",
+          "request": {
+            "name": "WhatsApp Set Two-step Verification PIN",
+            "description": {
+              "content": "Sets or updates the two-step verification PIN for a phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba02d6df-9ada-4255-8f21-caf13e2959f3",
+              "name": "PIN set successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e275fff3-756c-4f8e-a638-00d95ebfcabd",
+    "name": "WhatsApp Cloud API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Cloud API enables businesses to send and receive messages, manage media, configure business profiles, and handle phone number registration through Meta's cloud-hosted infrastructure. All endpoints operate on the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

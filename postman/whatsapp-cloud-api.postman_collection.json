@@ -1,0 +1,2107 @@
+{
+  "info": {
+    "_postman_id": "854e50a3-28fe-47f5-8bff-6647e3dde00d",
+    "name": "WhatsApp Cloud API",
+    "description": "The WhatsApp Cloud API enables businesses to send and receive messages, manage media, configure business profiles, and handle phone number registration through Meta's cloud-hosted infrastructure. All endpoints operate on the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:21:18.000Z",
+    "updatedAt": "2026-06-05T15:21:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-854e50a3-28fe-47f5-8bff-6647e3dde00d"
+  },
+  "item": [
+    {
+      "name": "{phone-number-id}",
+      "item": [
+        {
+          "name": "messages",
+          "item": [
+            {
+              "name": "WhatsApp Send a Message",
+              "id": "2c18f202-db29-4be1-aa63-06f628adc956",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"<string>\",\n  \"type\": \"sticker\",\n  \"recipient_type\": \"individual\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"<string>\",\n  \"status\": \"read\",\n  \"message_id\": \"<string>\",\n  \"text\": {\n    \"body\": \"<string>\",\n    \"preview_url\": false\n  },\n  \"image\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"video\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"audio\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"document\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\",\n    \"filename\": \"<string>\"\n  },\n  \"sticker\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\",\n    \"name\": \"<string>\",\n    \"address\": \"<string>\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"location_request_message\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        }\n      ],\n      \"button\": \"<string>\",\n      \"sections\": [\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"<string>\",\n      \"product_retailer_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"image\",\n      \"text\": \"<string>\",\n      \"image\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"video\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"document\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\",\n        \"filename\": \"<string>\"\n      }\n    },\n    \"body\": {\n      \"text\": \"<string>\"\n    },\n    \"footer\": {\n      \"text\": \"<string>\"\n    }\n  },\n  \"template\": {\n    \"name\": \"<string>\",\n    \"language\": {\n      \"code\": \"<string>\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"url\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"payload\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"image\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"catalog\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"location\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"video\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"<string>\",\n    \"emoji\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/messages",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "messages"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5e468e06-2e4e-4f94-bb0c-1b2ff45f7041",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Sends a message to a WhatsApp user. The type field in the request body determines the message format. Also used to mark incoming messages as read by setting status to read."
+              },
+              "response": [
+                {
+                  "id": "138535a1-9223-438a-ab35-261c6900f0a7",
+                  "name": "Message sent successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"<string>\",\n  \"type\": \"sticker\",\n  \"recipient_type\": \"individual\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"<string>\",\n  \"status\": \"read\",\n  \"message_id\": \"<string>\",\n  \"text\": {\n    \"body\": \"<string>\",\n    \"preview_url\": false\n  },\n  \"image\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"video\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"audio\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"document\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\",\n    \"filename\": \"<string>\"\n  },\n  \"sticker\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\",\n    \"name\": \"<string>\",\n    \"address\": \"<string>\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"location_request_message\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        }\n      ],\n      \"button\": \"<string>\",\n      \"sections\": [\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"<string>\",\n      \"product_retailer_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"image\",\n      \"text\": \"<string>\",\n      \"image\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"video\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"document\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\",\n        \"filename\": \"<string>\"\n      }\n    },\n    \"body\": {\n      \"text\": \"<string>\"\n    },\n    \"footer\": {\n      \"text\": \"<string>\"\n    }\n  },\n  \"template\": {\n    \"name\": \"<string>\",\n    \"language\": {\n      \"code\": \"<string>\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"url\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"payload\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"image\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"catalog\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"location\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"video\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"<string>\",\n    \"emoji\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/messages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "messages"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"messaging_product\": \"<string>\",\n  \"contacts\": [\n    {\n      \"input\": \"<string>\",\n      \"wa_id\": \"<string>\"\n    },\n    {\n      \"input\": \"<string>\",\n      \"wa_id\": \"<string>\"\n    }\n  ],\n  \"messages\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-138535a1-9223-438a-ab35-261c6900f0a7"
+                },
+                {
+                  "id": "f9e4b2f5-aa93-47d1-a09a-bf273312aa66",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"<string>\",\n  \"type\": \"sticker\",\n  \"recipient_type\": \"individual\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"<string>\",\n  \"status\": \"read\",\n  \"message_id\": \"<string>\",\n  \"text\": {\n    \"body\": \"<string>\",\n    \"preview_url\": false\n  },\n  \"image\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"video\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"audio\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"document\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\",\n    \"filename\": \"<string>\"\n  },\n  \"sticker\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\",\n    \"name\": \"<string>\",\n    \"address\": \"<string>\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"location_request_message\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        }\n      ],\n      \"button\": \"<string>\",\n      \"sections\": [\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"<string>\",\n      \"product_retailer_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"image\",\n      \"text\": \"<string>\",\n      \"image\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"video\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"document\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\",\n        \"filename\": \"<string>\"\n      }\n    },\n    \"body\": {\n      \"text\": \"<string>\"\n    },\n    \"footer\": {\n      \"text\": \"<string>\"\n    }\n  },\n  \"template\": {\n    \"name\": \"<string>\",\n    \"language\": {\n      \"code\": \"<string>\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"url\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"payload\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"image\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"catalog\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"location\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"video\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"<string>\",\n    \"emoji\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/messages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "messages"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"error_subcode\": \"<integer>\",\n    \"fbtrace_id\": \"<string>\",\n    \"error_data\": {\n      \"messaging_product\": \"<string>\",\n      \"details\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-f9e4b2f5-aa93-47d1-a09a-bf273312aa66"
+                },
+                {
+                  "id": "63c70cee-d302-41a9-a00d-7da57664b667",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"<string>\",\n  \"type\": \"sticker\",\n  \"recipient_type\": \"individual\",\n  \"context\": {\n    \"message_id\": \"<string>\"\n  },\n  \"biz_opaque_callback_data\": \"<string>\",\n  \"status\": \"read\",\n  \"message_id\": \"<string>\",\n  \"text\": {\n    \"body\": \"<string>\",\n    \"preview_url\": false\n  },\n  \"image\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"video\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\"\n  },\n  \"audio\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"document\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\",\n    \"caption\": \"<string>\",\n    \"filename\": \"<string>\"\n  },\n  \"sticker\": {\n    \"id\": \"<string>\",\n    \"link\": \"<uri>\"\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\",\n    \"name\": \"<string>\",\n    \"address\": \"<string>\"\n  },\n  \"contacts\": [\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"IPHONE\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        }\n      ]\n    },\n    {\n      \"name\": {\n        \"formatted_name\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"prefix\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"addresses\": [\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"<string>\",\n          \"country_code\": \"<string>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"birthday\": \"<string>\",\n      \"emails\": [\n        {\n          \"email\": \"<email>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"email\": \"<email>\",\n          \"type\": \"WORK\"\n        }\n      ],\n      \"org\": {\n        \"company\": \"<string>\",\n        \"department\": \"<string>\",\n        \"title\": \"<string>\"\n      },\n      \"phones\": [\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"HOME\",\n          \"wa_id\": \"<string>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"type\": \"MAIN\",\n          \"wa_id\": \"<string>\"\n        }\n      ],\n      \"urls\": [\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"HOME\"\n        },\n        {\n          \"url\": \"<uri>\",\n          \"type\": \"WORK\"\n        }\n      ]\n    }\n  ],\n  \"interactive\": {\n    \"type\": \"location_request_message\",\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"<string>\",\n            \"title\": \"<string>\"\n          }\n        }\n      ],\n      \"button\": \"<string>\",\n      \"sections\": [\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"title\": \"<string>\",\n          \"rows\": [\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            },\n            {\n              \"id\": \"<string>\",\n              \"title\": \"<string>\",\n              \"description\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"catalog_id\": \"<string>\",\n      \"product_retailer_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {}\n    },\n    \"header\": {\n      \"type\": \"image\",\n      \"text\": \"<string>\",\n      \"image\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"video\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\"\n      },\n      \"document\": {\n        \"id\": \"<string>\",\n        \"link\": \"<uri>\",\n        \"caption\": \"<string>\",\n        \"filename\": \"<string>\"\n      }\n    },\n    \"body\": {\n      \"text\": \"<string>\"\n    },\n    \"footer\": {\n      \"text\": \"<string>\"\n    }\n  },\n  \"template\": {\n    \"name\": \"<string>\",\n    \"language\": {\n      \"code\": \"<string>\",\n      \"policy\": \"deterministic\"\n    },\n    \"components\": [\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"url\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"payload\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"image\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      },\n      {\n        \"type\": \"button\",\n        \"sub_type\": \"catalog\",\n        \"index\": \"<string>\",\n        \"parameters\": [\n          {\n            \"type\": \"location\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          },\n          {\n            \"type\": \"video\",\n            \"text\": \"<string>\",\n            \"payload\": \"<string>\",\n            \"coupon_code\": \"<string>\",\n            \"image\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"video\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\"\n            },\n            \"document\": {\n              \"id\": \"<string>\",\n              \"link\": \"<uri>\",\n              \"caption\": \"<string>\",\n              \"filename\": \"<string>\"\n            },\n            \"location\": {\n              \"latitude\": \"<number>\",\n              \"longitude\": \"<number>\",\n              \"name\": \"<string>\",\n              \"address\": \"<string>\"\n            },\n            \"currency\": {\n              \"fallback_value\": \"<string>\",\n              \"code\": \"<string>\",\n              \"amount_1000\": \"<integer>\"\n            },\n            \"date_time\": {\n              \"fallback_value\": \"<string>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reaction\": {\n    \"message_id\": \"<string>\",\n    \"emoji\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/messages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "messages"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<integer>\",\n    \"error_subcode\": \"<integer>\",\n    \"fbtrace_id\": \"<string>\",\n    \"error_data\": {\n      \"messaging_product\": \"<string>\",\n      \"details\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-63c70cee-d302-41a9-a00d-7da57664b667"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-2c18f202-db29-4be1-aa63-06f628adc956"
+            }
+          ],
+          "id": "3a532190-e0b8-4cc6-959f-95ef860366e7",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-3a532190-e0b8-4cc6-959f-95ef860366e7"
+        },
+        {
+          "name": "media",
+          "item": [
+            {
+              "name": "WhatsApp Upload Media",
+              "id": "656f8c93-ea04-46b4-8aea-de2a69c31e76",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) The media file to upload",
+                      "key": "file",
+                      "type": "file",
+                      "value": null
+                    },
+                    {
+                      "description": "(Required) MIME type of the file",
+                      "key": "type",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required)  (This can only be one of whatsapp)",
+                      "key": "messaging_product",
+                      "value": "whatsapp",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/media",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "media"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3aee902e-2dbb-4e94-ad4a-61726452583b",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Uploads media to WhatsApp servers. Returns a media ID that can be used when sending media messages. Uploaded media persists for 30 days."
+              },
+              "response": [
+                {
+                  "id": "ef4f575b-1f89-44f5-bdec-ca5ca34b097e",
+                  "name": "Media uploaded successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) The media file to upload",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) MIME type of the file",
+                          "key": "type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "(Required)  (This can only be one of whatsapp)",
+                          "key": "messaging_product",
+                          "value": "whatsapp",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/media",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "media"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-ef4f575b-1f89-44f5-bdec-ca5ca34b097e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-656f8c93-ea04-46b4-8aea-de2a69c31e76"
+            }
+          ],
+          "id": "1ca61b31-c135-4f27-aa68-b15062815a0d",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-1ca61b31-c135-4f27-aa68-b15062815a0d"
+        },
+        {
+          "name": "whatsapp_business_profile",
+          "item": [
+            {
+              "name": "WhatsApp Get Business Profile",
+              "id": "cc0da3e7-2030-4fd9-8f27-344b018ec035",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/whatsapp_business_profile?fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "whatsapp_business_profile"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Comma-separated fields to return",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "2844b50c-fe49-4ce2-805e-f5357afd4a31",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Retrieves the WhatsApp Business profile for a phone number."
+              },
+              "response": [
+                {
+                  "id": "ad3f7316-a836-4d40-8394-804be93e50e5",
+                  "name": "Business profile retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/whatsapp_business_profile?fields=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "whatsapp_business_profile"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Comma-separated fields to return",
+                          "key": "fields",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"about\": \"<string>\",\n      \"address\": \"<string>\",\n      \"description\": \"<string>\",\n      \"email\": \"<email>\",\n      \"profile_picture_url\": \"<uri>\",\n      \"websites\": [\n        \"<uri>\",\n        \"<uri>\"\n      ],\n      \"vertical\": \"EVENT_PLAN\",\n      \"messaging_product\": \"<string>\"\n    },\n    {\n      \"about\": \"<string>\",\n      \"address\": \"<string>\",\n      \"description\": \"<string>\",\n      \"email\": \"<email>\",\n      \"profile_picture_url\": \"<uri>\",\n      \"websites\": [\n        \"<uri>\",\n        \"<uri>\"\n      ],\n      \"vertical\": \"NONPROFIT\",\n      \"messaging_product\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-ad3f7316-a836-4d40-8394-804be93e50e5"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-cc0da3e7-2030-4fd9-8f27-344b018ec035"
+            },
+            {
+              "name": "WhatsApp Update Business Profile",
+              "id": "9a690354-6934-427a-81a4-c0391f76d23b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"about\": \"<string>\",\n  \"address\": \"<string>\",\n  \"description\": \"<string>\",\n  \"email\": \"<email>\",\n  \"websites\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"vertical\": \"<string>\",\n  \"profile_picture_handle\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/whatsapp_business_profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "whatsapp_business_profile"
+                  ],
+                  "variable": [
+                    {
+                      "id": "6d58ff2d-c04a-47a8-8759-d21e72122244",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Updates the WhatsApp Business profile for a phone number."
+              },
+              "response": [
+                {
+                  "id": "b6e60ab0-b496-4aff-838c-8f0778b6a308",
+                  "name": "Business profile updated",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"about\": \"<string>\",\n  \"address\": \"<string>\",\n  \"description\": \"<string>\",\n  \"email\": \"<email>\",\n  \"websites\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"vertical\": \"<string>\",\n  \"profile_picture_handle\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/whatsapp_business_profile",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "whatsapp_business_profile"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-b6e60ab0-b496-4aff-838c-8f0778b6a308"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-9a690354-6934-427a-81a4-c0391f76d23b"
+            }
+          ],
+          "id": "37bc8e9d-4e82-40a5-ad28-f1086bda718d",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-37bc8e9d-4e82-40a5-ad28-f1086bda718d"
+        },
+        {
+          "name": "request_code",
+          "item": [
+            {
+              "name": "WhatsApp Request Verification Code",
+              "id": "1201e600-4b76-4d77-a8c1-e1bd2fcce41c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code_method\": \"SMS\",\n  \"language\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/request_code",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "request_code"
+                  ],
+                  "variable": [
+                    {
+                      "id": "edf7d057-5b5c-4884-a893-15c9cae842bd",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Requests a verification code via SMS or voice call for phone registration."
+              },
+              "response": [
+                {
+                  "id": "7279293b-d6e1-40f1-99eb-6bffef271e15",
+                  "name": "Verification code sent",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"code_method\": \"SMS\",\n  \"language\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/request_code",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "request_code"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-7279293b-d6e1-40f1-99eb-6bffef271e15"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-1201e600-4b76-4d77-a8c1-e1bd2fcce41c"
+            }
+          ],
+          "id": "90ed54ed-d8a9-44b9-82ae-3c7ea8ace71d",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-90ed54ed-d8a9-44b9-82ae-3c7ea8ace71d"
+        },
+        {
+          "name": "verify_code",
+          "item": [
+            {
+              "name": "WhatsApp Verify Phone Number",
+              "id": "b60581d1-5b74-4ef7-9c64-5ab0bc81b40d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/verify_code",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "verify_code"
+                  ],
+                  "variable": [
+                    {
+                      "id": "624175f4-73dd-4ef9-98d0-9f064c09d8f7",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Verifies a phone number using the code received via SMS or voice."
+              },
+              "response": [
+                {
+                  "id": "2c3a8cc4-8717-45de-9c46-3248215bf1a4",
+                  "name": "Phone number verified",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"code\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/verify_code",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "verify_code"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-2c3a8cc4-8717-45de-9c46-3248215bf1a4"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-b60581d1-5b74-4ef7-9c64-5ab0bc81b40d"
+            }
+          ],
+          "id": "bac5cd1c-49ab-496c-a6d7-87e7b828f7a5",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-bac5cd1c-49ab-496c-a6d7-87e7b828f7a5"
+        },
+        {
+          "name": "register",
+          "item": [
+            {
+              "name": "WhatsApp Register Phone Number",
+              "id": "bef6e5da-2277-4ed7-bf7d-8aab1381e437",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"pin\": \"<string>\",\n  \"data_localization_region\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "register"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2f167e1b-a4d7-4784-b86f-6380384109ea",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Registers a phone number for use with the Cloud API."
+              },
+              "response": [
+                {
+                  "id": "386725eb-176e-4ec5-9dff-59866e918ecb",
+                  "name": "Phone number registered",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messaging_product\": \"whatsapp\",\n  \"pin\": \"<string>\",\n  \"data_localization_region\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "register"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-386725eb-176e-4ec5-9dff-59866e918ecb"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-bef6e5da-2277-4ed7-bf7d-8aab1381e437"
+            }
+          ],
+          "id": "211a82b1-ea26-47b1-8212-2da8c14cbb97",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-211a82b1-ea26-47b1-8212-2da8c14cbb97"
+        },
+        {
+          "name": "deregister",
+          "item": [
+            {
+              "name": "WhatsApp Deregister Phone Number",
+              "id": "dc3db53c-7fb4-4acf-9ff6-fe8996c02ed7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messaging_product\": \"whatsapp\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/deregister",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "deregister"
+                  ],
+                  "variable": [
+                    {
+                      "id": "4486c3d4-c5e3-4679-8ea4-95fb6910d429",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Deregisters a phone number from the Cloud API."
+              },
+              "response": [
+                {
+                  "id": "100727ea-d88a-45e5-897e-4cb45c5de21e",
+                  "name": "Phone number deregistered",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messaging_product\": \"whatsapp\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/deregister",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "deregister"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"success\": \"<boolean>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-100727ea-d88a-45e5-897e-4cb45c5de21e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-dc3db53c-7fb4-4acf-9ff6-fe8996c02ed7"
+            }
+          ],
+          "id": "23de8467-f12f-4dc3-bf4f-844326cf0c85",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-23de8467-f12f-4dc3-bf4f-844326cf0c85"
+        },
+        {
+          "name": "message_qrdls",
+          "item": [
+            {
+              "name": "{qr-code-id}",
+              "item": [
+                {
+                  "name": "WhatsApp Get QR Code",
+                  "id": "74928798-ba26-498a-9955-d336cdbe4abd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/message_qrdls/:qr-code-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "message_qrdls",
+                        ":qr-code-id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0c28a79d-74d5-42c0-81cb-113efe0144fa",
+                          "key": "phone-number-id",
+                          "value": "<string>",
+                          "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                        },
+                        {
+                          "id": "459e7b86-a42d-493d-bd0a-06b1cb174032",
+                          "key": "qr-code-id",
+                          "value": "<string>",
+                          "description": "(Required) QR code identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a specific QR code."
+                  },
+                  "response": [
+                    {
+                      "id": "87e00e1e-fe78-4c16-849c-bda2000f4bf8",
+                      "name": "QR code retrieved",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:phone-number-id/message_qrdls/:qr-code-id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":phone-number-id",
+                            "message_qrdls",
+                            ":qr-code-id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "phone-number-id"
+                            },
+                            {
+                              "key": "qr-code-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<string>\",\n  \"prefilled_message\": \"<string>\",\n  \"deep_link_url\": \"<uri>\",\n  \"qr_image_url\": \"<uri>\"\n}",
+                      "createdAt": "2026-06-05T15:21:19.000Z",
+                      "updatedAt": "2026-06-05T15:21:19.000Z",
+                      "uid": "35240-87e00e1e-fe78-4c16-849c-bda2000f4bf8"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-74928798-ba26-498a-9955-d336cdbe4abd"
+                },
+                {
+                  "name": "WhatsApp Update QR Code",
+                  "id": "a1642b8c-77db-4e5b-98d6-f469fa7c3936",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prefilled_message\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/message_qrdls/:qr-code-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "message_qrdls",
+                        ":qr-code-id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "26d0438b-21a6-4102-85c6-d80dac1bfecd",
+                          "key": "phone-number-id",
+                          "value": "<string>",
+                          "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                        },
+                        {
+                          "id": "57d449bb-8398-408d-b6e1-a352cb0b9556",
+                          "key": "qr-code-id",
+                          "value": "<string>",
+                          "description": "(Required) QR code identifier"
+                        }
+                      ]
+                    },
+                    "description": "Updates the prefilled message for a QR code."
+                  },
+                  "response": [
+                    {
+                      "id": "68c15a0d-4987-45ae-9c8f-617c11014a14",
+                      "name": "QR code updated",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"prefilled_message\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:phone-number-id/message_qrdls/:qr-code-id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":phone-number-id",
+                            "message_qrdls",
+                            ":qr-code-id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "phone-number-id"
+                            },
+                            {
+                              "key": "qr-code-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<string>\",\n  \"prefilled_message\": \"<string>\",\n  \"deep_link_url\": \"<uri>\",\n  \"qr_image_url\": \"<uri>\"\n}",
+                      "createdAt": "2026-06-05T15:21:19.000Z",
+                      "updatedAt": "2026-06-05T15:21:19.000Z",
+                      "uid": "35240-68c15a0d-4987-45ae-9c8f-617c11014a14"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-a1642b8c-77db-4e5b-98d6-f469fa7c3936"
+                },
+                {
+                  "name": "WhatsApp Delete QR Code",
+                  "id": "4096c085-d422-4d4c-8b23-b1765ccfadab",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/message_qrdls/:qr-code-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "message_qrdls",
+                        ":qr-code-id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c6bc4405-efd0-48e4-bf71-37a7669ade6b",
+                          "key": "phone-number-id",
+                          "value": "<string>",
+                          "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                        },
+                        {
+                          "id": "21a768ea-d95c-4b34-837c-ca19730b8a28",
+                          "key": "qr-code-id",
+                          "value": "<string>",
+                          "description": "(Required) QR code identifier"
+                        }
+                      ]
+                    },
+                    "description": "Deletes a QR code."
+                  },
+                  "response": [
+                    {
+                      "id": "73f02b32-d9af-4718-8f63-6a7ff9576005",
+                      "name": "QR code deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:phone-number-id/message_qrdls/:qr-code-id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":phone-number-id",
+                            "message_qrdls",
+                            ":qr-code-id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "phone-number-id"
+                            },
+                            {
+                              "key": "qr-code-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"success\": \"<boolean>\"\n}",
+                      "createdAt": "2026-06-05T15:21:19.000Z",
+                      "updatedAt": "2026-06-05T15:21:19.000Z",
+                      "uid": "35240-73f02b32-d9af-4718-8f63-6a7ff9576005"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-4096c085-d422-4d4c-8b23-b1765ccfadab"
+                }
+              ],
+              "id": "58c24178-dd5e-49e1-b1af-140074c5fa3b",
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-58c24178-dd5e-49e1-b1af-140074c5fa3b"
+            },
+            {
+              "name": "WhatsApp Create QR Code",
+              "id": "4fb9b62a-b390-4e30-93c6-fe9a32d94d73",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prefilled_message\": \"<string>\",\n  \"generate_qr_image\": \"SVG\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/message_qrdls",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7a9518e0-9530-41cb-b8d5-55e84fffdfd4",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Creates a QR code that customers can scan to start a conversation."
+              },
+              "response": [
+                {
+                  "id": "d574c83c-a161-4887-b47d-e78b93312ad8",
+                  "name": "QR code created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prefilled_message\": \"<string>\",\n  \"generate_qr_image\": \"SVG\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/message_qrdls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "message_qrdls"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"prefilled_message\": \"<string>\",\n  \"deep_link_url\": \"<uri>\",\n  \"qr_image_url\": \"<uri>\"\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-d574c83c-a161-4887-b47d-e78b93312ad8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-4fb9b62a-b390-4e30-93c6-fe9a32d94d73"
+            },
+            {
+              "name": "WhatsApp List QR Codes",
+              "id": "f5a3c830-8514-4403-98fe-28955e9b25ce",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id/message_qrdls",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls"
+                  ],
+                  "variable": [
+                    {
+                      "id": "95bc0433-95bc-4776-830a-6b12b03a506e",
+                      "key": "phone-number-id",
+                      "value": "<string>",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "description": "Lists all QR codes for a phone number."
+              },
+              "response": [
+                {
+                  "id": "4ea21a36-a42e-4a84-8867-19a82e5a4571",
+                  "name": "QR codes retrieved",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:phone-number-id/message_qrdls",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":phone-number-id",
+                        "message_qrdls"
+                      ],
+                      "variable": [
+                        {
+                          "key": "phone-number-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"code\": \"<string>\",\n      \"prefilled_message\": \"<string>\",\n      \"deep_link_url\": \"<uri>\",\n      \"qr_image_url\": \"<uri>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"prefilled_message\": \"<string>\",\n      \"deep_link_url\": \"<uri>\",\n      \"qr_image_url\": \"<uri>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:21:19.000Z",
+                  "updatedAt": "2026-06-05T15:21:19.000Z",
+                  "uid": "35240-4ea21a36-a42e-4a84-8867-19a82e5a4571"
+                }
+              ],
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-f5a3c830-8514-4403-98fe-28955e9b25ce"
+            }
+          ],
+          "id": "b6a4042a-0957-48a3-92b6-adc363ae1c2c",
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-b6a4042a-0957-48a3-92b6-adc363ae1c2c"
+        },
+        {
+          "name": "WhatsApp Get Phone Number Info",
+          "id": "2ed2db64-8149-477c-9303-ea5a8e7ddced",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/:phone-number-id?fields=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":phone-number-id"
+              ],
+              "query": [
+                {
+                  "description": "Comma-separated list of fields to return",
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "id": "804f3fbd-574b-413d-9110-da0108cd9f3a",
+                  "key": "phone-number-id",
+                  "value": "<string>",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "description": "Retrieves information about a registered phone number."
+          },
+          "response": [
+            {
+              "id": "ffc5d810-43c2-4251-be2e-b132e8853855",
+              "name": "Phone number info retrieved",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id?fields=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated list of fields to return",
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "phone-number-id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"verified_name\": \"<string>\",\n  \"display_phone_number\": \"<string>\",\n  \"quality_rating\": \"RED\",\n  \"code_verification_status\": \"NOT_VERIFIED\",\n  \"platform_type\": \"ON_PREMISE\",\n  \"throughput\": {\n    \"level\": \"HIGH\"\n  },\n  \"is_official_business_account\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-ffc5d810-43c2-4251-be2e-b132e8853855"
+            }
+          ],
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-2ed2db64-8149-477c-9303-ea5a8e7ddced"
+        },
+        {
+          "name": "WhatsApp Set Two-step Verification PIN",
+          "id": "c393e85e-32b5-42e2-afb5-22d35a010a68",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pin\": \"237716\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:phone-number-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":phone-number-id"
+              ],
+              "variable": [
+                {
+                  "id": "d83f2ecc-4ecb-477b-98c5-1d08a3a82820",
+                  "key": "phone-number-id",
+                  "value": "<string>",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "description": "Sets or updates the two-step verification PIN for a phone number."
+          },
+          "response": [
+            {
+              "id": "f1ecddfe-18e6-404c-ac0b-485bdf5e9ddc",
+              "name": "PIN set successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pin\": \"237716\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:phone-number-id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":phone-number-id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "phone-number-id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-f1ecddfe-18e6-404c-ac0b-485bdf5e9ddc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-c393e85e-32b5-42e2-afb5-22d35a010a68"
+        }
+      ],
+      "id": "c7816fa3-6ceb-42bc-af29-5729e85fb47e",
+      "createdAt": "2026-06-05T15:21:19.000Z",
+      "updatedAt": "2026-06-05T15:21:19.000Z",
+      "uid": "35240-c7816fa3-6ceb-42bc-af29-5729e85fb47e"
+    },
+    {
+      "name": "{media-id}",
+      "item": [
+        {
+          "name": "WhatsApp Get Media URL",
+          "id": "b7ce5547-f607-444b-8406-677f78eb26e1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/:media-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":media-id"
+              ],
+              "variable": [
+                {
+                  "id": "7d7859f3-6818-4eb2-8349-f3a32772a405",
+                  "key": "media-id",
+                  "value": "<string>",
+                  "description": "(Required) Media ID returned from upload or webhook"
+                }
+              ]
+            },
+            "description": "Retrieves a temporary download URL for a media file. The URL expires after 5 minutes. To download the file, make a GET request to the returned URL with the same Bearer token."
+          },
+          "response": [
+            {
+              "id": "d149fac7-65f6-40e5-b38f-e73c58babed9",
+              "name": "Media URL retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:media-id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":media-id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "media-id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"url\": \"<uri>\",\n  \"mime_type\": \"<string>\",\n  \"sha256\": \"<string>\",\n  \"file_size\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"messaging_product\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-d149fac7-65f6-40e5-b38f-e73c58babed9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-b7ce5547-f607-444b-8406-677f78eb26e1"
+        },
+        {
+          "name": "WhatsApp Delete Media",
+          "id": "2c42c394-e4c5-499e-862e-089444f9ffe2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/:media-id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":media-id"
+              ],
+              "variable": [
+                {
+                  "id": "5222b1a2-4240-458a-b3c5-23699fa89034",
+                  "key": "media-id",
+                  "value": "<string>",
+                  "description": "(Required) Media ID returned from upload or webhook"
+                }
+              ]
+            },
+            "description": "Deletes a media file from WhatsApp servers."
+          },
+          "response": [
+            {
+              "id": "a59f5ae3-6b16-4229-8793-9b509dd1f277",
+              "name": "Media deleted successfully",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:media-id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":media-id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "media-id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:21:19.000Z",
+              "updatedAt": "2026-06-05T15:21:19.000Z",
+              "uid": "35240-a59f5ae3-6b16-4229-8793-9b509dd1f277"
+            }
+          ],
+          "createdAt": "2026-06-05T15:21:19.000Z",
+          "updatedAt": "2026-06-05T15:21:19.000Z",
+          "uid": "35240-2c42c394-e4c5-499e-862e-089444f9ffe2"
+        }
+      ],
+      "id": "07aaf7e7-2b8a-426d-a91c-b822c3277949",
+      "createdAt": "2026-06-05T15:21:19.000Z",
+      "updatedAt": "2026-06-05T15:21:19.000Z",
+      "uid": "35240-07aaf7e7-2b8a-426d-a91c-b822c3277949"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://graph.facebook.com/v21.0"
+    }
+  ]
+}

@@ -1,0 +1,1044 @@
+{
+  "item": [
+    {
+      "id": "6774478d-8ca0-4bc8-9ad1-a30a949c7ce9",
+      "name": "Assets",
+      "description": {
+        "content": "Upload and retrieve flow JSON assets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d834267-8baf-4053-8e4f-748eb7ccb39f",
+          "name": "WhatsApp Get Flow Assets",
+          "request": {
+            "name": "WhatsApp Get Flow Assets",
+            "description": {
+              "content": "Retrieves the assets (flow JSON file) for a flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1832218-c672-44ac-98f2-d6d7bb0ab4ca",
+              "name": "Assets retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"asset_type\": \"string\",\n      \"download_url\": \"https://YhBbqZtktyGjEZzRh.vyANrt5wJB3c3VWkvQpq,K7m0Px8S4YxkmLvDFj7IeG\"\n    },\n    {\n      \"name\": \"string\",\n      \"asset_type\": \"string\",\n      \"download_url\": \"http://YoVKVZViTLbQbiZZDZPurqyRDgpSrX.onNPuCRaC.Z5Oo\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"next\": \"http://QfhLmJMztZCTfnLLfK.otgCoAUIzY3nkpzZ\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4af80fb-1d88-4fcd-aefa-b1c84aa8b823",
+          "name": "WhatsApp Upload Flow JSON",
+          "request": {
+            "name": "WhatsApp Upload Flow JSON",
+            "description": {
+              "content": "Uploads or replaces the flow JSON definition file. The file is validated on upload and any errors are returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The flow.json file (max 10 MB)"
+                },
+                {
+                  "key": "name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required)  (This can only be one of flow.json)"
+                },
+                {
+                  "key": "asset_type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required)  (This can only be one of FLOW_JSON)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2d51e9be-6fe3-46cf-b25d-097dbe2fed8d",
+              "name": "Flow JSON uploaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The flow.json file (max 10 MB)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required)  (This can only be one of flow.json)",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required)  (This can only be one of FLOW_JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "asset_type",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"validation_errors\": [\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3f7f1f7c-ad3d-4225-a82c-92b36604fbac",
+      "name": "Flows",
+      "description": {
+        "content": "Create, read, update, and delete flows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cf9efd21-a031-4268-91cb-e7ad19ad8530",
+          "name": "WhatsApp List Flows",
+          "request": {
+            "name": "WhatsApp List Flows",
+            "description": {
+              "content": "Lists all flows for a WhatsApp Business Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "flows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated fields to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d7e0ca6-cae5-4ab2-a590-89063e48d732",
+              "name": "Flows retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "flows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"wamid.abc123\",\n      \"name\": \"Example Business\",\n      \"status\": \"DRAFT\",\n      \"categories\": [\n        \"LEAD_GENERATION\",\n        \"CONTACT_US\"\n      ],\n      \"validation_errors\": [\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"json_version\": \"example_value\",\n      \"data_api_version\": \"example_value\",\n      \"endpoint_uri\": \"http://XJNbJL.ykfLMOUkikQz+bIxi3rL7Oky36sGAuX40IGDU+pnrvGYccNcLpBFkkJS1\",\n      \"preview\": {\n        \"preview_url\": \"http://blSZjr.gbuI4PwB-smwYRP1,\",\n        \"expires_at\": \"1992-09-28T16:47:30.597Z\",\n        \"id\": \"string\"\n      },\n      \"whatsapp_business_account\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": \"wamid.abc123\",\n      \"name\": \"Example Business\",\n      \"status\": \"DRAFT\",\n      \"categories\": [\n        \"OTHER\",\n        \"CONTACT_US\"\n      ],\n      \"validation_errors\": [\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"json_version\": \"example_value\",\n      \"data_api_version\": \"example_value\",\n      \"endpoint_uri\": \"https://fQItYo.siRxqD,bOW7QVpYDvwDr2GATefaWSiGN9EES61zrSmhiaBog\",\n      \"preview\": {\n        \"preview_url\": \"http://wWLSIaNDHTxmzJXYznDdXauHYqPtyoRQB.garpzVAe5lr.6HTkHLL-9Bv6.rQgjzc\",\n        \"expires_at\": \"1977-05-24T06:50:24.385Z\",\n        \"id\": \"string\"\n      },\n      \"whatsapp_business_account\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"next\": \"https://HDzOHU.iklnrKqqr.uHkcPC.SBo-VTWDdlaOqlyGiicYEwhARnrF3scbtWDbgsw-vTYj6\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f44c37a-10a8-431d-9b58-ec8684facb72",
+          "name": "WhatsApp Create Flow",
+          "request": {
+            "name": "WhatsApp Create Flow",
+            "description": {
+              "content": "Creates a new flow for a WhatsApp Business Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "flows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"clone_flow_id\": \"<string>\",\n  \"endpoint_uri\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbc35661-ddf9-42e3-a14e-cf7d2cdf83a3",
+              "name": "Flow created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "flows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Business\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"clone_flow_id\": \"wamid.abc123\",\n  \"endpoint_uri\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8eedca2-fe8f-43e5-9b12-8da4bee218ed",
+          "name": "WhatsApp Get Flow",
+          "request": {
+            "name": "WhatsApp Get Flow",
+            "description": {
+              "content": "Retrieves details about a specific flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated fields to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fd2ef9f-ca5a-48c5-8b37-e5da4d4badea",
+              "name": "Flow retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"wamid.abc123\",\n  \"name\": \"Example Business\",\n  \"status\": \"DRAFT\",\n  \"categories\": [\n    \"SURVEY\",\n    \"APPOINTMENT_BOOKING\"\n  ],\n  \"validation_errors\": [\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"json_version\": \"example_value\",\n  \"data_api_version\": \"example_value\",\n  \"endpoint_uri\": \"https://xrTMHEinQlZzykhdO.tnbS52wnF92JJYlc9VBGgZLORJGg9max7d5\",\n  \"preview\": {\n    \"preview_url\": \"http://ZsnVSAjrKoEkgwOXspHyoMWxoY.upacFBsWn4AU5YeA\",\n    \"expires_at\": \"2003-11-09T03:47:36.970Z\",\n    \"id\": \"string\"\n  },\n  \"whatsapp_business_account\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e7ea76d-4a4d-4057-baa6-5a15f9a62531",
+          "name": "WhatsApp Update Flow",
+          "request": {
+            "name": "WhatsApp Update Flow",
+            "description": {
+              "content": "Updates a flow. Only DRAFT flows can be updated. Published flows cannot be modified; clone them instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"endpoint_uri\": \"<uri>\",\n  \"application_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e17a855-02c8-4e7c-bec7-7928673cdc11",
+              "name": "Flow updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Business\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"endpoint_uri\": \"<uri>\",\n  \"application_id\": \"wamid.abc123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3a703f3-c02e-4aa9-bee1-f47ae33f4597",
+          "name": "WhatsApp Delete Flow",
+          "request": {
+            "name": "WhatsApp Delete Flow",
+            "description": {
+              "content": "Deletes a flow. Only DRAFT flows can be deleted. Published flows must be deprecated instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da611f57-c7a7-48f7-9dd4-3129892e9fe3",
+              "name": "Flow deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5076c3bb-325b-41be-bdfd-d45a8a220263",
+      "name": "Lifecycle",
+      "description": {
+        "content": "Publish and deprecate flows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca6a110c-ce8b-4df7-bdc9-80e78ec12b05",
+          "name": "WhatsApp Publish Flow",
+          "request": {
+            "name": "WhatsApp Publish Flow",
+            "description": {
+              "content": "Publishes a draft flow, making it available for use in messages. The flow must have a valid uploaded flow JSON with no validation errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78d16964-6661-4f52-9c7a-f4925c9d2ee7",
+              "name": "Flow published",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97a5d0ec-4389-4d84-bc0e-e3267a2f782d",
+          "name": "WhatsApp Deprecate Flow",
+          "request": {
+            "name": "WhatsApp Deprecate Flow",
+            "description": {
+              "content": "Deprecates a published flow. Deprecated flows remain visible in history but cannot be sent to customers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "deprecate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9e85191-6f77-464b-a7cf-8b8a2686b0e1",
+              "name": "Flow deprecated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "deprecate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "719c3fa6-2429-404a-870e-fab7b4248fa1",
+    "name": "WhatsApp Flows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Flows API enables businesses to create, manage, publish, and deprecate structured interactive flows within WhatsApp conversations. Flows support appointment booking, surveys, lead capture, and other guided experiences using a JSON-based screen definition format.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

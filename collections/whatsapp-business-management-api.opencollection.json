@@ -1,0 +1,568 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Get WABA Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              }
+            ]
+          },
+          "docs": "Retrieves information about a WhatsApp Business Account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Phone Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Phone Numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/phone_numbers",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated fields to return"
+              },
+              {
+                "name": "limit",
+                "value": "42",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "after",
+                "value": "example_value",
+                "type": "query",
+                "description": "Cursor for forward pagination"
+              },
+              {
+                "name": "before",
+                "value": "example_value",
+                "type": "query",
+                "description": "Cursor for backward pagination"
+              }
+            ]
+          },
+          "docs": "Lists all phone numbers associated with a WhatsApp Business Account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Message Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Message Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/message_templates",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "42",
+                "type": "query"
+              },
+              {
+                "name": "after",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "Example Business",
+                "type": "query",
+                "description": "Filter by template name"
+              },
+              {
+                "name": "language",
+                "value": "en_US",
+                "type": "query",
+                "description": "Filter by language code"
+              },
+              {
+                "name": "status",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Filter by approval status"
+              },
+              {
+                "name": "category",
+                "value": "AUTHENTICATION",
+                "type": "query",
+                "description": "Filter by template category"
+              }
+            ]
+          },
+          "docs": "Lists all message templates for a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Create Message Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/message_templates",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new message template for a WhatsApp Business Account. Templates must be approved by Meta before they can be used to send messages."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Delete Message Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/message_templates",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "name",
+                "value": "Example Business",
+                "type": "query",
+                "description": "Template name to delete"
+              },
+              {
+                "name": "hsm_id",
+                "value": "wamid.abc123",
+                "type": "query",
+                "description": "Specific template ID to delete a single language variant"
+              }
+            ]
+          },
+          "docs": "Deletes a message template. Deleting by name removes all language variants. Pass hsm_id to delete a specific language version."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Update Message Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:message-template-id",
+            "params": [
+              {
+                "name": "message-template-id",
+                "value": "wamid.abc123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing message template. Only APPROVED or PAUSED templates can be edited. Edits re-trigger the approval process."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Get Conversation Analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/conversation_analytics",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "start",
+                "value": "example_value",
+                "type": "query",
+                "description": "Start time (Unix timestamp or YYYY-MM-DD)"
+              },
+              {
+                "name": "end",
+                "value": "example_value",
+                "type": "query",
+                "description": "End time (Unix timestamp or YYYY-MM-DD)"
+              },
+              {
+                "name": "granularity",
+                "value": "HALF_HOUR",
+                "type": "query"
+              },
+              {
+                "name": "phone_numbers",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phone number IDs"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conversation_categories",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dimensions",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves conversation analytics for a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Get Template Analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/template_analytics",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "start",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "DAILY",
+                "type": "query"
+              },
+              {
+                "name": "template_ids",
+                "value": "",
+                "type": "query",
+                "description": "Template IDs to analyze (max 10)"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves analytics for specific message templates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscribed Apps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Webhook Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/subscribed_apps",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Lists all apps subscribed to webhook events for this WABA."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Subscribe App to Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/subscribed_apps",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Subscribes the current app to receive webhook events for this WABA."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Unsubscribe App from Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/subscribed_apps",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Unsubscribes the current app from webhook events."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assigned Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Assigned Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/assigned_users",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Lists all users assigned to a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Assign User to WABA",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/assigned_users",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns a user with specific tasks to a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Remove Assigned User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/assigned_users",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a user from a WhatsApp Business Account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Catalogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Product Catalogs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/product_catalogs",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Lists product catalogs connected to a WABA."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Connect Product Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/product_catalogs",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Connects a product catalog to a WABA."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Disconnect Product Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/product_catalogs",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disconnects a product catalog from a WABA."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

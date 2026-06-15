@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Flows API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/flows",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated fields to return"
+              }
+            ]
+          },
+          "docs": "Lists all flows for a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Create Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/flows",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new flow for a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Get Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:flow-id",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated fields to return"
+              }
+            ]
+          },
+          "docs": "Retrieves details about a specific flow."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Update Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a flow. Only DRAFT flows can be updated. Published flows cannot be modified; clone them instead."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Delete Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:flow-id",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Deletes a flow. Only DRAFT flows can be deleted. Published flows must be deprecated instead."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Get Flow Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/assets",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the assets (flow JSON file) for a flow."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Upload Flow JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/assets",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "asset_type",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads or replaces the flow JSON definition file. The file is validated on upload and any errors are returned in the response."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lifecycle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Publish Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/publish",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Publishes a draft flow, making it available for use in messages. The flow must have a valid uploaded flow JSON with no validation errors."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Deprecate Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/deprecate",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Deprecates a published flow. Deprecated flows remain visible in history but cannot be sent to customers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
