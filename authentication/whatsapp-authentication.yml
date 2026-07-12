@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/whatsapp-business-management-api-openapi.yml, openapi/whatsapp-cloud-api-openapi.yml,
+  openapi/whatsapp-flows-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: System User Token with whatsapp_business_management permission
+  sources:
+  - openapi/whatsapp-business-management-api-openapi.yml
+  - openapi/whatsapp-cloud-api-openapi.yml
+  - openapi/whatsapp-flows-api-openapi.yml
