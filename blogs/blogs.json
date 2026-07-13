@@ -2,13 +2,14 @@
   "repo": "whatsapp",
   "feeds": [
     {
-      "source": "https://business.whatsapp.com/blog",
-      "feed_url": "",
+      "source": "https://metastatus.com/",
+      "feed_url": "https://metastatus.com/",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
     }
   ],
   "post_count": 1,
-  "fetched": "2026-06-27T13:22:18Z",
-  "agent_pulled": "2026-06-27"
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
