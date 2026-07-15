@@ -165,6 +165,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/whatsapp-agentic-access.yml
   - type: Authentication
     url: authentication/whatsapp-authentication.yml
   - type: PostmanWorkspace
