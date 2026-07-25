@@ -1,0 +1,146 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Assigned Users API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Assigned Users
+  description: Manage user access to a WABA
+paths:
+  /{waba-id}/assigned_users:
+    get:
+      operationId: listAssignedUsers
+      summary: WhatsApp List Assigned Users
+      description: Lists all users assigned to a WhatsApp Business Account.
+      tags:
+      - Assigned Users
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: Users retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        tasks:
+                          type: array
+                          items:
+                            type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: assignUser
+      summary: WhatsApp Assign User to WABA
+      description: Assigns a user with specific tasks to a WhatsApp Business Account.
+      tags:
+      - Assigned Users
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user
+              - tasks
+              properties:
+                user:
+                  type: string
+                  description: User ID to assign
+                tasks:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - MANAGE
+                    - DEVELOP
+                    - MANAGE_TEMPLATES
+                    - MANAGE_PHONE
+                    - VIEW_COST
+                    - MANAGE_EXTENSIONS
+      responses:
+        '200':
+          description: User assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: removeAssignedUser
+      summary: WhatsApp Remove Assigned User
+      description: Removes a user from a WhatsApp Business Account.
+      tags:
+      - Assigned Users
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user
+              properties:
+                user:
+                  type: string
+      responses:
+        '200':
+          description: User removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

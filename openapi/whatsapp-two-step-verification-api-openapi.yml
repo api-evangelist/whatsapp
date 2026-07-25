@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Two-Step Verification API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Two-Step Verification
+  description: Manage two-step verification PIN
+paths:
+  /{phone-number-id}:
+    post:
+      operationId: setTwoStepVerification
+      summary: WhatsApp Set Two-step Verification PIN
+      description: Sets or updates the two-step verification PIN for a phone number.
+      tags:
+      - Two-Step Verification
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - pin
+              properties:
+                pin:
+                  type: string
+                  description: 6-digit PIN for two-step verification
+                  pattern: ^\d{6}$
+      responses:
+        '200':
+          description: PIN set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+  parameters:
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

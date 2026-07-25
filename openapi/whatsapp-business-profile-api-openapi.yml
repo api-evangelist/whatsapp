@@ -1,0 +1,191 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Business Profile API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Business Profile
+  description: Get and update WhatsApp Business profile information
+paths:
+  /{phone-number-id}/whatsapp_business_profile:
+    get:
+      operationId: getBusinessProfile
+      summary: WhatsApp Get Business Profile
+      description: Retrieves the WhatsApp Business profile for a phone number.
+      tags:
+      - Business Profile
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - name: fields
+        in: query
+        required: true
+        description: Comma-separated fields to return
+        schema:
+          type: string
+          examples:
+          - about,address,description,email,profile_picture_url,websites,vertical
+        example: example_value
+      responses:
+        '200':
+          description: Business profile retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BusinessProfile'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: updateBusinessProfile
+      summary: WhatsApp Update Business Profile
+      description: Updates the WhatsApp Business profile for a phone number.
+      tags:
+      - Business Profile
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBusinessProfileRequest'
+      responses:
+        '200':
+          description: Business profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UpdateBusinessProfileRequest:
+      type: object
+      required:
+      - messaging_product
+      properties:
+        messaging_product:
+          type: string
+          enum:
+          - whatsapp
+          example: whatsapp
+        about:
+          type: string
+          maxLength: 139
+          example: example_value
+        address:
+          type: string
+          example: example_value
+        description:
+          type: string
+          maxLength: 512
+          example: example_value
+        email:
+          type: string
+          format: email
+          example: example_value
+        websites:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            format: uri
+        vertical:
+          type: string
+          example: example_value
+        profile_picture_handle:
+          type: string
+          description: Handle of uploaded profile picture
+          example: example_value
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    BusinessProfile:
+      type: object
+      properties:
+        about:
+          type: string
+          maxLength: 139
+          example: example_value
+        address:
+          type: string
+          example: example_value
+        description:
+          type: string
+          maxLength: 512
+          example: example_value
+        email:
+          type: string
+          format: email
+          example: example_value
+        profile_picture_url:
+          type: string
+          format: uri
+          example: https://example.com/image.jpg
+        websites:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            format: uri
+        vertical:
+          type: string
+          enum:
+          - UNDEFINED
+          - OTHER
+          - AUTO
+          - BEAUTY
+          - APPAREL
+          - EDU
+          - ENTERTAIN
+          - EVENT_PLAN
+          - FINANCE
+          - GROCERY
+          - GOVT
+          - HOTEL
+          - HEALTH
+          - NONPROFIT
+          - PROF_SERVICES
+          - RETAIL
+          - TRAVEL
+          - RESTAURANT
+          - NOT_A_BIZ
+          example: UNDEFINED
+        messaging_product:
+          type: string
+          example: example_value
+  parameters:
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Lifecycle API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Lifecycle
+  description: Publish and deprecate flows
+paths:
+  /{flow-id}/publish:
+    post:
+      operationId: publishFlow
+      summary: WhatsApp Publish Flow
+      description: Publishes a draft flow, making it available for use in messages. The flow must have a valid uploaded flow JSON with no validation errors.
+      tags:
+      - Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Flow published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{flow-id}/deprecate:
+    post:
+      operationId: deprecateFlow
+      summary: WhatsApp Deprecate Flow
+      description: Deprecates a published flow. Deprecated flows remain visible in history but cannot be sent to customers.
+      tags:
+      - Lifecycle
+      parameters:
+      - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Flow deprecated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+  parameters:
+    FlowId:
+      name: flow-id
+      in: path
+      required: true
+      description: Flow ID
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

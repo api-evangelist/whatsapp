@@ -1,0 +1,243 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Phone Numbers API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Phone Numbers
+  description: List and manage phone numbers on a WABA
+paths:
+  /{waba-id}/phone_numbers:
+    get:
+      operationId: listPhoneNumbers
+      summary: WhatsApp List Phone Numbers
+      description: Lists all phone numbers associated with a WhatsApp Business Account.
+      tags:
+      - Phone Numbers
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      - name: fields
+        in: query
+        description: Comma-separated fields to return
+        schema:
+          type: string
+        example: example_value
+      - name: limit
+        in: query
+        description: Pagination limit
+        schema:
+          type: integer
+        example: 42
+      - name: after
+        in: query
+        description: Cursor for forward pagination
+        schema:
+          type: string
+        example: example_value
+      - name: before
+        in: query
+        description: Cursor for backward pagination
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Phone numbers retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PhoneNumber'
+                  paging:
+                    $ref: '#/components/schemas/CursorPaging'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{phone-number-id}:
+    get:
+      operationId: getPhoneNumber
+      summary: WhatsApp Get Phone Number Info
+      description: Retrieves information about a registered phone number.
+      tags:
+      - Phone Numbers
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to return
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Phone number info retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneNumberInfo'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PhoneNumberInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: wamid.abc123
+        verified_name:
+          type: string
+          example: Example Business
+        display_phone_number:
+          type: string
+          example: '+15551234567'
+        quality_rating:
+          type: string
+          enum:
+          - GREEN
+          - YELLOW
+          - RED
+          - UNKNOWN
+          example: GREEN
+        code_verification_status:
+          type: string
+          enum:
+          - VERIFIED
+          - NOT_VERIFIED
+          - EXPIRED
+          example: VERIFIED
+        platform_type:
+          type: string
+          enum:
+          - CLOUD_API
+          - ON_PREMISE
+          - NOT_APPLICABLE
+          example: CLOUD_API
+        throughput:
+          type: object
+          properties:
+            level:
+              type: string
+              enum:
+              - STANDARD
+              - HIGH
+        is_official_business_account:
+          type: boolean
+          example: true
+    PhoneNumber:
+      type: object
+      properties:
+        id:
+          type: string
+          example: wamid.abc123
+        display_phone_number:
+          type: string
+          example: '+15551234567'
+        verified_name:
+          type: string
+          example: Example Business
+        quality_rating:
+          type: string
+          enum:
+          - GREEN
+          - YELLOW
+          - RED
+          - UNKNOWN
+          example: GREEN
+        code_verification_status:
+          type: string
+          enum:
+          - VERIFIED
+          - NOT_VERIFIED
+          - EXPIRED
+          example: VERIFIED
+        is_official_business_account:
+          type: boolean
+          example: true
+        name_status:
+          type: string
+          example: Example Business
+        platform_type:
+          type: string
+          enum:
+          - CLOUD_API
+          - ON_PREMISE
+          - NOT_APPLICABLE
+          example: CLOUD_API
+        throughput:
+          type: object
+          properties:
+            level:
+              type: string
+              enum:
+              - STANDARD
+              - HIGH
+        account_mode:
+          type: string
+          enum:
+          - LIVE
+          - SANDBOX
+          example: LIVE
+        messaging_limit_tier:
+          type: string
+          enum:
+          - TIER_1K
+          - TIER_10K
+          - TIER_100K
+          - TIER_UNLIMITED
+          example: TIER_1K
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
+        previous:
+          type: string
+          format: uri
+          example: example_value
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

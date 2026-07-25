@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Media API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Media
+  description: Upload, retrieve, and delete media files
+paths:
+  /{phone-number-id}/media:
+    post:
+      operationId: uploadMedia
+      summary: WhatsApp Upload Media
+      description: Uploads media to WhatsApp servers. Returns a media ID that can be used when sending media messages. Uploaded media persists for 30 days.
+      tags:
+      - Media
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - type
+              - messaging_product
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The media file to upload
+                type:
+                  type: string
+                  description: MIME type of the file
+                  examples:
+                  - image/jpeg
+                  - video/mp4
+                  - application/pdf
+                messaging_product:
+                  type: string
+                  enum:
+                  - whatsapp
+      responses:
+        '200':
+          description: Media uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Media ID for use in messages
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{media-id}:
+    get:
+      operationId: getMediaUrl
+      summary: WhatsApp Get Media URL
+      description: Retrieves a temporary download URL for a media file. The URL expires after 5 minutes. To download the file, make a GET request to the returned URL with the same Bearer token.
+      tags:
+      - Media
+      parameters:
+      - $ref: '#/components/parameters/MediaId'
+      responses:
+        '200':
+          description: Media URL retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteMedia
+      summary: WhatsApp Delete Media
+      description: Deletes a media file from WhatsApp servers.
+      tags:
+      - Media
+      parameters:
+      - $ref: '#/components/parameters/MediaId'
+      responses:
+        '200':
+          description: Media deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    MediaResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Temporary download URL (expires in 5 minutes)
+          example: https://example.com/image.jpg
+        mime_type:
+          type: string
+          example: text
+        sha256:
+          type: string
+          example: example_value
+        file_size:
+          type: integer
+          example: 42
+        id:
+          type: string
+          example: wamid.abc123
+        messaging_product:
+          type: string
+          example: example_value
+  parameters:
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+    MediaId:
+      name: media-id
+      in: path
+      required: true
+      description: Media ID returned from upload or webhook
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

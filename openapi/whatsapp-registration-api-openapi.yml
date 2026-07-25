@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Registration API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Registration
+  description: Register and deregister phone numbers
+paths:
+  /{phone-number-id}/request_code:
+    post:
+      operationId: requestVerificationCode
+      summary: WhatsApp Request Verification Code
+      description: Requests a verification code via SMS or voice call for phone registration.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - code_method
+              - language
+              properties:
+                code_method:
+                  type: string
+                  enum:
+                  - SMS
+                  - VOICE
+                  description: Delivery method for the verification code
+                language:
+                  type: string
+                  description: Two-letter language code
+      responses:
+        '200':
+          description: Verification code sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{phone-number-id}/verify_code:
+    post:
+      operationId: verifyCode
+      summary: WhatsApp Verify Phone Number
+      description: Verifies a phone number using the code received via SMS or voice.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - code
+              properties:
+                code:
+                  type: string
+                  description: 6-digit verification code
+      responses:
+        '200':
+          description: Phone number verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{phone-number-id}/register:
+    post:
+      operationId: registerPhoneNumber
+      summary: WhatsApp Register Phone Number
+      description: Registers a phone number for use with the Cloud API.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - messaging_product
+              - pin
+              properties:
+                messaging_product:
+                  type: string
+                  enum:
+                  - whatsapp
+                pin:
+                  type: string
+                  description: 6-digit two-step verification PIN
+                data_localization_region:
+                  type: string
+                  description: Country code for data storage location
+      responses:
+        '200':
+          description: Phone number registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{phone-number-id}/deregister:
+    post:
+      operationId: deregisterPhoneNumber
+      summary: WhatsApp Deregister Phone Number
+      description: Deregisters a phone number from the Cloud API.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - messaging_product
+              properties:
+                messaging_product:
+                  type: string
+                  enum:
+                  - whatsapp
+      responses:
+        '200':
+          description: Phone number deregistered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+  parameters:
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

@@ -1,31 +1,20 @@
 openapi: 3.1.0
 info:
-  title: WhatsApp Flows API
-  description: >-
-    The WhatsApp Flows API enables businesses to create, manage, publish, and
-    deprecate structured interactive flows within WhatsApp conversations. Flows
-    support appointment booking, surveys, lead capture, and other guided
-    experiences using a JSON-based screen definition format.
+  title: WhatsApp Business Management Analytics Flows API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
   version: '21.0'
   contact:
     name: Meta Platform Support
     url: https://developers.facebook.com/support/
   termsOfService: https://www.whatsapp.com/legal/business-terms
-externalDocs:
-  description: WhatsApp Flows Documentation
-  url: https://developers.facebook.com/docs/whatsapp/flows
 servers:
 - url: https://graph.facebook.com/v21.0
   description: Meta Graph API Production Server
-tags:
-- name: Assets
-  description: Upload and retrieve flow JSON assets
-- name: Flows
-  description: Create, read, update, and delete flows
-- name: Lifecycle
-  description: Publish and deprecate flows
 security:
 - bearerAuth: []
+tags:
+- name: Flows
+  description: Create, read, update, and delete flows
 paths:
   /{waba-id}/flows:
     get:
@@ -115,9 +104,7 @@ paths:
     post:
       operationId: updateFlow
       summary: WhatsApp Update Flow
-      description: >-
-        Updates a flow. Only DRAFT flows can be updated. Published flows cannot
-        be modified; clone them instead.
+      description: Updates a flow. Only DRAFT flows can be updated. Published flows cannot be modified; clone them instead.
       tags:
       - Flows
       parameters:
@@ -141,9 +128,7 @@ paths:
     delete:
       operationId: deleteFlow
       summary: WhatsApp Delete Flow
-      description: >-
-        Deletes a flow. Only DRAFT flows can be deleted. Published flows must
-        be deprecated instead.
+      description: Deletes a flow. Only DRAFT flows can be deleted. Published flows must be deprecated instead.
       tags:
       - Flows
       parameters:
@@ -158,153 +143,7 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
-  /{flow-id}/assets:
-    get:
-      operationId: getFlowAssets
-      summary: WhatsApp Get Flow Assets
-      description: Retrieves the assets (flow JSON file) for a flow.
-      tags:
-      - Assets
-      parameters:
-      - $ref: '#/components/parameters/FlowId'
-      responses:
-        '200':
-          description: Assets retrieved
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        asset_type:
-                          type: string
-                        download_url:
-                          type: string
-                          format: uri
-                  paging:
-                    $ref: '#/components/schemas/CursorPaging'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-    post:
-      operationId: uploadFlowJson
-      summary: WhatsApp Upload Flow JSON
-      description: >-
-        Uploads or replaces the flow JSON definition file. The file is validated
-        on upload and any errors are returned in the response.
-      tags:
-      - Assets
-      parameters:
-      - $ref: '#/components/parameters/FlowId'
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              required:
-              - file
-              - name
-              - asset_type
-              properties:
-                file:
-                  type: string
-                  format: binary
-                  description: The flow.json file (max 10 MB)
-                name:
-                  type: string
-                  enum:
-                  - flow.json
-                asset_type:
-                  type: string
-                  enum:
-                  - FLOW_JSON
-      responses:
-        '200':
-          description: Flow JSON uploaded
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  validation_errors:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/FlowValidationError'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /{flow-id}/publish:
-    post:
-      operationId: publishFlow
-      summary: WhatsApp Publish Flow
-      description: >-
-        Publishes a draft flow, making it available for use in messages. The
-        flow must have a valid uploaded flow JSON with no validation errors.
-      tags:
-      - Lifecycle
-      parameters:
-      - $ref: '#/components/parameters/FlowId'
-      responses:
-        '200':
-          description: Flow published
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessResponse'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /{flow-id}/deprecate:
-    post:
-      operationId: deprecateFlow
-      summary: WhatsApp Deprecate Flow
-      description: >-
-        Deprecates a published flow. Deprecated flows remain visible in history
-        but cannot be sent to customers.
-      tags:
-      - Lifecycle
-      parameters:
-      - $ref: '#/components/parameters/FlowId'
-      responses:
-        '200':
-          description: Flow deprecated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessResponse'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: System User Token with whatsapp_business_management permission
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
-    FlowId:
-      name: flow-id
-      in: path
-      required: true
-      description: Flow ID
-      schema:
-        type: string
   schemas:
     Flow:
       type: object
@@ -369,6 +208,23 @@ components:
               type: string
             name:
               type: string
+    UpdateFlowRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Business
+        categories:
+          type: array
+          items:
+            type: string
+        endpoint_uri:
+          type: string
+          format: uri
+          example: example_value
+        application_id:
+          type: string
+          example: wamid.abc123
     CreateFlowRequest:
       type: object
       required:
@@ -401,23 +257,26 @@ components:
           format: uri
           description: HTTPS endpoint for data exchange
           example: example_value
-    UpdateFlowRequest:
+    SuccessResponse:
       type: object
       properties:
-        name:
-          type: string
-          example: Example Business
-        categories:
-          type: array
-          items:
-            type: string
-        endpoint_uri:
+        success:
+          type: boolean
+          example: true
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
           type: string
           format: uri
           example: example_value
-        application_id:
-          type: string
-          example: wamid.abc123
     FlowValidationError:
       type: object
       properties:
@@ -446,23 +305,26 @@ components:
           type: array
           items:
             type: string
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+    FlowId:
+      name: flow-id
+      in: path
+      required: true
+      description: Flow ID
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

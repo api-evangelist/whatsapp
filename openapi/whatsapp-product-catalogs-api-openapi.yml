@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Product Catalogs API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Product Catalogs
+  description: Connect and manage product catalogs
+paths:
+  /{waba-id}/product_catalogs:
+    get:
+      operationId: listProductCatalogs
+      summary: WhatsApp List Product Catalogs
+      description: Lists product catalogs connected to a WABA.
+      tags:
+      - Product Catalogs
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      responses:
+        '200':
+          description: Catalogs retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: connectProductCatalog
+      summary: WhatsApp Connect Product Catalog
+      description: Connects a product catalog to a WABA.
+      tags:
+      - Product Catalogs
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - catalog_id
+              properties:
+                catalog_id:
+                  type: string
+      responses:
+        '200':
+          description: Catalog connected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: disconnectProductCatalog
+      summary: WhatsApp Disconnect Product Catalog
+      description: Disconnects a product catalog from a WABA.
+      tags:
+      - Product Catalogs
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - catalog_id
+              properties:
+                catalog_id:
+                  type: string
+      responses:
+        '200':
+          description: Catalog disconnected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

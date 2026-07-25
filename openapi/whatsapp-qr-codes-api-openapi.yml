@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics QR Codes API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: QR Codes
+  description: Create and manage QR codes for customer conversations
+paths:
+  /{phone-number-id}/message_qrdls:
+    post:
+      operationId: createQrCode
+      summary: WhatsApp Create QR Code
+      description: Creates a QR code that customers can scan to start a conversation.
+      tags:
+      - QR Codes
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - prefilled_message
+              - generate_qr_image
+              properties:
+                prefilled_message:
+                  type: string
+                  description: Pre-filled message text
+                generate_qr_image:
+                  type: string
+                  enum:
+                  - SVG
+                  - PNG
+                  description: Image format for the QR code
+      responses:
+        '200':
+          description: QR code created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: listQrCodes
+      summary: WhatsApp List QR Codes
+      description: Lists all QR codes for a phone number.
+      tags:
+      - QR Codes
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      responses:
+        '200':
+          description: QR codes retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{phone-number-id}/message_qrdls/{qr-code-id}:
+    get:
+      operationId: getQrCode
+      summary: WhatsApp Get QR Code
+      description: Retrieves a specific QR code.
+      tags:
+      - QR Codes
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/QrCodeId'
+      responses:
+        '200':
+          description: QR code retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: updateQrCode
+      summary: WhatsApp Update QR Code
+      description: Updates the prefilled message for a QR code.
+      tags:
+      - QR Codes
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/QrCodeId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prefilled_message:
+                  type: string
+      responses:
+        '200':
+          description: QR code updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrCodeResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteQrCode
+      summary: WhatsApp Delete QR Code
+      description: Deletes a QR code.
+      tags:
+      - QR Codes
+      parameters:
+      - $ref: '#/components/parameters/PhoneNumberId'
+      - $ref: '#/components/parameters/QrCodeId'
+      responses:
+        '200':
+          description: QR code deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    QrCodeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: QR code identifier
+          example: example_value
+        prefilled_message:
+          type: string
+          example: Hello from WhatsApp!
+        deep_link_url:
+          type: string
+          format: uri
+          example: https://example.com/image.jpg
+        qr_image_url:
+          type: string
+          format: uri
+          example: https://example.com/image.jpg
+  parameters:
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+    QrCodeId:
+      name: qr-code-id
+      in: path
+      required: true
+      description: QR code identifier
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api

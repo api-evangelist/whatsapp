@@ -1,0 +1,406 @@
+openapi: 3.1.0
+info:
+  title: WhatsApp Business Management Analytics Message Templates API
+  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  version: '21.0'
+  contact:
+    name: Meta Platform Support
+    url: https://developers.facebook.com/support/
+  termsOfService: https://www.whatsapp.com/legal/business-terms
+servers:
+- url: https://graph.facebook.com/v21.0
+  description: Meta Graph API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Message Templates
+  description: Create, update, and delete message templates
+paths:
+  /{waba-id}/message_templates:
+    get:
+      operationId: listMessageTemplates
+      summary: WhatsApp List Message Templates
+      description: Lists all message templates for a WhatsApp Business Account.
+      tags:
+      - Message Templates
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      - name: fields
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+        example: 42
+      - name: after
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: before
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: name
+        in: query
+        description: Filter by template name
+        schema:
+          type: string
+        example: Example Business
+      - name: language
+        in: query
+        description: Filter by language code
+        schema:
+          type: string
+        example: en_US
+      - name: status
+        in: query
+        description: Filter by approval status
+        schema:
+          type: string
+          enum:
+          - APPROVED
+          - PENDING
+          - REJECTED
+          - PAUSED
+          - DISABLED
+        example: APPROVED
+      - name: category
+        in: query
+        description: Filter by template category
+        schema:
+          type: string
+          enum:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+        example: AUTHENTICATION
+      responses:
+        '200':
+          description: Templates retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MessageTemplate'
+                  paging:
+                    $ref: '#/components/schemas/CursorPaging'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createMessageTemplate
+      summary: WhatsApp Create Message Template
+      description: Creates a new message template for a WhatsApp Business Account. Templates must be approved by Meta before they can be used to send messages.
+      tags:
+      - Message Templates
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTemplateRequest'
+      responses:
+        '200':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  status:
+                    type: string
+                  category:
+                    type: string
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteMessageTemplate
+      summary: WhatsApp Delete Message Template
+      description: Deletes a message template. Deleting by name removes all language variants. Pass hsm_id to delete a specific language version.
+      tags:
+      - Message Templates
+      parameters:
+      - $ref: '#/components/parameters/WabaId'
+      - name: name
+        in: query
+        required: true
+        description: Template name to delete
+        schema:
+          type: string
+        example: Example Business
+      - name: hsm_id
+        in: query
+        description: Specific template ID to delete a single language variant
+        schema:
+          type: string
+        example: wamid.abc123
+      responses:
+        '200':
+          description: Template deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{message-template-id}:
+    post:
+      operationId: updateMessageTemplate
+      summary: WhatsApp Update Message Template
+      description: Updates an existing message template. Only APPROVED or PAUSED templates can be edited. Edits re-trigger the approval process.
+      tags:
+      - Message Templates
+      parameters:
+      - name: message-template-id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: wamid.abc123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                components:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TemplateComponentDefinition'
+                category:
+                  type: string
+                  enum:
+                  - AUTHENTICATION
+                  - MARKETING
+                  - UTILITY
+      responses:
+        '200':
+          description: Template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    MessageTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          example: wamid.abc123
+        name:
+          type: string
+          example: Example Business
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - PENDING
+          - REJECTED
+          - PAUSED
+          - DISABLED
+          example: APPROVED
+        category:
+          type: string
+          enum:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
+        language:
+          type: string
+          example: en_US
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
+          type: string
+          enum:
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
+        quality_score:
+          type: object
+          properties:
+            score:
+              type: string
+    TemplateComponentDefinition:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - HEADER
+          - BODY
+          - FOOTER
+          - BUTTONS
+          example: HEADER
+        format:
+          type: string
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - DOCUMENT
+          - LOCATION
+          description: Header format type
+          example: TEXT
+        text:
+          type: string
+          description: Component text content
+          example: Hello from WhatsApp!
+        example:
+          type: object
+          description: Example values for variables
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateButton'
+        add_security_recommendation:
+          type: boolean
+          description: Authentication templates only
+          example: true
+        code_expiration_minutes:
+          type: integer
+          description: Authentication templates only (1-90)
+          minimum: 1
+          maximum: 90
+          example: 42
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    CreateTemplateRequest:
+      type: object
+      required:
+      - name
+      - language
+      - category
+      - components
+      properties:
+        name:
+          type: string
+          description: Template name (lowercase, underscores only, max 512 chars)
+          maxLength: 512
+          pattern: ^[a-z][a-z0-9_]*$
+          example: Example Business
+        language:
+          type: string
+          description: Language code
+          example: en_US
+        category:
+          type: string
+          enum:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
+          type: string
+          enum:
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
+        previous:
+          type: string
+          format: uri
+          example: example_value
+    TemplateButton:
+      type: object
+      required:
+      - type
+      - text
+      properties:
+        type:
+          type: string
+          enum:
+          - QUICK_REPLY
+          - URL
+          - PHONE_NUMBER
+          - COPY_CODE
+          - FLOW
+          - OTP
+          - CATALOG
+          - MPM
+          example: QUICK_REPLY
+        text:
+          type: string
+          example: Hello from WhatsApp!
+        url:
+          type: string
+          format: uri
+          example: https://example.com/image.jpg
+        phone_number:
+          type: string
+          example: '+15551234567'
+        example:
+          type: string
+          example: example_value
+        flow_id:
+          type: string
+          example: wamid.abc123
+        flow_action:
+          type: string
+          example: example_value
+        navigate_screen:
+          type: string
+          example: example_value
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: System User Token with whatsapp_business_management permission
+externalDocs:
+  description: WhatsApp Business Management API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/business-management-api
