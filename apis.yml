@@ -1078,6 +1078,9 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: License
+    name: MIT
+    url: https://github.com/WhatsApp/WhatsApp-Flows-Tools/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/whatsapp-agentic-access.yml
   - type: Authentication
