@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Phone Numbers API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Phone Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Phone Numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/phone_numbers",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated fields to return"
+              },
+              {
+                "name": "limit",
+                "value": "42",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "after",
+                "value": "example_value",
+                "type": "query",
+                "description": "Cursor for forward pagination"
+              },
+              {
+                "name": "before",
+                "value": "example_value",
+                "type": "query",
+                "description": "Cursor for backward pagination"
+              }
+            ]
+          },
+          "docs": "Lists all phone numbers associated with a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Get Phone Number Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              }
+            ]
+          },
+          "docs": "Retrieves information about a registered phone number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

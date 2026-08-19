@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Message Templates API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Message Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Message Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/message_templates",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "42",
+                "type": "query"
+              },
+              {
+                "name": "after",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "Example Business",
+                "type": "query",
+                "description": "Filter by template name"
+              },
+              {
+                "name": "language",
+                "value": "en_US",
+                "type": "query",
+                "description": "Filter by language code"
+              },
+              {
+                "name": "status",
+                "value": "APPROVED",
+                "type": "query",
+                "description": "Filter by approval status"
+              },
+              {
+                "name": "category",
+                "value": "AUTHENTICATION",
+                "type": "query",
+                "description": "Filter by template category"
+              }
+            ]
+          },
+          "docs": "Lists all message templates for a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Create Message Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/message_templates",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new message template for a WhatsApp Business Account. Templates must be approved by Meta before they can be used to send messages."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Delete Message Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/message_templates",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "name",
+                "value": "Example Business",
+                "type": "query",
+                "description": "Template name to delete"
+              },
+              {
+                "name": "hsm_id",
+                "value": "wamid.abc123",
+                "type": "query",
+                "description": "Specific template ID to delete a single language variant"
+              }
+            ]
+          },
+          "docs": "Deletes a message template. Deleting by name removes all language variants. Pass hsm_id to delete a specific language version."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Update Message Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:message-template-id",
+            "params": [
+              {
+                "name": "message-template-id",
+                "value": "wamid.abc123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing message template. Only APPROVED or PAUSED templates can be edited. Edits re-trigger the approval process."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

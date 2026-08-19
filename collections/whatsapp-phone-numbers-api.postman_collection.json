@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "077c8ecc-bbf5-40ff-b905-32a48cf93fb5",
+      "name": "Phone Numbers",
+      "description": {
+        "content": "List and manage phone numbers on a WABA",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac1aab0a-7346-4099-aaee-e2c7c5a8fd99",
+          "name": "WhatsApp List Phone Numbers",
+          "request": {
+            "name": "WhatsApp List Phone Numbers",
+            "description": {
+              "content": "Lists all phone numbers associated with a WhatsApp Business Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "phone_numbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Pagination limit"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Cursor for forward pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Cursor for backward pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "399cd9c1-fe9f-410c-9b8c-fbc017bcab2b",
+              "name": "Phone numbers retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "phone_numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "42"
+                    },
+                    {
+                      "key": "after",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "before",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"wamid.abc123\",\n      \"display_phone_number\": \"+15551234567\",\n      \"verified_name\": \"Example Business\",\n      \"quality_rating\": \"GREEN\",\n      \"code_verification_status\": \"VERIFIED\",\n      \"is_official_business_account\": true,\n      \"name_status\": \"Example Business\",\n      \"platform_type\": \"CLOUD_API\",\n      \"throughput\": {\n        \"level\": \"STANDARD\"\n      },\n      \"account_mode\": \"LIVE\",\n      \"messaging_limit_tier\": \"TIER_1K\"\n    },\n    {\n      \"id\": \"wamid.abc123\",\n      \"display_phone_number\": \"+15551234567\",\n      \"verified_name\": \"Example Business\",\n      \"quality_rating\": \"GREEN\",\n      \"code_verification_status\": \"VERIFIED\",\n      \"is_official_business_account\": true,\n      \"name_status\": \"Example Business\",\n      \"platform_type\": \"CLOUD_API\",\n      \"throughput\": {\n        \"level\": \"STANDARD\"\n      },\n      \"account_mode\": \"LIVE\",\n      \"messaging_limit_tier\": \"TIER_1K\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"next\": \"http://ftDYlEjZmOktcVvHURekMmrws.ass8zzTOdYMl-lPzVTECJ8OWH1eXNce.f+iUzgUExYYeYfM\",\n    \"previous\": \"http://KydrJdlCLOpTm.bchfenD1jY1qGRDK,ebRTTzoQv2jNjXXnqOllp0wpyAPYF6vtW4+8bO-UIbx\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55a30e9a-a0f1-4fd8-8af0-700ada8e5173",
+          "name": "WhatsApp Get Phone Number Info",
+          "request": {
+            "name": "WhatsApp Get Phone Number Info",
+            "description": {
+              "content": "Retrieves information about a registered phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ea339a9-10eb-4a32-a8ce-444eff18409e",
+              "name": "Phone number info retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"wamid.abc123\",\n  \"verified_name\": \"Example Business\",\n  \"display_phone_number\": \"+15551234567\",\n  \"quality_rating\": \"GREEN\",\n  \"code_verification_status\": \"VERIFIED\",\n  \"platform_type\": \"CLOUD_API\",\n  \"throughput\": {\n    \"level\": \"HIGH\"\n  },\n  \"is_official_business_account\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0adc62f6-62ac-4e4d-94b3-a6c0b2e725f0",
+    "name": "WhatsApp Business Management Analytics Phone Numbers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

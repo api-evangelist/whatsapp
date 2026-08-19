@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Messages API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Send a Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/messages",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a message to a WhatsApp user. The type field in the request body determines the message format. Also used to mark incoming messages as read by setting status to read."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

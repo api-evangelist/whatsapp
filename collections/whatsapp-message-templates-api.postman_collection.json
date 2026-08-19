@@ -1,0 +1,565 @@
+{
+  "item": [
+    {
+      "id": "4aeb7761-0fac-4c8b-a219-e859cd08bb7f",
+      "name": "Message Templates",
+      "description": {
+        "content": "Create, update, and delete message templates",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c5131cca-8110-420a-837a-7acf8e50541c",
+          "name": "WhatsApp List Message Templates",
+          "request": {
+            "name": "WhatsApp List Message Templates",
+            "description": {
+              "content": "Lists all message templates for a WhatsApp Business Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "message_templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by template name"
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "Filter by language code"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by approval status"
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Filter by template category"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d9cdfe1-a4cb-4b08-a1c3-db7e7512fd29",
+              "name": "Templates retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "message_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "42"
+                    },
+                    {
+                      "key": "after",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "before",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "name",
+                      "value": "Example Business"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en_US"
+                    },
+                    {
+                      "key": "status",
+                      "value": "APPROVED"
+                    },
+                    {
+                      "key": "category",
+                      "value": "AUTHENTICATION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"wamid.abc123\",\n      \"name\": \"Example Business\",\n      \"status\": \"APPROVED\",\n      \"category\": \"AUTHENTICATION\",\n      \"language\": \"en_US\",\n      \"components\": [\n        {\n          \"type\": \"object\",\n          \"description\": \"Example values for variables\"\n        },\n        {\n          \"type\": \"object\",\n          \"description\": \"Example values for variables\"\n        }\n      ],\n      \"parameter_format\": \"POSITIONAL\",\n      \"quality_score\": {\n        \"score\": \"string\"\n      }\n    },\n    {\n      \"id\": \"wamid.abc123\",\n      \"name\": \"Example Business\",\n      \"status\": \"APPROVED\",\n      \"category\": \"AUTHENTICATION\",\n      \"language\": \"en_US\",\n      \"components\": [\n        {\n          \"type\": \"object\",\n          \"description\": \"Example values for variables\"\n        },\n        {\n          \"type\": \"object\",\n          \"description\": \"Example values for variables\"\n        }\n      ],\n      \"parameter_format\": \"POSITIONAL\",\n      \"quality_score\": {\n        \"score\": \"string\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"next\": \"http://DdGytoWsOQCib.taao1e,-EjBlacnoXhkxCh0xUcAfrxtztnabENe,FbLeAr6aFiZvvtGeMmGT-gztE-s\",\n    \"previous\": \"http://qPJBSr.npplxnfa9Qtqnm0XvFDsvki1n9cGmQdEeCd9GVxI,40P4kv8dfboJCrKGPWEHgtNp1wsv\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50ed44a2-3239-470e-89e4-dab5e5a28edd",
+          "name": "WhatsApp Create Message Template",
+          "request": {
+            "name": "WhatsApp Create Message Template",
+            "description": {
+              "content": "Creates a new message template for a WhatsApp Business Account. Templates must be approved by Meta before they can be used to send messages.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "message_templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"language\": \"<string>\",\n  \"category\": \"<string>\",\n  \"components\": [\n    {\n      \"type\": \"<string>\",\n      \"format\": \"<string>\",\n      \"text\": \"<string>\",\n      \"example\": \"<object>\",\n      \"buttons\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"format\": \"<string>\",\n      \"text\": \"<string>\",\n      \"example\": \"<object>\",\n      \"buttons\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    }\n  ],\n  \"parameter_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d314f685-d694-40c5-91ad-10c0a4b2a2c9",
+              "name": "Template created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "message_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"language\": \"en_US\",\n  \"category\": \"AUTHENTICATION\",\n  \"components\": [\n    {\n      \"type\": \"object\",\n      \"description\": \"Example values for variables\"\n    },\n    {\n      \"type\": \"object\",\n      \"description\": \"Example values for variables\"\n    }\n  ],\n  \"parameter_format\": \"POSITIONAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"string\",\n  \"category\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a9bc286-4f5c-4ceb-8407-cc4d82cdfe7f",
+          "name": "WhatsApp Delete Message Template",
+          "request": {
+            "name": "WhatsApp Delete Message Template",
+            "description": {
+              "content": "Deletes a message template. Deleting by name removes all language variants. Pass hsm_id to delete a specific language version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "message_templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Template name to delete"
+                },
+                {
+                  "disabled": false,
+                  "key": "hsm_id",
+                  "value": "<string>",
+                  "description": "Specific template ID to delete a single language variant"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edbae97c-c2d3-49ee-b3d2-01ffd948d644",
+              "name": "Template deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "message_templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "Example Business"
+                    },
+                    {
+                      "key": "hsm_id",
+                      "value": "wamid.abc123"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87177ddb-be77-465d-b927-73e3e507855f",
+          "name": "WhatsApp Update Message Template",
+          "request": {
+            "name": "WhatsApp Update Message Template",
+            "description": {
+              "content": "Updates an existing message template. Only APPROVED or PAUSED templates can be edited. Edits re-trigger the approval process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":message-template-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "message-template-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"components\": [\n    {\n      \"type\": \"<string>\",\n      \"format\": \"<string>\",\n      \"text\": \"<string>\",\n      \"example\": \"<object>\",\n      \"buttons\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"format\": \"<string>\",\n      \"text\": \"<string>\",\n      \"example\": \"<object>\",\n      \"buttons\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"phone_number\": \"<string>\",\n          \"example\": \"<string>\",\n          \"flow_id\": \"<string>\",\n          \"flow_action\": \"<string>\",\n          \"navigate_screen\": \"<string>\"\n        }\n      ],\n      \"add_security_recommendation\": \"<boolean>\",\n      \"code_expiration_minutes\": \"<integer>\"\n    }\n  ],\n  \"category\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7cb0aa5c-3323-4da5-8340-e146368f4b31",
+              "name": "Template updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":message-template-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message-template-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"type\": \"object\",\n      \"description\": \"Example values for variables\"\n    },\n    {\n      \"type\": \"object\",\n      \"description\": \"Example values for variables\"\n    }\n  ],\n  \"category\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d96304f2-a198-4b62-87de-284bca6b35b6",
+    "name": "WhatsApp Business Management Analytics Message Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

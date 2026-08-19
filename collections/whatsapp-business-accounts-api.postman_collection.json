@@ -1,0 +1,147 @@
+{
+  "item": [
+    {
+      "id": "12acc310-b338-451c-bf9f-30bb6fee339d",
+      "name": "Business Accounts",
+      "description": {
+        "content": "Manage WhatsApp Business Account information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "034004d9-f258-4f88-acaa-2c5b91b33dbd",
+          "name": "WhatsApp Get WABA Info",
+          "request": {
+            "name": "WhatsApp Get WABA Info",
+            "description": {
+              "content": "Retrieves information about a WhatsApp Business Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d43db184-d334-496a-8a82-1d12f57e1734",
+              "name": "WABA info retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"wamid.abc123\",\n  \"name\": \"Example Business\",\n  \"currency\": \"example_value\",\n  \"timezone_id\": \"wamid.abc123\",\n  \"country\": \"example_value\",\n  \"status\": \"ACTIVE\",\n  \"business_verification_status\": \"sent\",\n  \"message_template_namespace\": \"Example Business\",\n  \"owner_business\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  },\n  \"primary_funding_id\": \"wamid.abc123\",\n  \"purchase_order_number\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e52c2606-bd4a-4f51-8929-0dd5b5bc3feb",
+    "name": "WhatsApp Business Management Analytics Business Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

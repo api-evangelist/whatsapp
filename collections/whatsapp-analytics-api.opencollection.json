@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Get Conversation Analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/conversation_analytics",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "start",
+                "value": "example_value",
+                "type": "query",
+                "description": "Start time (Unix timestamp or YYYY-MM-DD)"
+              },
+              {
+                "name": "end",
+                "value": "example_value",
+                "type": "query",
+                "description": "End time (Unix timestamp or YYYY-MM-DD)"
+              },
+              {
+                "name": "granularity",
+                "value": "HALF_HOUR",
+                "type": "query"
+              },
+              {
+                "name": "phone_numbers",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phone number IDs"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conversation_categories",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dimensions",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves conversation analytics for a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Get Template Analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/template_analytics",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              },
+              {
+                "name": "start",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "DAILY",
+                "type": "query"
+              },
+              {
+                "name": "template_ids",
+                "value": "",
+                "type": "query",
+                "description": "Template IDs to analyze (max 10)"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves analytics for specific message templates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

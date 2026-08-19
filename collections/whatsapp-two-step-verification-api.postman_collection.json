@@ -1,0 +1,156 @@
+{
+  "item": [
+    {
+      "id": "88238b9b-94a7-401b-b190-b44610022274",
+      "name": "Two-Step Verification",
+      "description": {
+        "content": "Manage two-step verification PIN",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b4224e13-1851-418d-8557-cd847879c553",
+          "name": "WhatsApp Set Two-step Verification PIN",
+          "request": {
+            "name": "WhatsApp Set Two-step Verification PIN",
+            "description": {
+              "content": "Sets or updates the two-step verification PIN for a phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "90405058-a453-412d-84c2-046723851656",
+              "name": "PIN set successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8dda18a8-0a52-4b1e-9d11-4787f2243694",
+    "name": "WhatsApp Business Management Analytics Two-Step Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

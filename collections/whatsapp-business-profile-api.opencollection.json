@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Business Profile API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Get Business Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/whatsapp_business_profile",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              },
+              {
+                "name": "fields",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated fields to return"
+              }
+            ]
+          },
+          "docs": "Retrieves the WhatsApp Business profile for a phone number."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Update Business Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/whatsapp_business_profile",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the WhatsApp Business profile for a phone number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

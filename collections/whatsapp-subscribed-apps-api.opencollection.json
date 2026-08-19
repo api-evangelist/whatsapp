@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Subscribed Apps API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscribed Apps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Webhook Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/subscribed_apps",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Lists all apps subscribed to webhook events for this WABA."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Subscribe App to Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/subscribed_apps",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Subscribes the current app to receive webhook events for this WABA."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Unsubscribe App from Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/subscribed_apps",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Unsubscribes the current app from webhook events."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

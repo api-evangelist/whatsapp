@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Two-Step Verification API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Two-Step Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Set Two-step Verification PIN",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets or updates the two-step verification PIN for a phone number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

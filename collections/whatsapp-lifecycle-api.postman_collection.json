@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "57879f6c-11f6-4c22-9289-230b175a1b96",
+      "name": "Lifecycle",
+      "description": {
+        "content": "Publish and deprecate flows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81977dd4-4722-45be-949f-fa2ce24fef52",
+          "name": "WhatsApp Publish Flow",
+          "request": {
+            "name": "WhatsApp Publish Flow",
+            "description": {
+              "content": "Publishes a draft flow, making it available for use in messages. The flow must have a valid uploaded flow JSON with no validation errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39a8fa31-3317-49b1-933d-c5f9e6a3f366",
+              "name": "Flow published",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7da35a55-3308-4ecb-93cd-59d51fe8618c",
+          "name": "WhatsApp Deprecate Flow",
+          "request": {
+            "name": "WhatsApp Deprecate Flow",
+            "description": {
+              "content": "Deprecates a published flow. Deprecated flows remain visible in history but cannot be sent to customers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "deprecate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cb857a1-4092-48d5-a9e8-0b302a9935b7",
+              "name": "Flow deprecated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "deprecate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "63748161-52af-4d1b-8e83-847324a3409c",
+    "name": "WhatsApp Business Management Analytics Lifecycle API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

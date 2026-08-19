@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Assigned Users API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assigned Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List Assigned Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/assigned_users",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ]
+          },
+          "docs": "Lists all users assigned to a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Assign User to WABA",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/assigned_users",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns a user with specific tasks to a WhatsApp Business Account."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Remove Assigned User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:waba-id/assigned_users",
+            "params": [
+              {
+                "name": "waba-id",
+                "value": "",
+                "type": "path",
+                "description": "WhatsApp Business Account ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a user from a WhatsApp Business Account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

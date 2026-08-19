@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Assets API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Get Flow Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/assets",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the assets (flow JSON file) for a flow."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Upload Flow JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/assets",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "asset_type",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads or replaces the flow JSON definition file. The file is validated on upload and any errors are returned in the response."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Lifecycle API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lifecycle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Publish Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/publish",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Publishes a draft flow, making it available for use in messages. The flow must have a valid uploaded flow JSON with no validation errors."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Deprecate Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:flow-id/deprecate",
+            "params": [
+              {
+                "name": "flow-id",
+                "value": "",
+                "type": "path",
+                "description": "Flow ID"
+              }
+            ]
+          },
+          "docs": "Deprecates a published flow. Deprecated flows remain visible in history but cannot be sent to customers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

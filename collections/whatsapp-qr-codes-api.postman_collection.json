@@ -1,45 +1,155 @@
 {
   "item": [
     {
-      "id": "c5e3f383-0b72-438f-8772-2cb7b6b30f44",
-      "name": "Flows",
+      "id": "51f62e43-756e-425e-ab80-f3929d6f6675",
+      "name": "QR Codes",
       "description": {
-        "content": "Create, read, update, and delete flows",
+        "content": "Create and manage QR codes for customer conversations",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "a7a9be1c-e2bb-4abb-ba23-353f27787266",
-          "name": "WhatsApp List Flows",
+          "id": "a001fac1-f866-47ab-8331-4dc10e52654f",
+          "name": "WhatsApp Create QR Code",
           "request": {
-            "name": "WhatsApp List Flows",
+            "name": "WhatsApp Create QR Code",
             "description": {
-              "content": "Lists all flows for a WhatsApp Business Account.",
+              "content": "Creates a QR code that customers can scan to start a conversation.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                ":waba-id",
-                "flows"
+                ":phone-number-id",
+                "message_qrdls"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "fields",
-                  "value": "<string>",
-                  "description": "Comma-separated fields to return"
-                }
-              ],
+              "query": [],
               "variable": [
                 {
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "waba-id",
-                  "description": "(Required) WhatsApp Business Account ID"
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prefilled_message\": \"<string>\",\n  \"generate_qr_image\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "baa60fb9-8a5a-4724-8508-dc8259824bb7",
+              "name": "QR code created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "message_qrdls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prefilled_message\": \"<string>\",\n  \"generate_qr_image\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"example_value\",\n  \"prefilled_message\": \"Hello from WhatsApp!\",\n  \"deep_link_url\": \"https://example.com/image.jpg\",\n  \"qr_image_url\": \"https://example.com/image.jpg\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57287f1d-a8ee-42e2-b716-03892a15fe55",
+          "name": "WhatsApp List QR Codes",
+          "request": {
+            "name": "WhatsApp List QR Codes",
+            "description": {
+              "content": "Lists all QR codes for a phone number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "message_qrdls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
                 }
               ]
             },
@@ -54,30 +164,25 @@
           },
           "response": [
             {
-              "id": "ed525b4a-9160-4575-a876-e83778b81af8",
-              "name": "Flows retrieved",
+              "id": "b1f3211c-bb7e-457e-b541-fd5edd8057a1",
+              "name": "QR codes retrieved",
               "originalRequest": {
                 "url": {
                   "path": [
-                    ":waba-id",
-                    "flows"
+                    ":phone-number-id",
+                    "message_qrdls"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "fields",
-                      "value": "example_value"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "waba-id",
-                      "description": "(Required) WhatsApp Business Account ID"
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
                     }
                   ]
                 },
@@ -106,7 +211,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"wamid.abc123\",\n      \"name\": \"Example Business\",\n      \"status\": \"DRAFT\",\n      \"categories\": [\n        \"SURVEY\",\n        \"OTHER\"\n      ],\n      \"validation_errors\": [\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"json_version\": \"example_value\",\n      \"data_api_version\": \"example_value\",\n      \"endpoint_uri\": \"https://FKhYdixrOTNLHQbY.ziefEX3u1WOS52BYdeYSAWmfUlPYbX2-ekYr\",\n      \"preview\": {\n        \"preview_url\": \"http://vYeWKTsVWFsMMrfvU.jiknLBvdYM8eFAr9znT-RdMv2XS9gRe8SQGIxO-9JARJHl\",\n        \"expires_at\": \"1948-07-29T04:12:15.171Z\",\n        \"id\": \"string\"\n      },\n      \"whatsapp_business_account\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": \"wamid.abc123\",\n      \"name\": \"Example Business\",\n      \"status\": \"DRAFT\",\n      \"categories\": [\n        \"LEAD_GENERATION\",\n        \"LEAD_GENERATION\"\n      ],\n      \"validation_errors\": [\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"error\": \"example_value\",\n          \"error_type\": \"text\",\n          \"message\": \"Hello from WhatsApp!\",\n          \"line_start\": 42,\n          \"line_end\": 42,\n          \"column_start\": 42,\n          \"column_end\": 42,\n          \"pointers\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"json_version\": \"example_value\",\n      \"data_api_version\": \"example_value\",\n      \"endpoint_uri\": \"https://akPtOTurcKKxURWzqcdoJ.xySRr,zEyZSw\",\n      \"preview\": {\n        \"preview_url\": \"http://zInSKdCLqNwM.hfhcgnVHpbaGyjD\",\n        \"expires_at\": \"1995-08-24T11:32:43.561Z\",\n        \"id\": \"string\"\n      },\n      \"whatsapp_business_account\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"next\": \"https://KYqFIPHmASmPMACfRet.otgeV1trjcTOu.tsbTRdn,zC,fCLYu\"\n  }\n}",
+              "body": "{\n  \"data\": [\n    {\n      \"code\": \"example_value\",\n      \"prefilled_message\": \"Hello from WhatsApp!\",\n      \"deep_link_url\": \"https://example.com/image.jpg\",\n      \"qr_image_url\": \"https://example.com/image.jpg\"\n    },\n    {\n      \"code\": \"example_value\",\n      \"prefilled_message\": \"Hello from WhatsApp!\",\n      \"deep_link_url\": \"https://example.com/image.jpg\",\n      \"qr_image_url\": \"https://example.com/image.jpg\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -117,18 +222,19 @@
           }
         },
         {
-          "id": "b12ef133-6ef7-4e3c-97f0-e5e79249566c",
-          "name": "WhatsApp Create Flow",
+          "id": "735f109c-ab68-44d1-a7a6-200edad20ddb",
+          "name": "WhatsApp Get QR Code",
           "request": {
-            "name": "WhatsApp Create Flow",
+            "name": "WhatsApp Get QR Code",
             "description": {
-              "content": "Creates a new flow for a WhatsApp Business Account.",
+              "content": "Retrieves a specific QR code.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                ":waba-id",
-                "flows"
+                ":phone-number-id",
+                "message_qrdls",
+                ":qr-code-id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -139,131 +245,15 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "waba-id",
-                  "description": "(Required) WhatsApp Business Account ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"clone_flow_id\": \"<string>\",\n  \"endpoint_uri\": \"<uri>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "596d2e0b-d4ab-4a03-bf9e-d5d161bfdf68",
-              "name": "Flow created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    ":waba-id",
-                    "flows"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "waba-id",
-                      "description": "(Required) WhatsApp Business Account ID"
-                    }
-                  ]
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Example Business\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"clone_flow_id\": \"wamid.abc123\",\n  \"endpoint_uri\": \"<uri>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "178dd548-e8eb-4e1f-ab8c-e5fc09c4b493",
-          "name": "WhatsApp Get Flow",
-          "request": {
-            "name": "WhatsApp Get Flow",
-            "description": {
-              "content": "Retrieves details about a specific flow.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                ":flow-id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "fields",
-                  "value": "<string>",
-                  "description": "Comma-separated fields to return"
-                }
-              ],
-              "variable": [
                 {
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "flow-id",
-                  "description": "(Required) Flow ID"
+                  "key": "qr-code-id",
+                  "description": "(Required) QR code identifier"
                 }
               ]
             },
@@ -278,29 +268,33 @@
           },
           "response": [
             {
-              "id": "947a9212-0da0-4bf0-a300-805379faafba",
-              "name": "Flow retrieved",
+              "id": "af0cfad3-9d90-432f-aca2-949ee449e11d",
+              "name": "QR code retrieved",
               "originalRequest": {
                 "url": {
                   "path": [
-                    ":flow-id"
+                    ":phone-number-id",
+                    "message_qrdls",
+                    ":qr-code-id"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "fields",
-                      "value": "example_value"
-                    }
-                  ],
+                  "query": [],
                   "variable": [
                     {
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "flow-id",
-                      "description": "(Required) Flow ID"
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qr-code-id",
+                      "description": "(Required) QR code identifier"
                     }
                   ]
                 },
@@ -329,7 +323,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"wamid.abc123\",\n  \"name\": \"Example Business\",\n  \"status\": \"DRAFT\",\n  \"categories\": [\n    \"CUSTOMER_SUPPORT\",\n    \"SIGN_IN\"\n  ],\n  \"validation_errors\": [\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"json_version\": \"example_value\",\n  \"data_api_version\": \"example_value\",\n  \"endpoint_uri\": \"http://riQWTmWgNEBmFqFMKlpXsmDUaKbZSGDI.sacdyc\",\n  \"preview\": {\n    \"preview_url\": \"http://oDXiAsuiLRgRSiVAPuYNmzjaIAJjVHqQ.furz\",\n    \"expires_at\": \"1959-10-30T02:27:56.700Z\",\n    \"id\": \"string\"\n  },\n  \"whatsapp_business_account\": {\n    \"id\": \"string\",\n    \"name\": \"string\"\n  }\n}",
+              "body": "{\n  \"code\": \"example_value\",\n  \"prefilled_message\": \"Hello from WhatsApp!\",\n  \"deep_link_url\": \"https://example.com/image.jpg\",\n  \"qr_image_url\": \"https://example.com/image.jpg\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -340,17 +334,19 @@
           }
         },
         {
-          "id": "cb9dce26-5ebb-45df-b49e-492d0264e618",
-          "name": "WhatsApp Update Flow",
+          "id": "b1459e45-d6c0-4717-a37f-55e76886224c",
+          "name": "WhatsApp Update QR Code",
           "request": {
-            "name": "WhatsApp Update Flow",
+            "name": "WhatsApp Update QR Code",
             "description": {
-              "content": "Updates a flow. Only DRAFT flows can be updated. Published flows cannot be modified; clone them instead.",
+              "content": "Updates the prefilled message for a QR code.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                ":flow-id"
+                ":phone-number-id",
+                "message_qrdls",
+                ":qr-code-id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -361,8 +357,15 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "flow-id",
-                  "description": "(Required) Flow ID"
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qr-code-id",
+                  "description": "(Required) QR code identifier"
                 }
               ]
             },
@@ -380,7 +383,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"endpoint_uri\": \"<uri>\",\n  \"application_id\": \"<string>\"\n}",
+              "raw": "{\n  \"prefilled_message\": \"<string>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -390,12 +393,14 @@
           },
           "response": [
             {
-              "id": "8515c6fb-555d-4e7b-8f52-618a288c4716",
-              "name": "Flow updated",
+              "id": "edad9ff9-97e8-45af-b6ca-22ac88ad1f98",
+              "name": "QR code updated",
               "originalRequest": {
                 "url": {
                   "path": [
-                    ":flow-id"
+                    ":phone-number-id",
+                    "message_qrdls",
+                    ":qr-code-id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -406,8 +411,15 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "flow-id",
-                      "description": "(Required) Flow ID"
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qr-code-id",
+                      "description": "(Required) QR code identifier"
                     }
                   ]
                 },
@@ -428,7 +440,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Example Business\",\n  \"categories\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"endpoint_uri\": \"<uri>\",\n  \"application_id\": \"wamid.abc123\"\n}",
+                  "raw": "{\n  \"prefilled_message\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -444,7 +456,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": true\n}",
+              "body": "{\n  \"code\": \"example_value\",\n  \"prefilled_message\": \"Hello from WhatsApp!\",\n  \"deep_link_url\": \"https://example.com/image.jpg\",\n  \"qr_image_url\": \"https://example.com/image.jpg\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -455,17 +467,19 @@
           }
         },
         {
-          "id": "e286eed8-e0e7-4550-bd36-a25d85eea7bc",
-          "name": "WhatsApp Delete Flow",
+          "id": "b27d925e-b30d-405b-857e-5040dbbb93b3",
+          "name": "WhatsApp Delete QR Code",
           "request": {
-            "name": "WhatsApp Delete Flow",
+            "name": "WhatsApp Delete QR Code",
             "description": {
-              "content": "Deletes a flow. Only DRAFT flows can be deleted. Published flows must be deprecated instead.",
+              "content": "Deletes a QR code.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                ":flow-id"
+                ":phone-number-id",
+                "message_qrdls",
+                ":qr-code-id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -476,8 +490,15 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "flow-id",
-                  "description": "(Required) Flow ID"
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "qr-code-id",
+                  "description": "(Required) QR code identifier"
                 }
               ]
             },
@@ -492,12 +513,14 @@
           },
           "response": [
             {
-              "id": "d171889e-21bf-41ca-9b7d-8b3e86c08eee",
-              "name": "Flow deleted",
+              "id": "7987be06-43a6-4d2c-a61a-b8376a545677",
+              "name": "QR code deleted",
               "originalRequest": {
                 "url": {
                   "path": [
-                    ":flow-id"
+                    ":phone-number-id",
+                    "message_qrdls",
+                    ":qr-code-id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -508,8 +531,15 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "flow-id",
-                      "description": "(Required) Flow ID"
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "qr-code-id",
+                      "description": "(Required) QR code identifier"
                     }
                   ]
                 },
@@ -570,8 +600,8 @@
     ]
   },
   "info": {
-    "_postman_id": "f8fc8c94-4969-49a8-b13a-db31c1a88006",
-    "name": "WhatsApp Business Management Analytics Flows API",
+    "_postman_id": "7ba8211f-1b19-4e66-b193-1db59f9196c1",
+    "name": "WhatsApp Business Management Analytics QR Codes API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",

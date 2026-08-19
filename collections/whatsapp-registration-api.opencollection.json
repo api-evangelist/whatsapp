@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics Registration API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp Request Verification Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/request_code",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests a verification code via SMS or voice call for phone registration."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Verify Phone Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/verify_code",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies a phone number using the code received via SMS or voice."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Register Phone Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/register",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a phone number for use with the Cloud API."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Deregister Phone Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/deregister",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deregisters a phone number from the Cloud API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

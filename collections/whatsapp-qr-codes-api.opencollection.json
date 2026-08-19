@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WhatsApp Business Management Analytics QR Codes API",
+    "version": "21.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "QR Codes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WhatsApp List QR Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/message_qrdls",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ]
+          },
+          "docs": "Lists all QR codes for a phone number."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Create QR Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/message_qrdls",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a QR code that customers can scan to start a conversation."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Get QR Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/message_qrdls/:qr-code-id",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              },
+              {
+                "name": "qr-code-id",
+                "value": "",
+                "type": "path",
+                "description": "QR code identifier"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific QR code."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Update QR Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/message_qrdls/:qr-code-id",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              },
+              {
+                "name": "qr-code-id",
+                "value": "",
+                "type": "path",
+                "description": "QR code identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the prefilled message for a QR code."
+        },
+        {
+          "info": {
+            "name": "WhatsApp Delete QR Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://graph.facebook.com/v21.0/:phone-number-id/message_qrdls/:qr-code-id",
+            "params": [
+              {
+                "name": "phone-number-id",
+                "value": "",
+                "type": "path",
+                "description": "Phone Number ID from the WhatsApp Business Account"
+              },
+              {
+                "name": "qr-code-id",
+                "value": "",
+                "type": "path",
+                "description": "QR code identifier"
+              }
+            ]
+          },
+          "docs": "Deletes a QR code."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

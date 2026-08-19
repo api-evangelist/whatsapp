@@ -1,0 +1,290 @@
+{
+  "item": [
+    {
+      "id": "29956044-f344-4749-8b50-b70133affe42",
+      "name": "Assets",
+      "description": {
+        "content": "Upload and retrieve flow JSON assets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ed1929b-c213-4718-af57-e0497735ca89",
+          "name": "WhatsApp Get Flow Assets",
+          "request": {
+            "name": "WhatsApp Get Flow Assets",
+            "description": {
+              "content": "Retrieves the assets (flow JSON file) for a flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82683974-8312-498c-9698-ea92278e120d",
+              "name": "Assets retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"asset_type\": \"string\",\n      \"download_url\": \"http://dbfwvIqAiXQnpAzROiVpxoCuVVIkHHRX.aefkEZI9Wu8LjliEs9aatGyrv-IyBj+dQPCmHBuxFMzjPKNvnblLLE3P,s2SUoy70J1OKmF59\"\n    },\n    {\n      \"name\": \"string\",\n      \"asset_type\": \"string\",\n      \"download_url\": \"http://rFsiYfxOy.nbgUni8Ty9XuKN0r1hMs0pxiUJHfw\"\n    }\n  ],\n  \"paging\": {\n    \"cursors\": {\n      \"before\": \"string\",\n      \"after\": \"string\"\n    },\n    \"next\": \"https://BsbEKxwlOhkksxjwh.wnDJSjjAqi.26ai8Wqg.s2T+ydvBKb6Ctg-u\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da00d42f-4d79-429d-af0d-199aada25eda",
+          "name": "WhatsApp Upload Flow JSON",
+          "request": {
+            "name": "WhatsApp Upload Flow JSON",
+            "description": {
+              "content": "Uploads or replaces the flow JSON definition file. The file is validated on upload and any errors are returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":flow-id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow-id",
+                  "description": "(Required) Flow ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The flow.json file (max 10 MB)"
+                },
+                {
+                  "key": "name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required)  (This can only be one of flow.json)"
+                },
+                {
+                  "key": "asset_type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required)  (This can only be one of FLOW_JSON)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "732740a2-a0bc-4e32-93c6-6681f3539478",
+              "name": "Flow JSON uploaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":flow-id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow-id",
+                      "description": "(Required) Flow ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The flow.json file (max 10 MB)",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required)  (This can only be one of flow.json)",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required)  (This can only be one of FLOW_JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "asset_type",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"validation_errors\": [\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"error\": \"example_value\",\n      \"error_type\": \"text\",\n      \"message\": \"Hello from WhatsApp!\",\n      \"line_start\": 42,\n      \"line_end\": 42,\n      \"column_start\": 42,\n      \"column_end\": 42,\n      \"pointers\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4ffdc637-90fe-4983-bc8c-15ba0cc9593e",
+    "name": "WhatsApp Business Management Analytics Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "item": [
+    {
+      "id": "1a6f678d-b565-4ead-9679-5bd94b01a735",
+      "name": "Analytics",
+      "description": {
+        "content": "Retrieve conversation and template analytics",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "49e2ce7b-0fbb-4b36-9b83-90e7a0d2eff1",
+          "name": "WhatsApp Get Conversation Analytics",
+          "request": {
+            "name": "WhatsApp Get Conversation Analytics",
+            "description": {
+              "content": "Retrieves conversation analytics for a WhatsApp Business Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "conversation_analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) Start time (Unix timestamp or YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) End time (Unix timestamp or YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "phone_numbers",
+                  "value": "<string>",
+                  "description": "Filter by phone number IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "phone_numbers",
+                  "value": "<string>",
+                  "description": "Filter by phone number IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation_categories",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "conversation_categories",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dimensions",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dimensions",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ed5b301-4a6e-4f75-a2d2-a98268bf50b3",
+              "name": "Analytics retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "conversation_analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "end",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "HALF_HOUR"
+                    },
+                    {
+                      "key": "phone_numbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone_numbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversation_categories",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dimensions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dimensions",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation_analytics\": {\n    \"data\": [\n      {\n        \"data_points\": [\n          {\n            \"start\": 5487,\n            \"end\": 5298,\n            \"conversation\": 5382,\n            \"cost\": 3120.19559700064\n          },\n          {\n            \"start\": 2061,\n            \"end\": 1655,\n            \"conversation\": 9341,\n            \"cost\": 7800.415439578486\n          }\n        ]\n      },\n      {\n        \"data_points\": [\n          {\n            \"start\": 3389,\n            \"end\": 7633,\n            \"conversation\": 8285,\n            \"cost\": 8256.527623323906\n          },\n          {\n            \"start\": 5883,\n            \"end\": 3069,\n            \"conversation\": 6453,\n            \"cost\": 7959.6066484932935\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5c651ee-bfb4-4f08-9701-eb9b900f8682",
+          "name": "WhatsApp Get Template Analytics",
+          "request": {
+            "name": "WhatsApp Get Template Analytics",
+            "description": {
+              "content": "Retrieves analytics for specific message templates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":waba-id",
+                "template_analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "template_ids",
+                  "value": "<string>",
+                  "description": "(Required) Template IDs to analyze (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "template_ids",
+                  "value": "<string>",
+                  "description": "(Required) Template IDs to analyze (max 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "waba-id",
+                  "description": "(Required) WhatsApp Business Account ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcae56f5-2674-4e93-87c2-3fb8efdbe67c",
+              "name": "Template analytics retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":waba-id",
+                    "template_analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "end",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAILY"
+                    },
+                    {
+                      "key": "template_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "waba-id",
+                      "description": "(Required) WhatsApp Business Account ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"template_analytics\": {\n    \"data\": [\n      {\n        \"template_id\": \"string\",\n        \"data_points\": [\n          {\n            \"start\": 5554,\n            \"end\": 9524,\n            \"sent\": 8560,\n            \"delivered\": 3351,\n            \"read\": 446,\n            \"clicked\": 6336,\n            \"cost\": 8960.237217101881\n          },\n          {\n            \"start\": 7915,\n            \"end\": 8593,\n            \"sent\": 3449,\n            \"delivered\": 620,\n            \"read\": 6451,\n            \"clicked\": 6125,\n            \"cost\": 2963.165659656759\n          }\n        ]\n      },\n      {\n        \"template_id\": \"string\",\n        \"data_points\": [\n          {\n            \"start\": 2450,\n            \"end\": 1187,\n            \"sent\": 6107,\n            \"delivered\": 8251,\n            \"read\": 685,\n            \"clicked\": 8127,\n            \"cost\": 6963.525140073675\n          },\n          {\n            \"start\": 5120,\n            \"end\": 7788,\n            \"sent\": 7279,\n            \"delivered\": 46,\n            \"read\": 2615,\n            \"clicked\": 8243,\n            \"cost\": 3415.533894234195\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "83959d2c-9e44-4bb4-9902-6c1074fe4290",
+    "name": "WhatsApp Business Management Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}

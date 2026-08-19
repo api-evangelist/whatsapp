@@ -1,0 +1,382 @@
+{
+  "item": [
+    {
+      "id": "f2ae53ac-a615-4b24-8484-21ab3206e5d4",
+      "name": "Media",
+      "description": {
+        "content": "Upload, retrieve, and delete media files",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22bf5e94-146f-4d7c-aa64-e3fd497cb9f0",
+          "name": "WhatsApp Upload Media",
+          "request": {
+            "name": "WhatsApp Upload Media",
+            "description": {
+              "content": "Uploads media to WhatsApp servers. Returns a media ID that can be used when sending media messages. Uploaded media persists for 30 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":phone-number-id",
+                "media"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phone-number-id",
+                  "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The media file to upload"
+                },
+                {
+                  "key": "type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) MIME type of the file"
+                },
+                {
+                  "key": "messaging_product",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required)  (This can only be one of whatsapp)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dda5e80d-12c7-4a9c-a7a9-9cfdd1944b2c",
+              "name": "Media uploaded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":phone-number-id",
+                    "media"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phone-number-id",
+                      "description": "(Required) Phone Number ID from the WhatsApp Business Account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The media file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) MIME type of the file",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "image/jpeg",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required)  (This can only be one of whatsapp)",
+                        "type": "text/plain"
+                      },
+                      "key": "messaging_product",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48639e70-e5d3-4fa3-a072-498e5e2f73b6",
+          "name": "WhatsApp Get Media URL",
+          "request": {
+            "name": "WhatsApp Get Media URL",
+            "description": {
+              "content": "Retrieves a temporary download URL for a media file. The URL expires after 5 minutes. To download the file, make a GET request to the returned URL with the same Bearer token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":media-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media-id",
+                  "description": "(Required) Media ID returned from upload or webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4082dab-f661-451e-8f27-6104336e3c7e",
+              "name": "Media URL retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":media-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media-id",
+                      "description": "(Required) Media ID returned from upload or webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://example.com/image.jpg\",\n  \"mime_type\": \"text\",\n  \"sha256\": \"example_value\",\n  \"file_size\": 42,\n  \"id\": \"wamid.abc123\",\n  \"messaging_product\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44a18d2f-3798-4eee-9686-d04778b72513",
+          "name": "WhatsApp Delete Media",
+          "request": {
+            "name": "WhatsApp Delete Media",
+            "description": {
+              "content": "Deletes a media file from WhatsApp servers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":media-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "media-id",
+                  "description": "(Required) Media ID returned from upload or webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86b1de31-2ba8-4371-a75d-b0fb76b9824d",
+              "name": "Media deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":media-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "media-id",
+                      "description": "(Required) Media ID returned from upload or webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://graph.facebook.com/v21.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f2da2555-1376-4f34-94fc-6b3d32c0d301",
+    "name": "WhatsApp Business Management Analytics Media API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.\n\nContact Support:\n Name: Meta Platform Support",
+      "type": "text/plain"
+    }
+  }
+}
