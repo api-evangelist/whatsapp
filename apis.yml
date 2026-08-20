@@ -618,6 +618,8 @@ apis:
   humanURL: https://developers.facebook.com/docs/whatsapp
   baseURL: https://graph.facebook.com/v21.0
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
