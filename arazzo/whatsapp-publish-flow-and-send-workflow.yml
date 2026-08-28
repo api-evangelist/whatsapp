@@ -12,11 +12,17 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: whatsappFlowsApi
+- name: assetsApi
+  url: ../openapi/whatsapp-assets-api-openapi.yml
+  type: openapi
+- name: flowsApi
   url: ../openapi/whatsapp-flows-api-openapi.yml
   type: openapi
-- name: whatsappCloudApi
-  url: ../openapi/whatsapp-cloud-api-openapi.yml
+- name: lifecycleApi
+  url: ../openapi/whatsapp-lifecycle-api-openapi.yml
+  type: openapi
+- name: messagesApi
+  url: ../openapi/whatsapp-messages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: publish-flow-and-send

@@ -10,8 +10,8 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: whatsappCloudApi
-  url: ../openapi/whatsapp-cloud-api-openapi.yml
+- name: messagesApi
+  url: ../openapi/whatsapp-messages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: send-and-react

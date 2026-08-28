@@ -12,8 +12,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: whatsappCloudApi
-  url: ../openapi/whatsapp-cloud-api-openapi.yml
+- name: qrCodesApi
+  url: ../openapi/whatsapp-qr-codes-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-qr-code

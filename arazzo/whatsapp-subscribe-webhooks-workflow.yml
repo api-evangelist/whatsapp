@@ -12,8 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: whatsappBusinessManagementApi
-  url: ../openapi/whatsapp-business-management-api-openapi.yml
+- name: businessAccountsApi
+  url: ../openapi/whatsapp-business-accounts-api-openapi.yml
+  type: openapi
+- name: subscribedAppsApi
+  url: ../openapi/whatsapp-subscribed-apps-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: subscribe-webhooks

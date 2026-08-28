@@ -11,8 +11,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: whatsappCloudApi
-  url: ../openapi/whatsapp-cloud-api-openapi.yml
+- name: mediaApi
+  url: ../openapi/whatsapp-media-api-openapi.yml
+  type: openapi
+- name: messagesApi
+  url: ../openapi/whatsapp-messages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upload-media-send-image

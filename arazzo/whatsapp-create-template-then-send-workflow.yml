@@ -12,11 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: whatsappBusinessManagementApi
-  url: ../openapi/whatsapp-business-management-api-openapi.yml
+- name: messageTemplatesApi
+  url: ../openapi/whatsapp-message-templates-api-openapi.yml
   type: openapi
-- name: whatsappCloudApi
-  url: ../openapi/whatsapp-cloud-api-openapi.yml
+- name: messagesApi
+  url: ../openapi/whatsapp-messages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-template-then-send
