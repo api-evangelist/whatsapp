@@ -1094,6 +1094,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: Website
+    url: https://www.whatsapp.com/
   - type: IssueTracker
     url: https://github.com/WhatsApp/WhatsApp-Flows-Tools/issues
   - type: CodeOfConduct
