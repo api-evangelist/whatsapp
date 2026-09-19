@@ -43,6 +43,11 @@ apis:
   humanURL: https://developers.facebook.com/docs/whatsapp/flows
   baseURL: https://graph.facebook.com/v21.0
   tags:
+  - Flow
+  - Forms
+  - Interactive
+  - Messaging
+  tags_raw:
   - Flows
   - Forms
   - Interactive
