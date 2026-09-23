@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: WhatsApp Business Management Analytics Media API
-  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  title: WhatsApp Cloud Media API
+  description: The WhatsApp Cloud API enables businesses to send and receive messages, manage media, configure business profiles, and handle phone number registration through Meta's cloud-hosted infrastructure. All endpoints operate on the Meta Graph API.
   version: '21.0'
   contact:
     name: Meta Platform Support
@@ -103,13 +103,22 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    MediaId:
+      name: media-id
+      in: path
+      required: true
+      description: Media ID returned from upload or webhook
+      schema:
+        type: string
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
     MediaResponse:
       type: object
       properties:
@@ -133,26 +142,17 @@ components:
         messaging_product:
           type: string
           example: example_value
-  parameters:
-    PhoneNumberId:
-      name: phone-number-id
-      in: path
-      required: true
-      description: Phone Number ID from the WhatsApp Business Account
-      schema:
-        type: string
-    MediaId:
-      name: media-id
-      in: path
-      required: true
-      description: Media ID returned from upload or webhook
-      schema:
-        type: string
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: System User Token with whatsapp_business_management permission
+      description: System User Token or User Access Token with whatsapp_business_messaging permission
 externalDocs:
-  description: WhatsApp Business Management API Documentation
-  url: https://developers.facebook.com/docs/whatsapp/business-management-api
+  description: WhatsApp Cloud API Documentation
+  url: https://developers.facebook.com/docs/whatsapp/cloud-api

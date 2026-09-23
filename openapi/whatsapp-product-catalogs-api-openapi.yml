@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: WhatsApp Business Management Analytics Product Catalogs API
+  title: WhatsApp Business Management Product Catalogs API
   description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
   version: '21.0'
   contact:

@@ -1,44 +1,57 @@
 {
   "provider": "whatsapp",
   "sources": [
-    "whatsapp-analytics-api-openapi.yml",
+    "_original/whatsapp-business-management-api-openapi.yml",
+    "_original/whatsapp-cloud-api-openapi.yml",
     "whatsapp-assets-api-openapi.yml",
-    "whatsapp-assigned-users-api-openapi.yml",
-    "whatsapp-business-accounts-api-openapi.yml",
-    "whatsapp-business-profile-api-openapi.yml",
     "whatsapp-flows-api-openapi.yml",
-    "whatsapp-lifecycle-api-openapi.yml",
-    "whatsapp-media-api-openapi.yml",
-    "whatsapp-message-templates-api-openapi.yml",
-    "whatsapp-messages-api-openapi.yml",
-    "whatsapp-phone-numbers-api-openapi.yml",
-    "whatsapp-product-catalogs-api-openapi.yml",
-    "whatsapp-qr-codes-api-openapi.yml",
-    "whatsapp-registration-api-openapi.yml",
-    "whatsapp-subscribed-apps-api-openapi.yml",
-    "whatsapp-two-step-verification-api-openapi.yml"
+    "whatsapp-lifecycle-api-openapi.yml"
   ],
   "outputs": [
     "whatsapp-analytics-api-openapi.yml",
-    "whatsapp-assets-api-openapi.yml",
     "whatsapp-assigned-users-api-openapi.yml",
     "whatsapp-business-accounts-api-openapi.yml",
-    "whatsapp-business-profile-api-openapi.yml",
-    "whatsapp-flows-api-openapi.yml",
-    "whatsapp-lifecycle-api-openapi.yml",
-    "whatsapp-media-api-openapi.yml",
     "whatsapp-message-templates-api-openapi.yml",
-    "whatsapp-messages-api-openapi.yml",
     "whatsapp-phone-numbers-api-openapi.yml",
     "whatsapp-product-catalogs-api-openapi.yml",
+    "whatsapp-subscribed-apps-api-openapi.yml",
+    "whatsapp-business-profile-api-openapi.yml",
+    "whatsapp-media-api-openapi.yml",
+    "whatsapp-messages-api-openapi.yml",
     "whatsapp-qr-codes-api-openapi.yml",
     "whatsapp-registration-api-openapi.yml",
-    "whatsapp-subscribed-apps-api-openapi.yml",
-    "whatsapp-two-step-verification-api-openapi.yml"
+    "whatsapp-two-step-verification-api-openapi.yml",
+    "whatsapp-assets-api-openapi.yml",
+    "whatsapp-flows-api-openapi.yml",
+    "whatsapp-lifecycle-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "whatsapp-assets-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /{flow-id}/assets get, /{flow-id}/assets post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "whatsapp-flows-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /{flow-id} delete, /{flow-id} get, /{flow-id} post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "whatsapp-lifecycle-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /{flow-id}/deprecate post, /{flow-id}/publish post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "whatsapp-business-management-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "whatsapp-cloud-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Phone Numbers' spans 2 source specs (whatsapp-business-management-api-openapi.yml, whatsapp-cloud-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "whatsapp-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-assigned-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-business-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-business-profile-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-message-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-phone-numbers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-product-catalogs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-qr-codes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-registration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-subscribed-apps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "whatsapp-two-step-verification-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

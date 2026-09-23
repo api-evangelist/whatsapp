@@ -1,12 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: WhatsApp Business Management Analytics Phone Numbers API
-  description: The WhatsApp Business Management API enables programmatic management of WhatsApp Business Accounts, phone numbers, message templates, analytics, user assignments, product catalogs, and webhook subscriptions through the Meta Graph API.
+  title: Whatsapp Phone Numbers API
   version: '21.0'
   contact:
     name: Meta Platform Support
     url: https://developers.facebook.com/support/
   termsOfService: https://www.whatsapp.com/legal/business-terms
+  description: 'Operations tagged Phone Numbers across 2 of this provider''s published API definitions: whatsapp-business-management-api-openapi.yml, whatsapp-cloud-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://graph.facebook.com/v21.0
   description: Meta Graph API Production Server
@@ -66,6 +66,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://graph.facebook.com/v21.0
+      description: Meta Graph API Production Server
   /{phone-number-id}:
     get:
       operationId: getPhoneNumber
@@ -91,53 +94,29 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://graph.facebook.com/v21.0
+      description: Meta Graph API Production Server
 components:
   schemas:
-    PhoneNumberInfo:
+    CursorPaging:
       type: object
       properties:
-        id:
-          type: string
-          example: wamid.abc123
-        verified_name:
-          type: string
-          example: Example Business
-        display_phone_number:
-          type: string
-          example: '+15551234567'
-        quality_rating:
-          type: string
-          enum:
-          - GREEN
-          - YELLOW
-          - RED
-          - UNKNOWN
-          example: GREEN
-        code_verification_status:
-          type: string
-          enum:
-          - VERIFIED
-          - NOT_VERIFIED
-          - EXPIRED
-          example: VERIFIED
-        platform_type:
-          type: string
-          enum:
-          - CLOUD_API
-          - ON_PREMISE
-          - NOT_APPLICABLE
-          example: CLOUD_API
-        throughput:
+        cursors:
           type: object
           properties:
-            level:
+            before:
               type: string
-              enum:
-              - STANDARD
-              - HIGH
-        is_official_business_account:
-          type: boolean
-          example: true
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
+        previous:
+          type: string
+          format: uri
+          example: example_value
     PhoneNumber:
       type: object
       properties:
@@ -200,24 +179,51 @@ components:
           - TIER_100K
           - TIER_UNLIMITED
           example: TIER_1K
-    CursorPaging:
+    PhoneNumberInfo:
       type: object
       properties:
-        cursors:
+        id:
+          type: string
+          example: wamid.abc123
+        verified_name:
+          type: string
+          example: Example Business
+        display_phone_number:
+          type: string
+          example: '+15551234567'
+        quality_rating:
+          type: string
+          enum:
+          - GREEN
+          - YELLOW
+          - RED
+          - UNKNOWN
+          example: GREEN
+        code_verification_status:
+          type: string
+          enum:
+          - VERIFIED
+          - NOT_VERIFIED
+          - EXPIRED
+          example: VERIFIED
+        platform_type:
+          type: string
+          enum:
+          - CLOUD_API
+          - ON_PREMISE
+          - NOT_APPLICABLE
+          example: CLOUD_API
+        throughput:
           type: object
           properties:
-            before:
+            level:
               type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
-        previous:
-          type: string
-          format: uri
-          example: example_value
+              enum:
+              - STANDARD
+              - HIGH
+        is_official_business_account:
+          type: boolean
+          example: true
   parameters:
     WabaId:
       name: waba-id
@@ -238,6 +244,6 @@ components:
       type: http
       scheme: bearer
       description: System User Token with whatsapp_business_management permission
-externalDocs:
-  description: WhatsApp Business Management API Documentation
-  url: https://developers.facebook.com/docs/whatsapp/business-management-api
+x-refined-from:
+- whatsapp-business-management-api-openapi.yml
+- whatsapp-cloud-api-openapi.yml
