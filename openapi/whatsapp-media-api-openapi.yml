@@ -103,22 +103,13 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    MediaId:
-      name: media-id
-      in: path
-      required: true
-      description: Media ID returned from upload or webhook
-      schema:
-        type: string
-    PhoneNumberId:
-      name: phone-number-id
-      in: path
-      required: true
-      description: Phone Number ID from the WhatsApp Business Account
-      schema:
-        type: string
   schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
     MediaResponse:
       type: object
       properties:
@@ -142,12 +133,21 @@ components:
         messaging_product:
           type: string
           example: example_value
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
+  parameters:
+    MediaId:
+      name: media-id
+      in: path
+      required: true
+      description: Media ID returned from upload or webhook
+      schema:
+        type: string
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

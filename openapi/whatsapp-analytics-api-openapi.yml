@@ -160,30 +160,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ConversationAnalytics:
-      type: object
-      properties:
-        conversation_analytics:
-          type: object
-          properties:
-            data:
-              type: array
-              items:
-                type: object
-                properties:
-                  data_points:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        start:
-                          type: integer
-                        end:
-                          type: integer
-                        conversation:
-                          type: integer
-                        cost:
-                          type: number
     TemplateAnalytics:
       type: object
       properties:
@@ -213,6 +189,30 @@ components:
                         read:
                           type: integer
                         clicked:
+                          type: integer
+                        cost:
+                          type: number
+    ConversationAnalytics:
+      type: object
+      properties:
+        conversation_analytics:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  data_points:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start:
+                          type: integer
+                        end:
+                          type: integer
+                        conversation:
                           type: integer
                         cost:
                           type: number

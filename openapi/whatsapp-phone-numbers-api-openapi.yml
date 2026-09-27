@@ -99,24 +99,6 @@ paths:
       description: Meta Graph API Production Server
 components:
   schemas:
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
-        previous:
-          type: string
-          format: uri
-          example: example_value
     PhoneNumber:
       type: object
       properties:
@@ -179,6 +161,24 @@ components:
           - TIER_100K
           - TIER_UNLIMITED
           example: TIER_1K
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
+        previous:
+          type: string
+          format: uri
+          example: example_value
     PhoneNumberInfo:
       type: object
       properties:

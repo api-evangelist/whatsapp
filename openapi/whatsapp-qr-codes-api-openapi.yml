@@ -146,6 +146,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
     QrCodeResponse:
       type: object
       properties:
@@ -164,12 +170,6 @@ components:
           type: string
           format: uri
           example: https://example.com/image.jpg
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
   parameters:
     QrCodeId:
       name: qr-code-id

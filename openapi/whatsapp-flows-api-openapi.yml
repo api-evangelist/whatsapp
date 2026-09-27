@@ -145,20 +145,34 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CursorPaging:
+    FlowValidationError:
       type: object
       properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
+        error:
           type: string
-          format: uri
           example: example_value
+        error_type:
+          type: string
+          example: text
+        message:
+          type: string
+          example: Hello from WhatsApp!
+        line_start:
+          type: integer
+          example: 42
+        line_end:
+          type: integer
+          example: 42
+        column_start:
+          type: integer
+          example: 42
+        column_end:
+          type: integer
+          example: 42
+        pointers:
+          type: array
+          items:
+            type: string
     Flow:
       type: object
       properties:
@@ -222,57 +236,20 @@ components:
               type: string
             name:
               type: string
-    SuccessResponse:
+    CursorPaging:
       type: object
       properties:
-        success:
-          type: boolean
-          example: true
-    UpdateFlowRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Example Business
-        categories:
-          type: array
-          items:
-            type: string
-        endpoint_uri:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
           type: string
           format: uri
           example: example_value
-        application_id:
-          type: string
-          example: wamid.abc123
-    FlowValidationError:
-      type: object
-      properties:
-        error:
-          type: string
-          example: example_value
-        error_type:
-          type: string
-          example: text
-        message:
-          type: string
-          example: Hello from WhatsApp!
-        line_start:
-          type: integer
-          example: 42
-        line_end:
-          type: integer
-          example: 42
-        column_start:
-          type: integer
-          example: 42
-        column_end:
-          type: integer
-          example: 42
-        pointers:
-          type: array
-          items:
-            type: string
     CreateFlowRequest:
       type: object
       required:
@@ -305,6 +282,29 @@ components:
           format: uri
           description: HTTPS endpoint for data exchange
           example: example_value
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    UpdateFlowRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Example Business
+        categories:
+          type: array
+          items:
+            type: string
+        endpoint_uri:
+          type: string
+          format: uri
+          example: example_value
+        application_id:
+          type: string
+          example: wamid.abc123
   parameters:
     WabaId:
       name: waba-id

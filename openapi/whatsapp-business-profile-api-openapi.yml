@@ -75,50 +75,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UpdateBusinessProfileRequest:
-      type: object
-      required:
-      - messaging_product
-      properties:
-        messaging_product:
-          type: string
-          enum:
-          - whatsapp
-          example: whatsapp
-        about:
-          type: string
-          maxLength: 139
-          example: example_value
-        address:
-          type: string
-          example: example_value
-        description:
-          type: string
-          maxLength: 512
-          example: example_value
-        email:
-          type: string
-          format: email
-          example: example_value
-        websites:
-          type: array
-          maxItems: 2
-          items:
-            type: string
-            format: uri
-        vertical:
-          type: string
-          example: example_value
-        profile_picture_handle:
-          type: string
-          description: Handle of uploaded profile picture
-          example: example_value
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
     BusinessProfile:
       type: object
       properties:
@@ -172,6 +128,50 @@ components:
           example: UNDEFINED
         messaging_product:
           type: string
+          example: example_value
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    UpdateBusinessProfileRequest:
+      type: object
+      required:
+      - messaging_product
+      properties:
+        messaging_product:
+          type: string
+          enum:
+          - whatsapp
+          example: whatsapp
+        about:
+          type: string
+          maxLength: 139
+          example: example_value
+        address:
+          type: string
+          example: example_value
+        description:
+          type: string
+          maxLength: 512
+          example: example_value
+        email:
+          type: string
+          format: email
+          example: example_value
+        websites:
+          type: array
+          maxItems: 2
+          items:
+            type: string
+            format: uri
+        vertical:
+          type: string
+          example: example_value
+        profile_picture_handle:
+          type: string
+          description: Handle of uploaded profile picture
           example: example_value
   parameters:
     PhoneNumberId:
