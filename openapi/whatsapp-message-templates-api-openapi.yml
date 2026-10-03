@@ -242,6 +242,67 @@ components:
         navigate_screen:
           type: string
           example: example_value
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
+        previous:
+          type: string
+          format: uri
+          example: example_value
+    MessageTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          example: wamid.abc123
+        name:
+          type: string
+          example: Example Business
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - PENDING
+          - REJECTED
+          - PAUSED
+          - DISABLED
+          example: APPROVED
+        category:
+          type: string
+          enum:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
+        language:
+          type: string
+          example: en_US
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
+          type: string
+          enum:
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
+        quality_score:
+          type: object
+          properties:
+            score:
+              type: string
     TemplateComponentDefinition:
       type: object
       required:
@@ -286,24 +347,6 @@ components:
           minimum: 1
           maximum: 90
           example: 42
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
-        previous:
-          type: string
-          format: uri
-          example: example_value
     CreateTemplateRequest:
       type: object
       required:
@@ -339,49 +382,6 @@ components:
           - POSITIONAL
           - NAMED
           example: POSITIONAL
-    MessageTemplate:
-      type: object
-      properties:
-        id:
-          type: string
-          example: wamid.abc123
-        name:
-          type: string
-          example: Example Business
-        status:
-          type: string
-          enum:
-          - APPROVED
-          - PENDING
-          - REJECTED
-          - PAUSED
-          - DISABLED
-          example: APPROVED
-        category:
-          type: string
-          enum:
-          - AUTHENTICATION
-          - MARKETING
-          - UTILITY
-          example: AUTHENTICATION
-        language:
-          type: string
-          example: en_US
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateComponentDefinition'
-        parameter_format:
-          type: string
-          enum:
-          - POSITIONAL
-          - NAMED
-          example: POSITIONAL
-        quality_score:
-          type: object
-          properties:
-            score:
-              type: string
     SuccessResponse:
       type: object
       properties:

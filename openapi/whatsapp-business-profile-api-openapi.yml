@@ -75,6 +75,12 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
     BusinessProfile:
       type: object
       properties:
@@ -129,12 +135,6 @@ components:
         messaging_product:
           type: string
           example: example_value
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
     UpdateBusinessProfileRequest:
       type: object
       required:

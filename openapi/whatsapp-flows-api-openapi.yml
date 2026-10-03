@@ -236,20 +236,6 @@ components:
               type: string
             name:
               type: string
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
     CreateFlowRequest:
       type: object
       required:
@@ -281,6 +267,20 @@ components:
           type: string
           format: uri
           description: HTTPS endpoint for data exchange
+          example: example_value
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
           example: example_value
     SuccessResponse:
       type: object
