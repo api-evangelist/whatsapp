@@ -1249,6 +1249,11 @@ common:
 type: Index
 tags:
 - Messaging
+- Analytics
+- WhatsApp
+- Business Messaging
+- Meta
+x-tags-removed:
 - Forms
 - Self-Hosted
-- Analytics
+x-parent: meta
