@@ -171,18 +171,18 @@ components:
           format: uri
           example: https://example.com/image.jpg
   parameters:
-    QrCodeId:
-      name: qr-code-id
-      in: path
-      required: true
-      description: QR code identifier
-      schema:
-        type: string
     PhoneNumberId:
       name: phone-number-id
       in: path
       required: true
       description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+    QrCodeId:
+      name: qr-code-id
+      in: path
+      required: true
+      description: QR code identifier
       schema:
         type: string
   securitySchemes:

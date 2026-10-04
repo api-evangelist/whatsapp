@@ -98,6 +98,21 @@ paths:
     - url: https://graph.facebook.com/v21.0
       description: Meta Graph API Production Server
 components:
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
   schemas:
     PhoneNumber:
       type: object
@@ -224,21 +239,6 @@ components:
         is_official_business_account:
           type: boolean
           example: true
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
-    PhoneNumberId:
-      name: phone-number-id
-      in: path
-      required: true
-      description: Phone Number ID from the WhatsApp Business Account
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

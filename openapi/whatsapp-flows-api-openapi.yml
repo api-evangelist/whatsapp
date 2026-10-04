@@ -144,35 +144,22 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+    FlowId:
+      name: flow-id
+      in: path
+      required: true
+      description: Flow ID
+      schema:
+        type: string
   schemas:
-    FlowValidationError:
-      type: object
-      properties:
-        error:
-          type: string
-          example: example_value
-        error_type:
-          type: string
-          example: text
-        message:
-          type: string
-          example: Hello from WhatsApp!
-        line_start:
-          type: integer
-          example: 42
-        line_end:
-          type: integer
-          example: 42
-        column_start:
-          type: integer
-          example: 42
-        column_end:
-          type: integer
-          example: 42
-        pointers:
-          type: array
-          items:
-            type: string
     Flow:
       type: object
       properties:
@@ -236,6 +223,20 @@ components:
               type: string
             name:
               type: string
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
     CreateFlowRequest:
       type: object
       required:
@@ -268,20 +269,6 @@ components:
           format: uri
           description: HTTPS endpoint for data exchange
           example: example_value
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
     SuccessResponse:
       type: object
       properties:
@@ -305,21 +292,34 @@ components:
         application_id:
           type: string
           example: wamid.abc123
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
-    FlowId:
-      name: flow-id
-      in: path
-      required: true
-      description: Flow ID
-      schema:
-        type: string
+    FlowValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: example_value
+        error_type:
+          type: string
+          example: text
+        message:
+          type: string
+          example: Hello from WhatsApp!
+        line_start:
+          type: integer
+          example: 42
+        line_end:
+          type: integer
+          example: 42
+        column_start:
+          type: integer
+          example: 42
+        column_end:
+          type: integer
+          example: 42
+        pointers:
+          type: array
+          items:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http

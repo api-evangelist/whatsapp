@@ -202,46 +202,41 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    TemplateButton:
+    CreateTemplateRequest:
       type: object
       required:
-      - type
-      - text
+      - name
+      - language
+      - category
+      - components
       properties:
-        type:
+        name:
+          type: string
+          description: Template name (lowercase, underscores only, max 512 chars)
+          maxLength: 512
+          pattern: ^[a-z][a-z0-9_]*$
+          example: Example Business
+        language:
+          type: string
+          description: Language code
+          example: en_US
+        category:
           type: string
           enum:
-          - QUICK_REPLY
-          - URL
-          - PHONE_NUMBER
-          - COPY_CODE
-          - FLOW
-          - OTP
-          - CATALOG
-          - MPM
-          example: QUICK_REPLY
-        text:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
           type: string
-          example: Hello from WhatsApp!
-        url:
-          type: string
-          format: uri
-          example: https://example.com/image.jpg
-        phone_number:
-          type: string
-          example: '+15551234567'
-        example:
-          type: string
-          example: example_value
-        flow_id:
-          type: string
-          example: wamid.abc123
-        flow_action:
-          type: string
-          example: example_value
-        navigate_screen:
-          type: string
-          example: example_value
+          enum:
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
     CursorPaging:
       type: object
       properties:
@@ -260,6 +255,12 @@ components:
           type: string
           format: uri
           example: example_value
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
     MessageTemplate:
       type: object
       properties:
@@ -303,6 +304,46 @@ components:
           properties:
             score:
               type: string
+    TemplateButton:
+      type: object
+      required:
+      - type
+      - text
+      properties:
+        type:
+          type: string
+          enum:
+          - QUICK_REPLY
+          - URL
+          - PHONE_NUMBER
+          - COPY_CODE
+          - FLOW
+          - OTP
+          - CATALOG
+          - MPM
+          example: QUICK_REPLY
+        text:
+          type: string
+          example: Hello from WhatsApp!
+        url:
+          type: string
+          format: uri
+          example: https://example.com/image.jpg
+        phone_number:
+          type: string
+          example: '+15551234567'
+        example:
+          type: string
+          example: example_value
+        flow_id:
+          type: string
+          example: wamid.abc123
+        flow_action:
+          type: string
+          example: example_value
+        navigate_screen:
+          type: string
+          example: example_value
     TemplateComponentDefinition:
       type: object
       required:
@@ -347,47 +388,6 @@ components:
           minimum: 1
           maximum: 90
           example: 42
-    CreateTemplateRequest:
-      type: object
-      required:
-      - name
-      - language
-      - category
-      - components
-      properties:
-        name:
-          type: string
-          description: Template name (lowercase, underscores only, max 512 chars)
-          maxLength: 512
-          pattern: ^[a-z][a-z0-9_]*$
-          example: Example Business
-        language:
-          type: string
-          description: Language code
-          example: en_US
-        category:
-          type: string
-          enum:
-          - AUTHENTICATION
-          - MARKETING
-          - UTILITY
-          example: AUTHENTICATION
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateComponentDefinition'
-        parameter_format:
-          type: string
-          enum:
-          - POSITIONAL
-          - NAMED
-          example: POSITIONAL
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
   parameters:
     WabaId:
       name: waba-id

@@ -159,31 +159,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
   schemas:
-    ConversationAnalytics:
-      type: object
-      properties:
-        conversation_analytics:
-          type: object
-          properties:
-            data:
-              type: array
-              items:
-                type: object
-                properties:
-                  data_points:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        start:
-                          type: integer
-                        end:
-                          type: integer
-                        conversation:
-                          type: integer
-                        cost:
-                          type: number
     TemplateAnalytics:
       type: object
       properties:
@@ -216,14 +200,30 @@ components:
                           type: integer
                         cost:
                           type: number
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
+    ConversationAnalytics:
+      type: object
+      properties:
+        conversation_analytics:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  data_points:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start:
+                          type: integer
+                        end:
+                          type: integer
+                        conversation:
+                          type: integer
+                        cost:
+                          type: number
   securitySchemes:
     bearerAuth:
       type: http

@@ -134,18 +134,18 @@ components:
           type: string
           example: example_value
   parameters:
-    MediaId:
-      name: media-id
-      in: path
-      required: true
-      description: Media ID returned from upload or webhook
-      schema:
-        type: string
     PhoneNumberId:
       name: phone-number-id
       in: path
       required: true
       description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
+    MediaId:
+      name: media-id
+      in: path
+      required: true
+      description: Media ID returned from upload or webhook
       schema:
         type: string
   securitySchemes:

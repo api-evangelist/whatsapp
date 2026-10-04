@@ -55,47 +55,7 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-            type:
-              type: string
-            code:
-              type: integer
-            error_subcode:
-              type: integer
-            fbtrace_id:
-              type: string
-            error_data:
-              type: object
-              properties:
-                messaging_product:
-                  type: string
-                details:
-                  type: string
-    MediaObject:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Media ID from upload
-          example: wamid.abc123
-        link:
-          type: string
-          format: uri
-          description: HTTPS URL of the media file
-          example: example_value
-        caption:
-          type: string
-          description: Caption text
-          maxLength: 1024
-          example: example_value
-    TemplateParameter:
+    TemplateComponent:
       type: object
       required:
       - type
@@ -103,286 +63,72 @@ components:
         type:
           type: string
           enum:
-          - text
-          - image
-          - video
-          - document
-          - location
-          - currency
-          - date_time
-          - payload
-          - coupon_code
-          example: text
-        text:
+          - header
+          - body
+          - button
+          example: header
+        sub_type:
           type: string
-          example: Hello from WhatsApp!
-        payload:
+          enum:
+          - quick_reply
+          - url
+          - copy_code
+          - flow
+          - catalog
+          description: Required for button components
+          example: quick_reply
+        index:
           type: string
+          description: Button index (required for button components)
           example: example_value
-        coupon_code:
-          type: string
-          example: example_value
-        image:
-          $ref: '#/components/schemas/MediaObject'
-        video:
-          $ref: '#/components/schemas/MediaObject'
-        document:
-          $ref: '#/components/schemas/DocumentObject'
-        location:
-          $ref: '#/components/schemas/LocationMessage'
-        currency:
-          type: object
-          properties:
-            fallback_value:
-              type: string
-            code:
-              type: string
-            amount_1000:
-              type: integer
-        date_time:
-          type: object
-          properties:
-            fallback_value:
-              type: string
-    SendMessageRequest:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+    SendMessageResponse:
       type: object
-      required:
-      - messaging_product
-      - to
-      - type
       properties:
         messaging_product:
           type: string
-          enum:
-          - whatsapp
-          example: whatsapp
-        recipient_type:
-          type: string
-          default: individual
-          example: text
-        to:
-          type: string
-          description: Recipient phone number in E.164 format without the leading +
           example: example_value
-        type:
-          type: string
-          enum:
-          - text
-          - image
-          - video
-          - audio
-          - document
-          - sticker
-          - location
-          - contacts
-          - interactive
-          - template
-          - reaction
-          example: text
-        context:
-          type: object
-          description: Context for reply messages
-          properties:
-            message_id:
-              type: string
-              description: ID of the message being replied to
-        biz_opaque_callback_data:
-          type: string
-          description: Arbitrary string for tracking, returned in webhooks
-          example: example_value
-        status:
-          type: string
-          enum:
-          - read
-          description: Set to read to mark an incoming message as read
-          example: read
-        message_id:
-          type: string
-          description: ID of the message to mark as read (required when status is read)
-          example: wamid.abc123
-        text:
-          $ref: '#/components/schemas/TextMessage'
-        image:
-          $ref: '#/components/schemas/MediaObject'
-        video:
-          $ref: '#/components/schemas/MediaObject'
-        audio:
-          $ref: '#/components/schemas/AudioObject'
-        document:
-          $ref: '#/components/schemas/DocumentObject'
-        sticker:
-          $ref: '#/components/schemas/StickerObject'
-        location:
-          $ref: '#/components/schemas/LocationMessage'
         contacts:
           type: array
           items:
-            $ref: '#/components/schemas/ContactObject'
-        interactive:
-          $ref: '#/components/schemas/InteractiveMessage'
-        template:
-          $ref: '#/components/schemas/TemplateMessage'
-        reaction:
-          $ref: '#/components/schemas/ReactionMessage'
-    DocumentObject:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Media ID from upload
-          example: wamid.abc123
-        link:
-          type: string
-          format: uri
-          description: HTTPS URL of the document
-          example: example_value
-        caption:
-          type: string
-          description: Caption text
-          example: example_value
-        filename:
-          type: string
-          description: Filename to display to recipient
-          example: Example Business
-    TemplateMessage:
-      type: object
-      required:
-      - name
-      - language
-      properties:
-        name:
-          type: string
-          description: Template name
-          example: Example Business
-        language:
-          type: object
-          required:
-          - code
-          properties:
-            code:
-              type: string
-              description: Language/locale code
-            policy:
-              type: string
-              default: deterministic
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateComponent'
-    ReactionMessage:
-      type: object
-      required:
-      - message_id
-      - emoji
-      properties:
-        message_id:
-          type: string
-          description: ID of the message to react to
-          example: wamid.abc123
-        emoji:
-          type: string
-          description: Emoji character or empty string to remove reaction
-          example: example_value
-    ContactObject:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: object
-          required:
-          - formatted_name
-          properties:
-            formatted_name:
-              type: string
-            first_name:
-              type: string
-            last_name:
-              type: string
-            middle_name:
-              type: string
-            prefix:
-              type: string
-            suffix:
-              type: string
-        addresses:
-          type: array
-          items:
             type: object
             properties:
-              street:
+              input:
                 type: string
-              city:
-                type: string
-              state:
-                type: string
-              zip:
-                type: string
-              country:
-                type: string
-              country_code:
-                type: string
-              type:
-                type: string
-                enum:
-                - HOME
-                - WORK
-        birthday:
-          type: string
-          description: Birthday in YYYY-MM-DD format
-          example: example_value
-        emails:
-          type: array
-          items:
-            type: object
-            properties:
-              email:
-                type: string
-                format: email
-              type:
-                type: string
-                enum:
-                - HOME
-                - WORK
-        org:
-          type: object
-          properties:
-            company:
-              type: string
-            department:
-              type: string
-            title:
-              type: string
-        phones:
-          type: array
-          items:
-            type: object
-            properties:
-              phone:
-                type: string
-              type:
-                type: string
-                enum:
-                - CELL
-                - MAIN
-                - IPHONE
-                - HOME
-                - WORK
               wa_id:
                 type: string
-        urls:
+        messages:
           type: array
           items:
             type: object
             properties:
-              url:
+              id:
                 type: string
-                format: uri
-              type:
+                description: WhatsApp message ID
+    ListSection:
+      type: object
+      properties:
+        title:
+          type: string
+          example: example_value
+        rows:
+          type: array
+          maxItems: 10
+          items:
+            type: object
+            properties:
+              id:
                 type: string
-                enum:
-                - HOME
-                - WORK
+                maxLength: 200
+              title:
+                type: string
+                maxLength: 24
+              description:
+                type: string
+                maxLength: 72
     InteractiveMessage:
       type: object
       required:
@@ -486,6 +232,235 @@ components:
           format: uri
           description: HTTPS URL of the audio file
           example: example_value
+    ContactObject:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: object
+          required:
+          - formatted_name
+          properties:
+            formatted_name:
+              type: string
+            first_name:
+              type: string
+            last_name:
+              type: string
+            middle_name:
+              type: string
+            prefix:
+              type: string
+            suffix:
+              type: string
+        addresses:
+          type: array
+          items:
+            type: object
+            properties:
+              street:
+                type: string
+              city:
+                type: string
+              state:
+                type: string
+              zip:
+                type: string
+              country:
+                type: string
+              country_code:
+                type: string
+              type:
+                type: string
+                enum:
+                - HOME
+                - WORK
+        birthday:
+          type: string
+          description: Birthday in YYYY-MM-DD format
+          example: example_value
+        emails:
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              type:
+                type: string
+                enum:
+                - HOME
+                - WORK
+        org:
+          type: object
+          properties:
+            company:
+              type: string
+            department:
+              type: string
+            title:
+              type: string
+        phones:
+          type: array
+          items:
+            type: object
+            properties:
+              phone:
+                type: string
+              type:
+                type: string
+                enum:
+                - CELL
+                - MAIN
+                - IPHONE
+                - HOME
+                - WORK
+              wa_id:
+                type: string
+        urls:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+              type:
+                type: string
+                enum:
+                - HOME
+                - WORK
+    SendMessageRequest:
+      type: object
+      required:
+      - messaging_product
+      - to
+      - type
+      properties:
+        messaging_product:
+          type: string
+          enum:
+          - whatsapp
+          example: whatsapp
+        recipient_type:
+          type: string
+          default: individual
+          example: text
+        to:
+          type: string
+          description: Recipient phone number in E.164 format without the leading +
+          example: example_value
+        type:
+          type: string
+          enum:
+          - text
+          - image
+          - video
+          - audio
+          - document
+          - sticker
+          - location
+          - contacts
+          - interactive
+          - template
+          - reaction
+          example: text
+        context:
+          type: object
+          description: Context for reply messages
+          properties:
+            message_id:
+              type: string
+              description: ID of the message being replied to
+        biz_opaque_callback_data:
+          type: string
+          description: Arbitrary string for tracking, returned in webhooks
+          example: example_value
+        status:
+          type: string
+          enum:
+          - read
+          description: Set to read to mark an incoming message as read
+          example: read
+        message_id:
+          type: string
+          description: ID of the message to mark as read (required when status is read)
+          example: wamid.abc123
+        text:
+          $ref: '#/components/schemas/TextMessage'
+        image:
+          $ref: '#/components/schemas/MediaObject'
+        video:
+          $ref: '#/components/schemas/MediaObject'
+        audio:
+          $ref: '#/components/schemas/AudioObject'
+        document:
+          $ref: '#/components/schemas/DocumentObject'
+        sticker:
+          $ref: '#/components/schemas/StickerObject'
+        location:
+          $ref: '#/components/schemas/LocationMessage'
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactObject'
+        interactive:
+          $ref: '#/components/schemas/InteractiveMessage'
+        template:
+          $ref: '#/components/schemas/TemplateMessage'
+        reaction:
+          $ref: '#/components/schemas/ReactionMessage'
+    TemplateParameter:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+          - image
+          - video
+          - document
+          - location
+          - currency
+          - date_time
+          - payload
+          - coupon_code
+          example: text
+        text:
+          type: string
+          example: Hello from WhatsApp!
+        payload:
+          type: string
+          example: example_value
+        coupon_code:
+          type: string
+          example: example_value
+        image:
+          $ref: '#/components/schemas/MediaObject'
+        video:
+          $ref: '#/components/schemas/MediaObject'
+        document:
+          $ref: '#/components/schemas/DocumentObject'
+        location:
+          $ref: '#/components/schemas/LocationMessage'
+        currency:
+          type: object
+          properties:
+            fallback_value:
+              type: string
+            code:
+              type: string
+            amount_1000:
+              type: integer
+        date_time:
+          type: object
+          properties:
+            fallback_value:
+              type: string
     TextMessage:
       type: object
       required:
@@ -501,36 +476,117 @@ components:
           description: Set true to render URL previews
           default: false
           example: true
-    TemplateComponent:
+    MediaObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+          example: wamid.abc123
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the media file
+          example: example_value
+        caption:
+          type: string
+          description: Caption text
+          maxLength: 1024
+          example: example_value
+    StickerObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+          example: wamid.abc123
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the sticker (WebP format)
+          example: example_value
+    DocumentObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Media ID from upload
+          example: wamid.abc123
+        link:
+          type: string
+          format: uri
+          description: HTTPS URL of the document
+          example: example_value
+        caption:
+          type: string
+          description: Caption text
+          example: example_value
+        filename:
+          type: string
+          description: Filename to display to recipient
+          example: Example Business
+    TemplateMessage:
       type: object
       required:
-      - type
+      - name
+      - language
       properties:
-        type:
+        name:
           type: string
-          enum:
-          - header
-          - body
-          - button
-          example: header
-        sub_type:
-          type: string
-          enum:
-          - quick_reply
-          - url
-          - copy_code
-          - flow
-          - catalog
-          description: Required for button components
-          example: quick_reply
-        index:
-          type: string
-          description: Button index (required for button components)
-          example: example_value
-        parameters:
+          description: Template name
+          example: Example Business
+        language:
+          type: object
+          required:
+          - code
+          properties:
+            code:
+              type: string
+              description: Language/locale code
+            policy:
+              type: string
+              default: deterministic
+        components:
           type: array
           items:
-            $ref: '#/components/schemas/TemplateParameter'
+            $ref: '#/components/schemas/TemplateComponent'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            code:
+              type: integer
+            error_subcode:
+              type: integer
+            fbtrace_id:
+              type: string
+            error_data:
+              type: object
+              properties:
+                messaging_product:
+                  type: string
+                details:
+                  type: string
+    ReactionMessage:
+      type: object
+      required:
+      - message_id
+      - emoji
+      properties:
+        message_id:
+          type: string
+          description: ID of the message to react to
+          example: wamid.abc123
+        emoji:
+          type: string
+          description: Emoji character or empty string to remove reaction
+          example: example_value
     LocationMessage:
       type: object
       required:
@@ -555,62 +611,6 @@ components:
           type: string
           description: Location address
           example: example_value
-    SendMessageResponse:
-      type: object
-      properties:
-        messaging_product:
-          type: string
-          example: example_value
-        contacts:
-          type: array
-          items:
-            type: object
-            properties:
-              input:
-                type: string
-              wa_id:
-                type: string
-        messages:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: WhatsApp message ID
-    StickerObject:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Media ID from upload
-          example: wamid.abc123
-        link:
-          type: string
-          format: uri
-          description: HTTPS URL of the sticker (WebP format)
-          example: example_value
-    ListSection:
-      type: object
-      properties:
-        title:
-          type: string
-          example: example_value
-        rows:
-          type: array
-          maxItems: 10
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                maxLength: 200
-              title:
-                type: string
-                maxLength: 24
-              description:
-                type: string
-                maxLength: 72
   parameters:
     PhoneNumberId:
       name: phone-number-id
