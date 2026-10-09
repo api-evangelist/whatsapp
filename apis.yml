@@ -1064,6 +1064,10 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: Plans
+  url: plans/whatsapp-plans-pricing.yml
+- type: FinOps
+  url: finops/whatsapp-finops.yml
 - type: Website
   url: https://www.whatsapp.com/
 - type: IssueTracker
