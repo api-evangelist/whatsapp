@@ -15,3 +15,15 @@
   relationship: connector-coverage
   status: not-a-workflow
   arazzo: null
+- slug: whatsapp-hostaway-own
+  label: Hostaway (own)
+  partner: hostaway
+  partner_name: Hostaway (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.hostaway.com/marketplace/whatsapp
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
