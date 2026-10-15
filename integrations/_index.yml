@@ -52,5 +52,5 @@
     builder: unknown (not in the directory record)
     other_apps:
     - whatsapp-messenger
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
