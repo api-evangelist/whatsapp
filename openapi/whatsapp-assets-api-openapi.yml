@@ -99,7 +99,29 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    FlowId:
+      name: flow-id
+      in: path
+      required: true
+      description: Flow ID
+      schema:
+        type: string
   schemas:
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
     FlowValidationError:
       type: object
       properties:
@@ -128,28 +150,6 @@ components:
           type: array
           items:
             type: string
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
-  parameters:
-    FlowId:
-      name: flow-id
-      in: path
-      required: true
-      description: Flow ID
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

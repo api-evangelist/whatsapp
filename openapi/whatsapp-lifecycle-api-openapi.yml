@@ -55,13 +55,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
   parameters:
     FlowId:
       name: flow-id
@@ -70,6 +63,13 @@ components:
       description: Flow ID
       schema:
         type: string
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
   securitySchemes:
     bearerAuth:
       type: http

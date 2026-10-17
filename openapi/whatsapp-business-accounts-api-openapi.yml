@@ -42,14 +42,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
   schemas:
     WhatsAppBusinessAccount:
       type: object
@@ -94,6 +86,14 @@ components:
         purchase_order_number:
           type: string
           example: example_value
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

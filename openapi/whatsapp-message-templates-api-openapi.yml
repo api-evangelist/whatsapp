@@ -201,42 +201,59 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
   schemas:
-    CreateTemplateRequest:
+    TemplateComponentDefinition:
       type: object
       required:
-      - name
-      - language
-      - category
-      - components
+      - type
       properties:
-        name:
-          type: string
-          description: Template name (lowercase, underscores only, max 512 chars)
-          maxLength: 512
-          pattern: ^[a-z][a-z0-9_]*$
-          example: Example Business
-        language:
-          type: string
-          description: Language code
-          example: en_US
-        category:
+        type:
           type: string
           enum:
-          - AUTHENTICATION
-          - MARKETING
-          - UTILITY
-          example: AUTHENTICATION
-        components:
+          - HEADER
+          - BODY
+          - FOOTER
+          - BUTTONS
+          example: HEADER
+        format:
+          type: string
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - DOCUMENT
+          - LOCATION
+          description: Header format type
+          example: TEXT
+        text:
+          type: string
+          description: Component text content
+          example: Hello from WhatsApp!
+        example:
+          type: object
+          description: Example values for variables
+        buttons:
           type: array
           items:
-            $ref: '#/components/schemas/TemplateComponentDefinition'
-        parameter_format:
-          type: string
-          enum:
-          - POSITIONAL
-          - NAMED
-          example: POSITIONAL
+            $ref: '#/components/schemas/TemplateButton'
+        add_security_recommendation:
+          type: boolean
+          description: Authentication templates only
+          example: true
+        code_expiration_minutes:
+          type: integer
+          description: Authentication templates only (1-90)
+          minimum: 1
+          maximum: 90
+          example: 42
     CursorPaging:
       type: object
       properties:
@@ -344,58 +361,41 @@ components:
         navigate_screen:
           type: string
           example: example_value
-    TemplateComponentDefinition:
+    CreateTemplateRequest:
       type: object
       required:
-      - type
+      - name
+      - language
+      - category
+      - components
       properties:
-        type:
+        name:
+          type: string
+          description: Template name (lowercase, underscores only, max 512 chars)
+          maxLength: 512
+          pattern: ^[a-z][a-z0-9_]*$
+          example: Example Business
+        language:
+          type: string
+          description: Language code
+          example: en_US
+        category:
           type: string
           enum:
-          - HEADER
-          - BODY
-          - FOOTER
-          - BUTTONS
-          example: HEADER
-        format:
-          type: string
-          enum:
-          - TEXT
-          - IMAGE
-          - VIDEO
-          - DOCUMENT
-          - LOCATION
-          description: Header format type
-          example: TEXT
-        text:
-          type: string
-          description: Component text content
-          example: Hello from WhatsApp!
-        example:
-          type: object
-          description: Example values for variables
-        buttons:
+          - AUTHENTICATION
+          - MARKETING
+          - UTILITY
+          example: AUTHENTICATION
+        components:
           type: array
           items:
-            $ref: '#/components/schemas/TemplateButton'
-        add_security_recommendation:
-          type: boolean
-          description: Authentication templates only
-          example: true
-        code_expiration_minutes:
-          type: integer
-          description: Authentication templates only (1-90)
-          minimum: 1
-          maximum: 90
-          example: 42
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
+            $ref: '#/components/schemas/TemplateComponentDefinition'
+        parameter_format:
+          type: string
+          enum:
+          - POSITIONAL
+          - NAMED
+          example: POSITIONAL
   securitySchemes:
     bearerAuth:
       type: http

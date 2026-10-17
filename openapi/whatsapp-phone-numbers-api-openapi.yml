@@ -98,22 +98,25 @@ paths:
     - url: https://graph.facebook.com/v21.0
       description: Meta Graph API Production Server
 components:
-  parameters:
-    WabaId:
-      name: waba-id
-      in: path
-      required: true
-      description: WhatsApp Business Account ID
-      schema:
-        type: string
-    PhoneNumberId:
-      name: phone-number-id
-      in: path
-      required: true
-      description: Phone Number ID from the WhatsApp Business Account
-      schema:
-        type: string
   schemas:
+    CursorPaging:
+      type: object
+      properties:
+        cursors:
+          type: object
+          properties:
+            before:
+              type: string
+            after:
+              type: string
+        next:
+          type: string
+          format: uri
+          example: example_value
+        previous:
+          type: string
+          format: uri
+          example: example_value
     PhoneNumber:
       type: object
       properties:
@@ -176,24 +179,6 @@ components:
           - TIER_100K
           - TIER_UNLIMITED
           example: TIER_1K
-    CursorPaging:
-      type: object
-      properties:
-        cursors:
-          type: object
-          properties:
-            before:
-              type: string
-            after:
-              type: string
-        next:
-          type: string
-          format: uri
-          example: example_value
-        previous:
-          type: string
-          format: uri
-          example: example_value
     PhoneNumberInfo:
       type: object
       properties:
@@ -239,6 +224,21 @@ components:
         is_official_business_account:
           type: boolean
           example: true
+  parameters:
+    WabaId:
+      name: waba-id
+      in: path
+      required: true
+      description: WhatsApp Business Account ID
+      schema:
+        type: string
+    PhoneNumberId:
+      name: phone-number-id
+      in: path
+      required: true
+      description: Phone Number ID from the WhatsApp Business Account
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
