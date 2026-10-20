@@ -1,27 +1,5 @@
 generated: '2026-10-14'
 edges:
-- partner_name: Hightouch
-  partner: hightouch
-  partner_match: aggregator
-  marketplace: coverage
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
-  evidence: https://hightouch.com/docs/destinations/whatsapp
-  coverage_role:
-  - destination
-  cdp_signals:
-    destination:
-      catalog_entries:
-      - whatsapp
-      status: released
-      sync_types:
-      - Message Templates
-      sync_modes:
-      - insert
-  detected_by: sweep-cdp.py
-  first_seen: '2026-10-14'
 - partner_name: Hostaway (own)
   partner: hostaway
   partner_match: mirror
@@ -65,9 +43,68 @@ edges:
     - whatsapp-messenger
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/whatsapp
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - whatsapp
+      status: released
+      sync_types:
+      - Message Templates
+      sync_modes:
+      - insert
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Homebrew
+  partner: homebrew
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official CLI (Homebrew)
+  evidence: https://formulae.brew.sh/formula/erlang-language-platform
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: erlang-language-platform
+      kind: formula
+      version: '2026-10-14'
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/erlang-language-platform
+      cli: 'formula desc: LSP server and CLI for the Erlang programming language'
+      repo_leg: github-org:whatsapp
+      publisher_leg: artifact-github-org:whatsapp
+      matched_by: github-org
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
 method: searched
 checked:
 - hostaway/integrations/hostaway-integration-edges.yml
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
 - https://hightouch.com/docs/destinations/whatsapp
+- https://pypi.org/pypi
+- https://registry.npmjs.org
 - https://zapier.com/api/v4/apps/
 source: https://hightouch.com/docs/destinations/whatsapp
