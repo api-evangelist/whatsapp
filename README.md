@@ -1,4 +1,4 @@
-# WhatsApp (whatsapp)
+# WhatsApp
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,186 +66,303 @@
 
 APIs for the WhatsApp messaging platform, enabling businesses to communicate with customers through the world's most popular messaging app.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/whatsapp/refs/heads/main/apis.yml)
+**Areas:** Messaging · Analytics · WhatsApp · Business Messaging · Meta
 
-## Scope
+## WhatsApp on APIs.io
 
-- **Type:** Index
+Everything profiled for WhatsApp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/whatsapp/](https://apis.io/providers/whatsapp/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (17)
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-05-19
+- [WhatsApp Flows API](https://apis.io/apis/whatsapp/flows-api/) — API for creating structured, interactive forms and multi-step flows within WhatsApp conversations, enabling appointment booking, surveys, lead capture, and…
+- [WhatsApp On-Premises API](https://apis.io/apis/whatsapp/on-premises-api/) — The self-hosted version of the WhatsApp Business API that allowed businesses to run the API on their own infrastructure. This API was deprecated on October…
+- [WhatsApp Analytics API](https://apis.io/apis/whatsapp/whatsapp-analytics-api/) — Retrieve conversation and template analytics
+- [WhatsApp Assets API](https://apis.io/apis/whatsapp/whatsapp-assets-api/) — Upload and retrieve flow JSON assets
+- [WhatsApp Assigned Users API](https://apis.io/apis/whatsapp/whatsapp-assigned-users-api/) — Manage user access to a WABA
+- [WhatsApp Business Accounts API](https://apis.io/apis/whatsapp/whatsapp-business-accounts-api/) — Manage WhatsApp Business Account information
+- [WhatsApp Business Profile API](https://apis.io/apis/whatsapp/whatsapp-business-profile-api/) — Get and update WhatsApp Business profile information
+- [WhatsApp Lifecycle API](https://apis.io/apis/whatsapp/whatsapp-lifecycle-api/) — Publish and deprecate flows
+- [WhatsApp Media API](https://apis.io/apis/whatsapp/whatsapp-media-api/) — Upload, retrieve, and delete media files
+- [WhatsApp Message Templates API](https://apis.io/apis/whatsapp/whatsapp-message-templates-api/) — Create, update, and delete message templates
+- [WhatsApp Messages API](https://apis.io/apis/whatsapp/whatsapp-messages-api/) — Send messages of all types to WhatsApp users
+- [WhatsApp Phone Numbers API](https://apis.io/apis/whatsapp/whatsapp-phone-numbers-api/) — List and manage phone numbers on a WABA
+- [WhatsApp Product Catalogs API](https://apis.io/apis/whatsapp/whatsapp-product-catalogs-api/) — Connect and manage product catalogs
+- [WhatsApp QR Codes API](https://apis.io/apis/whatsapp/whatsapp-qr-codes-api/) — Create and manage QR codes for customer conversations
+- [WhatsApp Registration API](https://apis.io/apis/whatsapp/whatsapp-registration-api/) — Register and deregister phone numbers
+- [WhatsApp Subscribed Apps API](https://apis.io/apis/whatsapp/whatsapp-subscribed-apps-api/) — Manage webhook subscriptions for a WABA
+- [WhatsApp Two-Step Verification API](https://apis.io/apis/whatsapp/whatsapp-two-step-verification-api/) — Manage two-step verification PIN
 
-## APIs
+### Published properties
 
-### WhatsApp Business Platform API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Cloud API and On-Premises API that enables medium and large businesses to communicate with customers at scale.
+#### Arazzo workflows (14)
 
-- **Human URL:** [https://developers.facebook.com/docs/whatsapp](https://developers.facebook.com/docs/whatsapp)
-- **Base URL:** `https://graph.facebook.com/v21.0`
+Multi-step workflows that chain operations into a business task.
 
-#### Tags
+- [WhatsApp Create and Retrieve QR Code](https://apis.io/arazzos/whatsapp/whatsapp-create-qr-code-workflow/)
+- [WhatsApp Create Template then Send](https://apis.io/arazzos/whatsapp/whatsapp-create-template-then-send-workflow/)
+- [WhatsApp Build, Publish, and Send a Flow](https://apis.io/arazzos/whatsapp/whatsapp-publish-flow-and-send-workflow/)
+- [WhatsApp Verify and Register Phone Number](https://apis.io/arazzos/whatsapp/whatsapp-register-phone-number-workflow/)
+- [WhatsApp Send Message then React to It](https://apis.io/arazzos/whatsapp/whatsapp-send-and-react-workflow/)
+- [WhatsApp Check Number then Send Interactive Buttons](https://apis.io/arazzos/whatsapp/whatsapp-send-interactive-buttons-workflow/)
+- [WhatsApp Confirm Profile then Send Location](https://apis.io/arazzos/whatsapp/whatsapp-send-location-message-workflow/)
+- [WhatsApp Find Approved Template and Send](https://apis.io/arazzos/whatsapp/whatsapp-send-template-message-workflow/)
+- [WhatsApp Send Text and Mark Inbound Read](https://apis.io/arazzos/whatsapp/whatsapp-send-text-and-mark-read-workflow/)
+- [WhatsApp Subscribe App to WABA Webhooks](https://apis.io/arazzos/whatsapp/whatsapp-subscribe-webhooks-workflow/)
+- [WhatsApp Read and Update Business Profile](https://apis.io/arazzos/whatsapp/whatsapp-update-business-profile-workflow/)
+- [WhatsApp Find and Update Message Template](https://apis.io/arazzos/whatsapp/whatsapp-update-template-workflow/)
+- [WhatsApp Upload and Send Document](https://apis.io/arazzos/whatsapp/whatsapp-upload-media-send-document-workflow/)
+- [WhatsApp Upload Media and Send Image Message](https://apis.io/arazzos/whatsapp/whatsapp-upload-media-send-image-workflow/)
 
-- Business
-- Chat
-- Communications
-- Messaging
+#### AsyncAPI (1)
 
-#### Properties
+Event-driven and webhook contracts.
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api)
-- [OpenAPI](openapi/whatsapp-cloud-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/whatsapp-cloud-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/whatsapp-cloud-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [Documentation](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks)
-- [AsyncAPI](asyncapi/whatsapp-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON Schema](json-schema/whatsapp-message-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
-- [Pricing](https://developers.facebook.com/docs/whatsapp/pricing)
-- [Rate Limits](https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput)
-- [Status Page](https://metastatus.com/)
-- [Changelog](https://developers.facebook.com/docs/whatsapp/cloud-api/changelog)
-- [Error Codes](https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes)
-- [Postman Collection](https://www.postman.com/meta/whatsapp-business-platform/collection/wlk6lh4/whatsapp-cloud-api) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Node.js  S D K](https://github.com/WhatsApp/WhatsApp-Nodejs-SDK)
-- [Sandbox](https://business.whatsapp.com/developers/developer-hub)
-- [Migration  Guide](https://developers.facebook.com/docs/whatsapp/cloud-api/migrate-to-cloud-api)
-- [Media  Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media)
-- [Phone  Numbers  Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/phone-numbers)
-- [Business  Profiles  Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/business-profiles)
-- [Two- Step  Verification](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/two-step-verification)
-- [Versioning](https://developers.facebook.com/docs/graph-api/guides/versioning)
+- [WhatsApp Webhooks](https://apis.io/asyncapis/whatsapp/whatsapp-webhooks-asyncapi/)
 
-### WhatsApp Business Account Management API
+#### Event channels (1)
 
-API for managing WhatsApp Business Accounts, phone numbers, and messaging templates.
+Individual events and webhooks the provider emits.
 
-- **Human URL:** [https://developers.facebook.com/docs/whatsapp/business-management-api](https://developers.facebook.com/docs/whatsapp/business-management-api)
-- **Base URL:** `https://graph.facebook.com/v21.0`
+- [/webhook](https://apis.io/channels/whatsapp/webhook/)
 
-#### Tags
+#### Agentic access (1)
 
-- Accounts
-- Business
-- Management
-- Templates
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Whatsapp Agentic Access](https://apis.io/agentic-access/whatsapp/whatsapp-agentic-access/)
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/business-management-api)
-- [OpenAPI](openapi/whatsapp-business-management-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/whatsapp-business-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/whatsapp-business-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [JSON Schema](json-schema/whatsapp-message-template-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [Postman Collection](https://www.postman.com/meta/whatsapp-business-platform/collection/3kru5r6/whatsapp-business-management-api) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Reference](https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates)
-- [Changelog](https://developers.facebook.com/docs/whatsapp/business-management-api/changelog)
-- [Error Codes](https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes)
-- [Rate Limits](https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput)
+#### JSON Schema (35)
 
-### WhatsApp Flows API
+The data models the API reads and writes.
 
-API for creating structured, interactive forms and multi-step flows within WhatsApp conversations, enabling appointment booking, surveys, lead capture, and other guided experiences using a JSON-based screen definition format.
+- [ConversationAnalytics](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-conversation-analytics/)
+- [CreateTemplateRequest](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-create-template-request/)
+- [CursorPaging](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-cursor-paging/)
+- [MessageTemplate](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-message-template/)
+- [PhoneNumber](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-phone-number/)
+- [SuccessResponse](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-success-response/)
+- [TemplateAnalytics](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-template-analytics/)
+- [TemplateButton](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-template-button/)
+- [TemplateComponentDefinition](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-template-component-definition/)
+- [WhatsAppBusinessAccount](https://apis.io/schemas/whatsapp/whatsapp-business-management-api-whats-app-business-account/)
+- [AudioObject](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-audio-object/)
+- [ContactObject](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-contact-object/)
+- [DocumentObject](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-document-object/)
+- [InteractiveMessage](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-interactive-message/)
+- [ListSection](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-list-section/)
+- [LocationMessage](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-location-message/)
+- [MediaObject](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-media-object/)
+- [ReactionMessage](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-reaction-message/)
+- [SendMessageRequest](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-send-message-request/)
+- [SendMessageResponse](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-send-message-response/)
+- [StickerObject](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-sticker-object/)
+- [TemplateComponent](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-template-component/)
+- [TemplateMessage](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-template-message/)
+- [TemplateParameter](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-template-parameter/)
+- [TextMessage](https://apis.io/schemas/whatsapp/whatsapp-cloud-api-text-message/)
+- …and 10 more published on APIs.io
 
-- **Human URL:** [https://developers.facebook.com/docs/whatsapp/flows](https://developers.facebook.com/docs/whatsapp/flows)
-- **Base URL:** `https://graph.facebook.com/v21.0`
+#### JSON Structure (35)
 
-#### Tags
+Data models expressed in JSON Structure.
 
-- Flows
-- Forms
-- Interactive
-- Messaging
+- [Whatsapp Business Management Api Conversation Analytics Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-conversation-analytics-structure/)
+- [Whatsapp Business Management Api Create Template Request Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-create-template-request-structure/)
+- [Whatsapp Business Management Api Cursor Paging Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-cursor-paging-structure/)
+- [Whatsapp Business Management Api Message Template Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-message-template-structure/)
+- [Whatsapp Business Management Api Phone Number Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-phone-number-structure/)
+- [Whatsapp Business Management Api Success Response Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-success-response-structure/)
+- [Whatsapp Business Management Api Template Analytics Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-template-analytics-structure/)
+- [Whatsapp Business Management Api Template Button Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-template-button-structure/)
+- [Whatsapp Business Management Api Template Component Definition Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-template-component-definition-structure/)
+- [Whatsapp Business Management Api Whats App Business Account Structure](https://apis.io/json-structure/whatsapp/whatsapp-business-management-api-whats-app-business-account-structure/)
+- [Whatsapp Cloud Api Audio Object Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-audio-object-structure/)
+- [Whatsapp Cloud Api Contact Object Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-contact-object-structure/)
+- [Whatsapp Cloud Api Document Object Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-document-object-structure/)
+- [Whatsapp Cloud Api Interactive Message Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-interactive-message-structure/)
+- [Whatsapp Cloud Api List Section Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-list-section-structure/)
+- [Whatsapp Cloud Api Location Message Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-location-message-structure/)
+- [Whatsapp Cloud Api Media Object Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-media-object-structure/)
+- [Whatsapp Cloud Api Reaction Message Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-reaction-message-structure/)
+- [Whatsapp Cloud Api Send Message Request Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-send-message-request-structure/)
+- [Whatsapp Cloud Api Send Message Response Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-send-message-response-structure/)
+- [Whatsapp Cloud Api Sticker Object Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-sticker-object-structure/)
+- [Whatsapp Cloud Api Template Component Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-template-component-structure/)
+- [Whatsapp Cloud Api Template Message Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-template-message-structure/)
+- [Whatsapp Cloud Api Template Parameter Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-template-parameter-structure/)
+- [Whatsapp Cloud Api Text Message Structure](https://apis.io/json-structure/whatsapp/whatsapp-cloud-api-text-message-structure/)
+- …and 10 more published on APIs.io
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/flows)
-- [OpenAPI](openapi/whatsapp-flows-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/whatsapp-flows-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/whatsapp-flows-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Reference](https://developers.facebook.com/docs/whatsapp/flows/reference/components)
-- [JSON Schema](json-schema/whatsapp-flow-json-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Changelog](https://developers.facebook.com/docs/whatsapp/flows/changelogs)
-- [Error Codes](https://developers.facebook.com/docs/whatsapp/flows/reference/error-codes)
-- [Postman Collection](https://www.postman.com/meta/whatsapp-business-platform/collection/y5swede/whatsapp-flows-api) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [GitHub Repository](https://github.com/WhatsApp/WhatsApp-Flows-Tools)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/flows/gettingstarted)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
+Linked-data contexts for the provider's vocabulary.
 
-### WhatsApp On-Premises API
+- [Whatsapp Context](https://apis.io/jsonld/whatsapp/whatsapp-context/)
 
-The self-hosted version of the WhatsApp Business API that allowed businesses to run the API on their own infrastructure. This API was deprecated on October 23, 2025, and all users must migrate to the Cloud API.
+#### Vocabulary (1)
 
-- **Human URL:** [https://developers.facebook.com/docs/whatsapp/on-premises](https://developers.facebook.com/docs/whatsapp/on-premises)
-- **Base URL:** `https://localhost:443`
+The provider's domain terms, defined.
 
-#### Tags
+- [Whatsapp Vocabulary](https://apis.io/vocabularies/whatsapp/whatsapp-vocabulary/)
 
-- Deprecated
-- Messaging
-- On-Premises
-- Self-Hosted
+#### Examples (35)
 
-#### Properties
+Example requests and responses.
 
-- [Documentation](https://developers.facebook.com/docs/whatsapp/on-premises)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/on-premises/get-started/installation)
-- [Deprecation  Notice](https://developers.facebook.com/docs/whatsapp/on-premises)
-- [Postman Collection](https://www.postman.com/meta/whatsapp-business-platform/collection/vdi189b/whatsapp-on-premises-api-deprecated) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Migration  Guide](https://developers.facebook.com/docs/whatsapp/cloud-api/migrate-to-cloud-api)
-- [Postman Collection](collections/whatsapp-business-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/whatsapp-business-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/whatsapp-cloud-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/whatsapp-cloud-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/whatsapp-flows-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/whatsapp-flows-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Whatsapp Business Management Api Conversation Analytics Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-conversation-analytics-example/)
+- [Whatsapp Business Management Api Create Template Request Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-create-template-request-example/)
+- [Whatsapp Business Management Api Cursor Paging Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-cursor-paging-example/)
+- [Whatsapp Business Management Api Message Template Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-message-template-example/)
+- [Whatsapp Business Management Api Phone Number Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-phone-number-example/)
+- [Whatsapp Business Management Api Success Response Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-success-response-example/)
+- [Whatsapp Business Management Api Template Analytics Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-template-analytics-example/)
+- [Whatsapp Business Management Api Template Button Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-template-button-example/)
+- [Whatsapp Business Management Api Template Component Definition Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-template-component-definition-example/)
+- [Whatsapp Business Management Api Whats App Business Account Example](https://apis.io/examples/whatsapp/whatsapp-business-management-api-whats-app-business-account-example/)
+- [Whatsapp Cloud Api Audio Object Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-audio-object-example/)
+- [Whatsapp Cloud Api Contact Object Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-contact-object-example/)
+- [Whatsapp Cloud Api Document Object Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-document-object-example/)
+- [Whatsapp Cloud Api Interactive Message Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-interactive-message-example/)
+- [Whatsapp Cloud Api List Section Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-list-section-example/)
+- [Whatsapp Cloud Api Location Message Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-location-message-example/)
+- [Whatsapp Cloud Api Media Object Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-media-object-example/)
+- [Whatsapp Cloud Api Reaction Message Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-reaction-message-example/)
+- [Whatsapp Cloud Api Send Message Request Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-send-message-request-example/)
+- [Whatsapp Cloud Api Send Message Response Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-send-message-response-example/)
+- [Whatsapp Cloud Api Sticker Object Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-sticker-object-example/)
+- [Whatsapp Cloud Api Template Component Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-template-component-example/)
+- [Whatsapp Cloud Api Template Message Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-template-message-example/)
+- [Whatsapp Cloud Api Template Parameter Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-template-parameter-example/)
+- [Whatsapp Cloud Api Text Message Example](https://apis.io/examples/whatsapp/whatsapp-cloud-api-text-message-example/)
+- …and 10 more published on APIs.io
 
-## Common Properties
+#### Collections (21)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Terms of Service](https://www.whatsapp.com/legal/business-terms)
-- [Privacy Policy](https://www.whatsapp.com/legal/privacy-policy-eea)
-- [Commerce  Policy](https://www.whatsapp.com/legal/commerce-policy)
-- [Developer  Portal](https://developers.facebook.com/)
-- [Getting Started](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
-- [Authentication](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started)
-- [Best  Practices](https://developers.facebook.com/docs/whatsapp/cloud-api/best-practices)
-- [Use  Cases](https://business.whatsapp.com/products/business-platform)
-- [Changelog](https://developers.facebook.com/docs/whatsapp/cloud-api/changelog)
-- [Status Page](https://metastatus.com/)
-- [Blog](https://business.whatsapp.com/blog)
-- [Support](https://developers.facebook.com/support/)
-- [Console](https://developers.facebook.com/apps/)
-- [GitHub Organization](https://github.com/WhatsApp)
-- [Community](https://business.whatsapp.com/developers/developer-hub)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/whatsapp-cloud-api)
-- [Security](https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf)
-- [Postman Collection](https://www.postman.com/meta/whatsapp-business-platform/overview) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+Postman and Open Collection request collections.
+
+- [WhatsApp Business Management Analytics API](https://apis.io/collections/whatsapp/open-whatsapp-analytics-api/)
+- [WhatsApp Business Management Analytics Assets API](https://apis.io/collections/whatsapp/open-whatsapp-assets-api/)
+- [WhatsApp Business Management Analytics Assigned Users API](https://apis.io/collections/whatsapp/open-whatsapp-assigned-users-api/)
+- [WhatsApp Business Management Analytics Business Accounts API](https://apis.io/collections/whatsapp/open-whatsapp-business-accounts-api/)
+- [WhatsApp Business Management API](https://apis.io/collections/whatsapp/open-whatsapp-business-management-api/)
+- [WhatsApp Business Management Analytics Business Profile API](https://apis.io/collections/whatsapp/open-whatsapp-business-profile-api/)
+- [WhatsApp Cloud API](https://apis.io/collections/whatsapp/open-whatsapp-cloud-api/)
+- [WhatsApp Business Management Analytics Flows API](https://apis.io/collections/whatsapp/open-whatsapp-flows-api/)
+- [WhatsApp Business Management Analytics Lifecycle API](https://apis.io/collections/whatsapp/open-whatsapp-lifecycle-api/)
+- [WhatsApp Business Management Analytics Media API](https://apis.io/collections/whatsapp/open-whatsapp-media-api/)
+- [WhatsApp Business Management Analytics Message Templates API](https://apis.io/collections/whatsapp/open-whatsapp-message-templates-api/)
+- [WhatsApp Business Management Analytics Messages API](https://apis.io/collections/whatsapp/open-whatsapp-messages-api/)
+- [WhatsApp Business Management Analytics Phone Numbers API](https://apis.io/collections/whatsapp/open-whatsapp-phone-numbers-api/)
+- [WhatsApp Business Management Analytics Product Catalogs API](https://apis.io/collections/whatsapp/open-whatsapp-product-catalogs-api/)
+- [WhatsApp Business Management Analytics QR Codes API](https://apis.io/collections/whatsapp/open-whatsapp-qr-codes-api/)
+- [WhatsApp Business Management Analytics Registration API](https://apis.io/collections/whatsapp/open-whatsapp-registration-api/)
+- [WhatsApp Business Management Analytics Subscribed Apps API](https://apis.io/collections/whatsapp/open-whatsapp-subscribed-apps-api/)
+- [WhatsApp Business Management Analytics Two-Step Verification API](https://apis.io/collections/whatsapp/open-whatsapp-two-step-verification-api/)
+- [WhatsApp Business Management API](https://apis.io/collections/whatsapp/postman-whatsapp-business-management-api/)
+- [WhatsApp Cloud API](https://apis.io/collections/whatsapp/postman-whatsapp-cloud-api/)
+- [WhatsApp Flows API](https://apis.io/collections/whatsapp/postman-whatsapp-flows-api/)
+
+#### Governance rules (3)
+
+Spectral rulesets for the provider's contracts.
+
+- [WhatsApp — asyncapi rules](https://apis.io/rules/whatsapp/whatsapp-asyncapi-spectral-rules/)
+- [WhatsApp — jsonschema rules](https://apis.io/rules/whatsapp/whatsapp-jsonschema-spectral-rules/)
+- [WhatsApp API Rules](https://apis.io/rules/whatsapp/whatsapp-spectral-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Whatsapp Authentication](https://apis.io/security/whatsapp/whatsapp-authentication/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Whatsapp Plans Pricing](https://apis.io/plans/whatsapp/whatsapp-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Whatsapp Rate Limits](https://apis.io/rate-limits/whatsapp/whatsapp-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Whatsapp Finops](https://apis.io/finops/whatsapp/whatsapp-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.whatsapp.com/)
+- [Getting started](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started)
 - [Pricing](https://business.whatsapp.com/products/platform-pricing)
-- [JSON-LD](json-ld/whatsapp-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/whatsapp-webhook-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Node.js  S D K](https://github.com/WhatsApp/WhatsApp-Nodejs-SDK)
-- [A P I  Examples](https://github.com/fbsamples/whatsapp-api-examples)
-- [Business  Messaging  Policy](https://business.whatsapp.com/policy)
-- [Meta  Terms](https://www.whatsapp.com/legal/meta-terms-whatsapp-business)
-- [F A Q](https://business.whatsapp.com/resources/faq)
-- [Sandbox](https://business.whatsapp.com/developers/developer-hub)
-- [Versioning](https://developers.facebook.com/docs/graph-api/guides/versioning)
-- [Migration  Guide](https://developers.facebook.com/docs/whatsapp/cloud-api/migrate-to-cloud-api)
-- [Rate Limits](https://developers.facebook.com/docs/whatsapp/cloud-api/overview#throughput)
-- [Error Codes](https://developers.facebook.com/docs/whatsapp/cloud-api/support/error-codes)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [Support](https://developers.facebook.com/support/)
+- [Changelog](https://developers.facebook.com/docs/whatsapp/cloud-api/changelog)
+- [Blog](https://business.whatsapp.com/blog)
+- [Security](https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf)
+- [Terms of service](https://www.whatsapp.com/legal/business-terms)
+- [Privacy policy](https://www.whatsapp.com/legal/privacy-policy-eea)
+- [GitHub](https://github.com/WhatsApp)
+- [Status](https://metastatus.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 51.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 48.2 |
+| Contract quality | 71.0 |
+| Contract governance | 13.6 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 76.2 |
+| Access clarity | 36.8 |
+
+**Agent readiness 29.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/whatsapp/](https://apis.io/providers/whatsapp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for WhatsApp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/whatsapp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
